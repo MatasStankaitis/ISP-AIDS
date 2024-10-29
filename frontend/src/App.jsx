@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
 import './App.css'
+import Home from "./pages/Home";
+import NoPage from "./pages/NoPage";
+import Students from "./pages/Students";
+import Subjects from "./pages/Subjects";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>ISP-AIDS</h1>
-    </>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="students" element={<Students />} />
+                <Route path="subjects" element={<Subjects />} />
+                <Route path="*" element={<NoPage />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>
   )
 }
 
