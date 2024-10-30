@@ -10,3 +10,13 @@ h1 {
   width: 400px;
   margin: auto;
 }
+
+.delete-button,
+.edit-button {
+  margin: 5px;
+}
+
+.table-div {
+  margin: auto;
+  width: 90vw;
+}
