@@ -5,3 +5,8 @@ body {
 h1 {
   text-align: center;
 }
+
+.filtersDiv {
+  width: 400px;
+  margin: auto;
+}
