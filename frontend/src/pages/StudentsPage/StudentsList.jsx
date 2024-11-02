@@ -3,8 +3,10 @@ import StudentDataTable from "./components/StudentDataTable";
 import STUDENTS from "../../prototypeData/students";
 import { useState } from "react";
 import FiltersDiv from "./components/FiltersDiv";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
-const Students = () => {
+const StudentsList = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -21,6 +23,12 @@ const Students = () => {
 
   return (
     <>
+      <div className="flex-container">
+        <Button variant="primary">Exportuoti</Button>
+        <Link to={"/students/create"}>
+          <Button variant="primary">Pridėti studentą</Button>
+        </Link>
+      </div>
       <FiltersDiv name={name} surname={surname} onChange={onChange} />
       <StudentDataTable
         rows={
@@ -31,7 +39,7 @@ const Students = () => {
                 student.surname.toUpperCase().startsWith(surname.toUpperCase())
             ).map((student, i) => {
               student.id = i + 1;
-              return <StudentDataTableRow {...student} />;
+              return <StudentDataTableRow key={i} {...student} />;
             })}
           </>
         }
@@ -40,4 +48,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default StudentsList;

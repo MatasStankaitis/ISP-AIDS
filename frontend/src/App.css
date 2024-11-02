@@ -20,3 +20,13 @@ h1 {
   margin: auto;
   width: 90vw;
 }
+
+.flex-container {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+.flex-container > button {
+  margin-left: 10px;
+  margin-right: 10px;
+}

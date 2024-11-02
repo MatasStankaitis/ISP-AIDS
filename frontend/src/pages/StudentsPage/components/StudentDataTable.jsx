@@ -9,7 +9,7 @@ const StudentDataTable = ({ rows }) => {
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Extra</th>
+            <th>Vidko</th>
             <th>Funkcijos</th>
           </tr>
         </thead>
