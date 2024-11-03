@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
+import FormField from "../../components/FormField";
 
 const StudentCreation = () => {
   return (
@@ -15,69 +16,56 @@ const StudentCreation = () => {
         <Form>
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Firstname">
-                <Form.Label>Vardas</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite vardą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Firstname"
+                label="Vardas"
+                type="text"
+                placeholder="Įrašykite vardą"
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="Firstname">
-                <Form.Label>Pavardė</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite pavardę"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Surname"
+                label="Pavardė"
+                type="text"
+                placeholder="Įrašykite pavardę"
+              />
             </Col>
           </Row>
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Username">
-                <Form.Label>Vartotojo vardas</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite vartotojo vardą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Username"
+                label="Vartotojo vardas"
+                type="text"
+                placeholder="Įrašykite vartotojo vardą"
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="PhoneNumber">
-                <Form.Label>Telefono nr.</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite telefono numerį"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="PhoneNumber"
+                label="Telefono nr."
+                type="text"
+                placeholder="Įrašykite telefono numerį"
+              />
             </Col>
           </Row>
-
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Email">
-                <Form.Label>El. paštas</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite El. paštą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Email"
+                label="El. paštas"
+                type="text"
+                placeholder="Įrašykite El. paštą"
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="HomeAddress">
-                <Form.Label>Gyvenamosios vietos adresas</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Įrašykite adresą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="HomeAddress"
+                label="Gyvenamosios vietos adresas"
+                type="text"
+                placeholder="Įrašykite adresą"
+              />
             </Col>
           </Row>
           <Row>
