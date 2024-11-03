@@ -1,15 +1,40 @@
 const STUDENTS = [
-        {
-            "name":"Aleksas",
-            "surname": "Balciukynas",
-            "extra": "kazkas"
-        },
-        {
-            "name":"Kestutis",
-            "surname": "Kazlauskas",
-            "extra": "kazkas2"
-        }
-    ]
+  {
+    id: 5,
+    username: "alebal",
+    name: "Aleksas",
+    surname: "Balciukynas",
+    vidko: "e1111",
+    email: "email1@emai.com",
+    phoneNumber: "+37061111111",
+    faculty: 1,
+    year: 1,
+    homeAddress: "Kaunas, Kauno g. 1",
+  },
+  {
+    id: 2,
+    username: "keskaz",
+    name: "Kestutis",
+    surname: "Kazlauskas",
+    vidko: "e2222",
+    email: "email2@emai.com",
+    phoneNumber: "+3706222222",
+    faculty: 2,
+    year: 2,
+    homeAddress: "Kaunas, Kauno g. 2",
+  },
+  {
+    id: 3,
+    username: "jonjon",
+    name: "Jonas",
+    surname: "Jonauskas",
+    vidko: "e3333",
+    email: "email3@emai.com",
+    phoneNumber: "+370633333",
+    faculty: 3,
+    year: 3,
+    homeAddress: "Kaunas, Kauno g. 3",
+  },
+];
 
-
-export default STUDENTS
+export default STUDENTS;

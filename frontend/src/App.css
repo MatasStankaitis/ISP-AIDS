@@ -5,3 +5,28 @@ body {
 h1 {
   text-align: center;
 }
+
+.filtersDiv {
+  width: 400px;
+  margin: auto;
+}
+
+.delete-button,
+.edit-button {
+  margin: 5px;
+}
+
+.table-div {
+  margin: auto;
+  width: 90vw;
+}
+
+.flex-container {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+.flex-container > button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
