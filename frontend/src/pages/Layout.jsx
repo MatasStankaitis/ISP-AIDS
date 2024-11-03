@@ -12,6 +12,7 @@ const Layout = () => {
           <Navbar.Brand href="/">AIDS</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/students">Studentai</Nav.Link>
+            <Nav.Link href="/lecturers">Dėstytojai</Nav.Link>
             <Nav.Link href="/subjects">Moduliai</Nav.Link>
           </Nav>
         </Container>
