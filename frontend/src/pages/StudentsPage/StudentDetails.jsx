@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
+import FormField from "../../components/FormField";
 
 const StudentDetails = () => {
   const { vidko } = useParams();
@@ -18,75 +19,62 @@ const StudentDetails = () => {
         <Form>
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Firstname">
-                <Form.Label>Vardas</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.name}
-                  type="text"
-                  placeholder="Įrašykite vardą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Firstname"
+                label="Vardas"
+                type="text"
+                placeholder="Įrašykite vardą"
+                defaultValue={user.name}
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="Firstname">
-                <Form.Label>Pavardė</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.surname}
-                  type="text"
-                  placeholder="Įrašykite pavardę"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Surname"
+                label="Pavardė"
+                type="text"
+                placeholder="Įrašykite pavardę"
+                defaultValue={user.surname}
+              />
             </Col>
           </Row>
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Username">
-                <Form.Label>Vartotojo vardas</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.username}
-                  type="text"
-                  placeholder="Įrašykite vartotojo vardą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Username"
+                label="Vartotojo vardas"
+                type="text"
+                placeholder="Įrašykite vartotojo vardą"
+                defaultValue={user.username}
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="PhoneNumber">
-                <Form.Label>Telefono nr.</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.phoneNumber}
-                  type="text"
-                  placeholder="Įrašykite telefono numerį"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="PhoneNumber"
+                label="Telefono nr."
+                type="text"
+                placeholder="Įrašykite telefono numerį"
+                defaultValue={user.phoneNumber}
+              />
             </Col>
           </Row>
-
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Email">
-                <Form.Label>El. paštas</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.email}
-                  type="text"
-                  placeholder="Įrašykite El. paštą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="Email"
+                label="El. paštas"
+                type="text"
+                placeholder="Įrašykite El. paštą"
+                defaultValue={user.email}
+              />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="HomeAddress">
-                <Form.Label>Gyvenamosios vietos adresas</Form.Label>
-                <Form.Control
-                  required
-                  defaultValue={user.homeAddress}
-                  type="text"
-                  placeholder="Įrašykite adresą"
-                />
-              </Form.Group>
+              <FormField
+                ControlId="HomeAddress"
+                label="Gyvenamosios vietos adresas"
+                type="text"
+                placeholder="Įrašykite adresą"
+                defaultValue={user.homeAddress}
+              />
             </Col>
           </Row>
           <Row>
