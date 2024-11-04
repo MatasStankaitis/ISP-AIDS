@@ -1,21 +1,30 @@
-import Table from "react-bootstrap/Table";
+import React from 'react';
+import Table from 'react-bootstrap/Table';
+import LecturerDataTableRow from './LecturerDataTableRow';
 
-const LecturerDataTable = ({ rows }) => {
+const LecturerDataTable = ({ lecturers, onDelete, onEditSalary }) => {
   return (
-    <div className="table-div">
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Vidko</th>
-            <th>Funkcijos</th>
-          </tr>
-        </thead>
-        {rows}
-      </Table>
-    </div>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Vardas</th>
+          <th>Pavardė</th>
+          <th>El. paštas</th>
+          <th>Atlyginimas</th>
+          <th>Veiksmai</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lecturers.map((lecturer) => (
+          <LecturerDataTableRow
+            key={lecturer.id}
+            lecturer={lecturer}
+            onDelete={onDelete}
+            onEditSalary={onEditSalary}
+          />
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
