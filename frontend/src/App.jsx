@@ -17,6 +17,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="students" element={<StudentsList />} />
           <Route path="lecturers" element={<LecturerList />} />
+          <Route path="lecturers/create" element={<LecturerCreation />}></Route>
           <Route path="students/create" element={<StudentCreation />}></Route>
           <Route path="students/:vidko" element={<StudentDetails />}></Route>
           <Route path="subjects" element={<Subjects />} />
