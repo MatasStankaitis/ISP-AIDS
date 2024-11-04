@@ -10,6 +10,9 @@ const STUDENTS = [
     faculty: 1,
     year: 1,
     homeAddress: "Kaunas, Kauno g. 1",
+    gender: 1,
+    academicGroup: 1,
+    isStateFunded: true,
   },
   {
     id: 2,
@@ -22,6 +25,9 @@ const STUDENTS = [
     faculty: 2,
     year: 2,
     homeAddress: "Kaunas, Kauno g. 2",
+    gender: 2,
+    academicGroup: 2,
+    isStateFunded: true,
   },
   {
     id: 3,
@@ -34,6 +40,9 @@ const STUDENTS = [
     faculty: 3,
     year: 3,
     homeAddress: "Kaunas, Kauno g. 3",
+    gender: 3,
+    academicGroup: 3,
+    isStateFunded: false,
   },
 ];
 
