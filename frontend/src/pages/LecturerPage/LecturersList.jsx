@@ -27,12 +27,6 @@ const LecturersList = () => {
   return (
     <div>
       <h1>Dėstytojų sąrašas</h1>
-      
-      {/* Mygtukas „Pridėti dėstytoją“ su „flex-container“ klase */}
-      <div className="flex-container">
-        <button onClick={() => alert("Čia bus pridėtas dėstytojo kūrimas!")}>Pridėti dėstytoją</button>
-      </div>
-
       {/* Lentelė su „table-div“ klase, kad būtų siauresnė ir centruota */}
       <div className="table-div">
         <LecturerDataTable
