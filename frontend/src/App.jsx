@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import StudentsList from "./pages/StudentsPage/StudentsList";
+import LecturersPage from "./pages/LecturerPage/LecturersPage";
 import Subjects from "./pages/Subjects";
 import SubjectsList from "./pages/SubjectsPage/SubjectsList";
 import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="students" element={<StudentsList />} />
+          <Route path="lecturers" element={<LecturersPage />} />
           <Route path="students/create" element={<StudentCreation />}></Route>
           <Route path="students/:vidko" element={<StudentDetails />}></Route>
           <Route path="subjects" element={<SubjectsList />} />
