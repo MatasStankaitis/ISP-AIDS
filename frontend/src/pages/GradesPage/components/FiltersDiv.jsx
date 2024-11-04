@@ -1,21 +1,6 @@
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { useState } from "react";
 
-const FiltersDiv = () => {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-
-  const onChange = (e) => {
-    switch (e.target.id) {
-      case "firstnameInput":
-        setName(e.target.value);
-        break;
-      case "surnameInput":
-        setSurname(e.target.value);
-    }
-  };
-
+const FiltersDiv = ({ name, surname, onChange }) => {
   return (
     <div className="filtersDiv">
       <Form>
@@ -37,13 +22,6 @@ const FiltersDiv = () => {
             placeholder="Pavardenis"
           />
         </Form.Group>
-        <Button
-          style={{ width: "100%", marginBottom: "20px" }}
-          variant="primary"
-          type="submit"
-        >
-          Filtruoti
-        </Button>
       </Form>
     </div>
   );

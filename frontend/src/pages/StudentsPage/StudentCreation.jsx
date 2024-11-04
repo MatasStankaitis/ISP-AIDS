@@ -94,6 +94,42 @@ const StudentCreation = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
+            <Col>
+              <Form.Group className="mb-3" controlId="Gender">
+                <Form.Label>Lytis</Form.Label>
+                <Form.Select>
+                  <option>Pasirinkti...</option>
+                  <option value="1">Vyras</option>
+                  <option value="2">Moteris</option>
+                  <option value="3">Kita</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-3" controlId="AcademicGroup">
+                <Form.Label>Lytis</Form.Label>
+                <Form.Select>
+                  <option>Pasirinkti...</option>
+                  <option value="1">IFF-2/5</option>
+                  <option value="2">IFF-2/6</option>
+                  <option value="3">IFF-2/7</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group className="mb-3" controlId="IsStateFunded">
+                <Form.Label> </Form.Label>
+                <Form.Check
+                  inline
+                  label="Valstybės finansuojama"
+                  name="group1"
+                  type="checkbox"
+                  id="IsStateFunded"
+                />
+              </Form.Group>
+            </Col>
           </Row>
           <Row>
             <Col>
