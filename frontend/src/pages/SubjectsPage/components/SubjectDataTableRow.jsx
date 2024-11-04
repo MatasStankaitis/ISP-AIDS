@@ -24,6 +24,14 @@ const SubjectDataTableRow = ({
                 Students
               </button>
             </Link>
+            <Link to={"/subject/edit"}>
+              <button
+                type="button"
+                className="btn btn-outline-danger delete-button"
+              >
+                Edit
+              </button>
+            </Link>
           </td>
         </tr>
       </tbody>
