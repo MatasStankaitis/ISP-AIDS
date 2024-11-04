@@ -4,17 +4,16 @@ import PropTypes from "prop-types";
 
 const StudentDataTableRow = ({ name, surname, id, addGradeButton, editGradesButton, viewGradesButton }) => {
     return (
-        <tbody>
-            <tr>
-                <td>{id}</td>
-                <td>{name}</td>
-                <td>{surname}</td>
-                <td>
-                    {addGradeButton} {editGradesButton} {viewGradesButton}
-                </td>
-            </tr>
-        </tbody>
-        
+        <tr>
+            <td>{id}</td>
+            <td>{name}</td>
+            <td>{surname}</td>
+            <td>
+                {addGradeButton}
+                {editGradesButton}
+                {viewGradesButton}
+            </td>
+        </tr>
     );
 };
 
