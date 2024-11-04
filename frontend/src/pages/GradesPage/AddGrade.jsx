@@ -1,4 +1,4 @@
-// AddGradePage.js
+﻿// AddGradePage.js
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -25,25 +25,25 @@ const AddGradePage = () => {
 
     return (
         <div>
-            <h2>Add Grades for Student {studentId}</h2>
+            <h2>Pridėti pažymį ({studentId}) studentui</h2>
             <Form.Group controlId="gradeInput">
-                <Form.Label>Enter Grade</Form.Label>
+                <Form.Label>Įvesti pažymį</Form.Label>
                 <Form.Control
                     type="text"
                     value={currentGrade}
                     onChange={(e) => setCurrentGrade(e.target.value)}
                 />
             </Form.Group>
-            <Button onClick={handleAddGrade}>Add Grade</Button>
+            <Button onClick={handleAddGrade}>Pridėti pažymį</Button>
             <div>
-                <h4>Grades to be added:</h4>
+                <h4>Pažymiai kurie bus pridėti:</h4>
                 <ul>
                     {grades.map((grade, index) => (
                         <li key={index}>{grade}</li>
                     ))}
                 </ul>
             </div>
-            <Button variant="primary" onClick={handleSubmit}>Save Grades</Button>
+            <Button variant="primary" onClick={handleSubmit}>Išsaugoti pažymius</Button>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import Table from "react-bootstrap/Table";
+﻿import Table from "react-bootstrap/Table";
 
 const StudentDataTable = ({ rows }) => {
   return (
@@ -7,8 +7,8 @@ const StudentDataTable = ({ rows }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
             <th>Funkcijos</th>
           </tr>
         </thead>
