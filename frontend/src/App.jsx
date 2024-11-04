@@ -17,6 +17,11 @@ import GradesList from "./pages/GradesPage/GradesList";
 import AddGradePage from "./pages/GradesPage/AddGrade";
 import EditGradesPage from "./pages/GradesPage/EditGrade";
 import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
+import DormsPage from "./pages/DormsPage/DormsPage";
+import DormReservation from "./pages/DormsPage/DormReservation";
+import DormEdit from "./pages/DormsPage/DormEdit";
+import DormAdd from "./pages/DormsPage/DormAdd";
+import RequestHandling from "./pages/DormsPage/RequestHandling";
 
 function App() {
   return (
@@ -26,8 +31,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="students" element={<StudentsList />} />
           <Route path="lecturers" element={<LecturersPage />} />
-          <Route path="students/create" element={<StudentCreation />}></Route>
-          <Route path="students/:vidko" element={<StudentDetails />}></Route>
+          <Route path="students/create" element={<StudentCreation />} />
+          <Route path="students/:vidko" element={<StudentDetails />} />
           <Route path="subjects" element={<SubjectsList />} />
           <Route path="subjects/create" element={<SubjectCreation />} />
           <Route path="subjects/remove" element={<SubjectsRemoval />} />
@@ -37,6 +42,11 @@ function App() {
           <Route path="/grades/add/:studentId" element={<AddGradePage />} />
           <Route path="/grades/edit/:studentId" element={<EditGradesPage />} />
           <Route path="/grades/view/:studentId" element={<ViewGradesPage />} />
+          <Route path="dorms" element={<DormsPage />} />
+          <Route path="dorms/reservation" element={<DormReservation />} />
+          <Route path="dorms/edit" element={<DormEdit />} />
+          <Route path="dorms/add" element={<DormAdd />} />
+          <Route path="dorms/requests" element={<RequestHandling />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

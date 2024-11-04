@@ -14,6 +14,7 @@ const Layout = () => {
             <Nav.Link as={Link} to="/lecturers">Dėstytojai</Nav.Link>
             <Nav.Link href="/subjects">Moduliai</Nav.Link>
             <Nav.Link href="/subjectsSelection">Modulių pasirinkimas</Nav.Link>
+            <Nav.Link as={Link} to="/dorms">Bendrabučiai</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
