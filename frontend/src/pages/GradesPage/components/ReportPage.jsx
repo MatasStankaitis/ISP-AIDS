@@ -1,4 +1,4 @@
-// ViewGradesPage.js
+﻿// ViewGradesPage.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -21,13 +21,13 @@ const ViewGradesPage = () => {
 
     return (
         <div>
-            <h2>Grades for Student {studentId}</h2>
+            <h2>Pažymių ataskaita {studentId}</h2>
             <ul>
                 {grades.map((grade, index) => (
                     <li key={index}>{grade}</li>
                 ))}
             </ul>
-            <Button variant="secondary" onClick={() => navigate(-1)}>Back</Button>
+            <Button variant="secondary" onClick={() => navigate(-1)}>Atgal</Button>
         </div>
     );
 };

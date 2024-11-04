@@ -1,4 +1,4 @@
-// EditGradesPage.js
+﻿// EditGradesPage.js
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -33,10 +33,10 @@ const EditGradesPage = () => {
 
     return (
         <div>
-            <h2>Edit Grades for Student {studentId}</h2>
+            <h2>Pažymių redagavimas studentui: {studentId}</h2>
             {grades.map((grade, index) => (
                 <Form.Group key={index} controlId={`gradeInput-${index}`}>
-                    <Form.Label>Grade {index + 1}</Form.Label>
+                    <Form.Label>Pažymys {index + 1}</Form.Label>
                     <Form.Control
                         type="text"
                         value={grade}
@@ -44,7 +44,7 @@ const EditGradesPage = () => {
                     />
                 </Form.Group>
             ))}
-            <Button variant="primary" onClick={handleSubmit}>Save Changes</Button>
+            <Button variant="primary" onClick={handleSubmit}>Išsaugoti pakitimus</Button>
         </div>
     );
 };

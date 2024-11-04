@@ -7,8 +7,8 @@ const StudentDataTable = ({ rows }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Vardas</th>
+            <th>Pavard?</th>
             <th>Funkcijos</th>
           </tr>
         </thead>
