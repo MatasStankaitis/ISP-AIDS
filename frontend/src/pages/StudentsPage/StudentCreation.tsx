@@ -107,7 +107,7 @@ const StudentCreation = () => {
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="AcademicGroup">
-                <Form.Label>Lytis</Form.Label>
+                <Form.Label>Grupė</Form.Label>
                 <Form.Select>
                   <option>Pasirinkti...</option>
                   <option value="1">IFF-2/5</option>
