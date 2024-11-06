@@ -1,13 +1,13 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-interface MyModalProps {
+interface RemoveModalProps {
   name: string;
   onHide: () => void;
   show: boolean;
 }
 
-const RemoveModal = ({ name, onHide, show }: MyModalProps) => {
+const RemoveModal = ({ name, onHide, show }: RemoveModalProps) => {
   return (
     <Modal
       onHide={onHide}
@@ -19,7 +19,7 @@ const RemoveModal = ({ name, onHide, show }: MyModalProps) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Ar tikrai norite ištrinti student-ą/ę {name}?
+          Ar tikrai norite ištrinti studentą {name}?
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

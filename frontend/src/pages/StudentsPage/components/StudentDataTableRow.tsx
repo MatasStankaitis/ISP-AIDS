@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
 
-const StudentDataTableRow = ({ id, name, surname, vidko, onRemove }) => {
+interface StudentDataTableRowProps {
+  id: number;
+  name: string;
+  surname: string;
+  vidko: string;
+  onRemove: (name: string) => void;
+}
+
+const StudentDataTableRow = ({
+  id,
+  name,
+  surname,
+  vidko,
+  onRemove,
+}: StudentDataTableRowProps) => {
   return (
     <>
       <tbody>

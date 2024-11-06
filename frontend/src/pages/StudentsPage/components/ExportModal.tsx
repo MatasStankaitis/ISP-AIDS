@@ -3,15 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 import FACULTIES from "../../../prototypeData/faculties";
 
-interface MyModalProps {
+interface ExportModalProps {
   onHide: () => void;
   show: boolean;
 }
 
-const ExportModal = ({ onHide, show }: MyModalProps) => {
+const ExportModal = ({ onHide, show }: ExportModalProps) => {
   return (
     <Modal
       onHide={onHide}

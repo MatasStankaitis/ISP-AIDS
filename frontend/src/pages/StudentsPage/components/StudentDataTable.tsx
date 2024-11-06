@@ -1,6 +1,11 @@
+import { ReactElement } from "react";
 import Table from "react-bootstrap/Table";
 
-const StudentDataTable = ({ rows }) => {
+interface StudentDataTableProps {
+  rows: ReactElement;
+}
+
+const StudentDataTable = ({ rows }: StudentDataTableProps) => {
   return (
     <div className="table-div">
       <Table striped bordered hover>
