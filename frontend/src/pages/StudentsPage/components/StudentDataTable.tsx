@@ -12,8 +12,8 @@ const StudentDataTable = ({ rows }: StudentDataTableProps) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
             <th>Vidko</th>
             <th>Funkcijos</th>
           </tr>
