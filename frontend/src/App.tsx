@@ -18,10 +18,10 @@ import AddGradePage from "./pages/GradesPage/AddGrade";
 import EditGradesPage from "./pages/GradesPage/EditGrade";
 import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
 import DormsPage from "./pages/DormsPage/DormsPage";
-import DormReservation from "./pages/DormsPage/DormReservation";
-import DormEdit from "./pages/DormsPage/DormEdit";
-import DormAdd from "./pages/DormsPage/DormAdd";
-import RequestHandling from "./pages/DormsPage/RequestHandling";
+import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
+import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
+import DormAdd from "./pages/DormsPage/DormManagement/DormAdd";
+import RequestHandling from "./pages/DormsPage/DormRequest/RequestHandling";
 
 function App() {
   return (
