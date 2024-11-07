@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
 
-const StudentDataTableRow = ({ id, name, surname, vidko }) => {
+interface StudentDataTableRowProps {
+  id: number;
+  name: string;
+  surname: string;
+  vidko: string;
+  onRemove: (name: string) => void;
+}
+
+const StudentDataTableRow = ({
+  id,
+  name,
+  surname,
+  vidko,
+  onRemove,
+}: StudentDataTableRowProps) => {
   return (
     <>
       <tbody>
@@ -33,6 +47,7 @@ const StudentDataTableRow = ({ id, name, surname, vidko }) => {
             <button
               type="button"
               className="btn btn-outline-danger delete-button"
+              onClick={() => onRemove(name)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
