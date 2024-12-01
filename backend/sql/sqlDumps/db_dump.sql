@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS StudentSubjects;
+DROP TABLE IF EXISTS Student_subjects;
 DROP TABLE IF EXISTS Students;
 DROP TABLE IF EXISTS Grades;
 DROP TABLE IF EXISTS Dorm_rooms;
 DROP TABLE IF EXISTS Dorm_requests;
 DROP TABLE IF EXISTS Paychecks;
 DROP TABLE IF EXISTS lectures;
-DROP TABLE IF EXISTS SubjectTimes;
+DROP TABLE IF EXISTS Subject_times;
 DROP TABLE IF EXISTS Lecturers;
 DROP TABLE IF EXISTS Administrators;
 DROP TABLE IF EXISTS Users;
@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS Request_types;
 DROP TABLE IF EXISTS Request_statuses;
 DROP TABLE IF EXISTS Lecturer_statuses;
 DROP TABLE IF EXISTS Genders;
-DROP TABLE IF EXISTS Groups;
+DROP TABLE IF EXISTS Academic_groups;
 DROP TABLE IF EXISTS Faculties;
 DROP TABLE IF EXISTS Dorms;
 CREATE TABLE Dorms
@@ -40,7 +40,7 @@ CREATE TABLE Faculties
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE Groups
+CREATE TABLE Academic_groups
 (
 	name varchar (255) NOT NULL,
 	mentor_name varchar (255) NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE Lecturers
 	FOREIGN KEY(username) REFERENCES Users (username)
 );
 
-CREATE TABLE SubjectTimes
+CREATE TABLE Subject_times
 (
 	hour int NOT NULL,
 	day int NOT NULL,
@@ -233,14 +233,14 @@ CREATE TABLE Students
 	PRIMARY KEY(username),
 	FOREIGN KEY(gender) REFERENCES Genders (id),
 	CONSTRAINT is_part_of FOREIGN KEY(fk_Facultyid) REFERENCES Faculties (id),
-	CONSTRAINT is_in FOREIGN KEY(fk_Groupid) REFERENCES Groups (id),
+	CONSTRAINT is_in FOREIGN KEY(fk_Groupid) REFERENCES Academic_groups (id),
 	FOREIGN KEY(fk_Dormid) REFERENCES Dorms (id),
 	CONSTRAINT rents FOREIGN KEY(fk_Dorm_roomid) REFERENCES Dorm_rooms (id),
 	FOREIGN KEY(username) REFERENCES Users (username)
 );
 
 
-CREATE TABLE StudentSubjects
+CREATE TABLE Student_subjects
 (
 	passed boolean NOT NULL,
 	id int NOT NULL AUTO_INCREMENT,
@@ -248,7 +248,7 @@ CREATE TABLE StudentSubjects
 	fk_SubjectTimeid int NOT NULL,
 	PRIMARY KEY(id),
 	CONSTRAINT Student FOREIGN KEY(fk_Studentusername) REFERENCES Students (username),
-	CONSTRAINT belongs_to FOREIGN KEY(fk_SubjectTimeid) REFERENCES SubjectTimes (id)
+	CONSTRAINT belongs_to FOREIGN KEY(fk_SubjectTimeid) REFERENCES Subject_times (id)
 );
 
 CREATE TABLE Grades
@@ -262,7 +262,7 @@ CREATE TABLE Grades
 	id int NOT NULL AUTO_INCREMENT,
 	fk_StudentSubjectid int NOT NULL,
 	PRIMARY KEY(id),
-	CONSTRAINT hasStudentSubject FOREIGN KEY(fk_StudentSubjectid) REFERENCES StudentSubjects (id)
+	CONSTRAINT hasStudentSubject FOREIGN KEY(fk_StudentSubjectid) REFERENCES Student_subjects (id)
 );
 
 
