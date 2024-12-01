@@ -1,5 +1,3 @@
-#@(#) script.ddl
-
 DROP TABLE IF EXISTS StudentSubjects;
 DROP TABLE IF EXISTS Students;
 DROP TABLE IF EXISTS Grades;
