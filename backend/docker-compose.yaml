@@ -8,4 +8,4 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=isp
     volumes:
-      - ./sqlDumps:/docker-entrypoint-initdb.d
+      - ./database/sqlDumps:/docker-entrypoint-initdb.d

@@ -280,3 +280,11 @@ CREATE TABLE Dorm_requests
 	CONSTRAINT evaluates FOREIGN KEY(fk_Administratorusername) REFERENCES Administrators (username),
 	CONSTRAINT creates FOREIGN KEY(fk_Studentusername) REFERENCES Students (username)
 );
+
+-- INSERTIONS:
+
+INSERT INTO Academic_groups (name, mentor_name, mentor_surname) 
+VALUES 
+('Group A', 'John', 'Doe'),
+('Group B', 'Jane', 'Smith'),
+('Group C', 'Michael', 'Johnson');
