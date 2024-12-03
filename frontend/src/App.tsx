@@ -1,11 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import "./App.css";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import StudentsList from "./pages/StudentsPage/StudentsList";
 import LecturersPage from "./pages/LecturerPage/LecturersPage";
-import Subjects from "./pages/Subjects";
 import SubjectsList from "./pages/SubjectsPage/SubjectsList";
 import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
 import SubjectEdit from "./pages/SubjectsPage/SubjectEdit";
@@ -22,13 +21,18 @@ import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
 import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
 import DormAdd from "./pages/DormsPage/DormManagement/DormAdd";
 import RequestHandling from "./pages/DormsPage/DormRequest/RequestHandling";
+import Login from "./pages/Login";
+import Register from "./pages/Register"; // Import the Register component
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} /> {/* Add the register route */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="students" element={<StudentsList />} />
           <Route path="lecturers" element={<LecturersPage />} />
           <Route path="students/create" element={<StudentCreation />} />
