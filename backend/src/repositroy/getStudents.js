@@ -1,9 +1,16 @@
 import connection from "../sqlConnection.js";
 
-export const getStudents = async () => {
+export const getStudents = async (
+  name,
+  surname,
+  facultyId,
+  year,
+  academicGroupId
+) => {
   try {
+    // Implement filtering later
     const [results, fields] = await connection.execute(
-      "SELECT * FROM Academic_groups"
+      "SELECT * FROM Users INNER JOIN Students ON Students.username=Users.username"
     );
 
     return results;

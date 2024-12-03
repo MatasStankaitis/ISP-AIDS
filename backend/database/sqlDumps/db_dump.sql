@@ -149,14 +149,11 @@ CREATE TABLE Administrators
 
 CREATE TABLE Lecturers
 (
-	name varchar (255) NOT NULL,
 	current_salary double precision NULL,
 	experience int NOT NULL,
 	status int NOT NULL,
-	gender int NOT NULL,
 	username varchar (255) NOT NULL,
 	PRIMARY KEY(username),
-	FOREIGN KEY(gender) REFERENCES Genders (id),
 	FOREIGN KEY(status) REFERENCES Lecturer_statuses (id),
 	FOREIGN KEY(username) REFERENCES Users (username)
 );
@@ -213,28 +210,18 @@ CREATE TABLE Dorm_rooms
 	CONSTRAINT hasDorm FOREIGN KEY(fk_Dormid) REFERENCES Dorms (id)
 );
 
+
 CREATE TABLE Students
 (
-	vidko_code varchar (255) NULL,
-	surname varchar (255) NOT NULL,
 	year int NOT NULL,
-	name varchar (255) NOT NULL,
-	photo_url varchar (255) NULL,
-	home_address varchar (255) NOT NULL,
-	phone_number varchar (255) NOT NULL,
-	email varchar (255) NOT NULL,
 	state_funded boolean NOT NULL,
-	gender int NOT NULL,
 	username varchar (255) NOT NULL,
 	fk_Facultyid int NOT NULL,
 	fk_Groupid int NOT NULL,
-	fk_Dormid int NULL,
 	fk_Dorm_roomid int NULL,
 	PRIMARY KEY(username),
-	FOREIGN KEY(gender) REFERENCES Genders (id),
 	CONSTRAINT is_part_of FOREIGN KEY(fk_Facultyid) REFERENCES Faculties (id),
 	CONSTRAINT is_in FOREIGN KEY(fk_Groupid) REFERENCES Academic_groups (id),
-	FOREIGN KEY(fk_Dormid) REFERENCES Dorms (id),
 	CONSTRAINT rents FOREIGN KEY(fk_Dorm_roomid) REFERENCES Dorm_rooms (id),
 	FOREIGN KEY(username) REFERENCES Users (username)
 );
@@ -285,6 +272,24 @@ CREATE TABLE Dorm_requests
 
 INSERT INTO Academic_groups (name, mentor_name, mentor_surname) 
 VALUES 
-('Group A', 'John', 'Doe'),
-('Group B', 'Jane', 'Smith'),
-('Group C', 'Michael', 'Johnson');
+('IFF-2/4', 'Jonas', 'Jonaitis'),
+('IFF-2/5', 'Ignas', 'Ignaitis'),
+('IFF-2/6', 'Petras', 'Petraitis');
+
+
+INSERT INTO Faculties (name, address, dean_name, vice_dean_name, phone_number, email) 
+VALUES 
+('Informatikos', 'Studentų gatvė 1, Kaunas', 'Jonas', 'Kazys', '1111111', 'informatika@gmail.com'),
+('Fizikos','Studentų gatvė 2, Kaunas', 'Jonas', 'Ignas', '22222222', 'fizika@gmail.com'),
+('Matematikos', 'Studentų gatvė 3, Kaunas', 'Jonas', 'Skirmantas', '3333333', 'matematika@gmail.com');
+
+
+INSERT INTO Users (username, password_hash, name, surname, phone_number, email, home_address, gender)
+VALUES 
+('alebal', 'hashedpassword1', 'Aleksas', 'Balčiukynas', '1234567890', 'alebal@example.com', '123 Main St, Cityville', 1),
+('alebal1', 'hashedpassword2', 'Alechas', 'Balčiūnas', '0987654321', 'alebal1@example.com', '456 Oak St, Townsville', 1);
+
+INSERT INTO Students (year, state_funded, username, fk_Facultyid, fk_Groupid)
+VALUES
+(1, TRUE, 'alebal', 1, 1),
+(2, FALSE, 'alebal1', 2, 2);
