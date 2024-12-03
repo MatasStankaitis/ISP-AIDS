@@ -15,4 +15,4 @@ To start a backend server
 
 cd backend
 npm i
-npm run start
+npm start
