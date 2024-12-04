@@ -1,18 +1,12 @@
-import { getStudents } from "../repositroy/getStudents.js";
+import { getStudents } from "../repository/getStudents.js";
 
 export const getStudentsController = async (req, res) => {
-  const name = req.query.name;
-  const surname = req.query.surname;
-  const facultyId = req.query.facultyId;
-  const year = req.query.year;
-  const academicGroupId = req.query.academicGroupId;
+  try {
+    const { name, surname, facultyId, year, academicGroupId } = req.query;
 
-  const students = await getStudents(
-    name,
-    surname,
-    facultyId,
-    year,
-    academicGroupId
-  );
-  res.status(201).json(students);
+    const students = await getStudents(name, surname, facultyId, year, academicGroupId);
+    res.status(200).json(students);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch students" });
+  }
 };
