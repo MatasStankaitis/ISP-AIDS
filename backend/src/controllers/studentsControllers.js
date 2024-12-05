@@ -1,10 +1,12 @@
-import { NOT_FOUND_STATUS, SUCCESS_STATUS } from "../constants.js";
+import { SUCCESS_STATUS } from "../constants.js";
 import { createStudent } from "../repository/createStudent.js";
 import { createUser } from "../repository/createUser.js";
 import { deleteUser as deleteUser } from "../repository/deleteStudent.js";
 import { getStudent } from "../repository/getStudent.js";
 import { getStudents } from "../repository/getStudents.js";
 import { updateStudent } from "../repository/updateStudent.js";
+import { studentCreateSchema } from "../schemas/studentCreateSchema.js";
+import { studentUpdateSchema } from "../schemas/studentUpdateSchema.js";
 import { handleError } from "../utils/handleError.js";
 
 export const getStudentsController = async (req, res) => {
@@ -66,6 +68,11 @@ export const postStudentController = async (req, res) => {
       fk_Groupid,
     } = req.body;
 
+    const { error, value } = studentCreateSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
     await createUser(
       username,
       name,
@@ -103,6 +110,11 @@ export const putStudentController = async (req, res) => {
       fk_Facultyid,
       fk_Groupid,
     } = req.body;
+
+    const { error, value } = studentUpdateSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
 
     updateSuccess = await updateStudent(
       username,
