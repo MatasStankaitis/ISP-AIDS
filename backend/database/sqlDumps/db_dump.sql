@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS Genders;
 DROP TABLE IF EXISTS Academic_groups;
 DROP TABLE IF EXISTS Faculties;
 DROP TABLE IF EXISTS Dorms;
+SET NAMES 'utf8mb4';
 CREATE TABLE Dorms
 (
 	number int NOT NULL,
@@ -269,7 +270,6 @@ CREATE TABLE Dorm_requests
 );
 
 -- INSERTIONS:
-
 INSERT INTO Academic_groups (name, mentor_name, mentor_surname) 
 VALUES 
 ('IFF-2/4', 'Jonas', 'Jonaitis'),
