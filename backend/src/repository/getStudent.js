@@ -18,10 +18,10 @@ export const getStudent = async (username) => {
       throw new NotFoundError("user not found");
     }
   } catch (err) {
-    console.log(err);
     if (err instanceof NotFoundError) {
       throw err;
     }
+    console.log(err);
     throw new Error("failed to update student");
   }
 };
