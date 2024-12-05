@@ -87,9 +87,12 @@ export const postStudentController = async (req, res) => {
       );
     }
 
-    res
-      .status(createStudentSuccess ? 200 : 400)
-      .json({ success: createStudentSuccess });
+    res.status(createStudentSuccess ? 200 : 400).json({
+      success: createStudentSuccess,
+      message: createStudentSuccess
+        ? "successfully created a user"
+        : "user with the same username already exists",
+    });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch students" });
   }
@@ -98,9 +101,8 @@ export const postStudentController = async (req, res) => {
 export const putStudentController = async (req, res) => {
   try {
     let updateSuccess = false;
-
+    const { username } = req.params;
     const {
-      username,
       name,
       surname,
       phone_number,

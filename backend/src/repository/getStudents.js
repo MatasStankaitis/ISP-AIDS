@@ -13,7 +13,7 @@ export const getStudents = async (
     );
 
     const [results, fields] = await connection.execute(
-      `SELECT Users.username, Users.surname, Users.name FROM Users 
+      `SELECT Users.username, Users.surname, Users.name, Students.fk_Facultyid, Students.fk_Groupid, Students.year FROM Users 
       INNER JOIN Students ON Students.username=Users.username
       WHERE
       Users.name LIKE IFNULL(CONCAT(?,"%"), Users.name) AND
