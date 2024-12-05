@@ -1,11 +1,12 @@
+import { INTERNAL_SERVER_ERROR_STATUS, SUCCESS_STATUS } from "../constants.js";
 import { getGenders } from "../repository/getGenders.js";
 
 export const getGendersController = async (req, res) => {
   try {
     const faculties = await getGenders();
 
-    res.status(200).json(faculties);
+    res.status(SUCCESS_STATUS).json(faculties);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch genders" });
+    handleError(res, err);
   }
 };

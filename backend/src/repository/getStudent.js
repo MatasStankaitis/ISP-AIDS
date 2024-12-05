@@ -15,5 +15,6 @@ export const getStudent = async (username) => {
     return results;
   } catch (err) {
     console.log(err);
+    throw new Error("failed to fetch student");
   }
 };

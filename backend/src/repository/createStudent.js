@@ -14,10 +14,8 @@ export const createStudent = async (
         (?, ?, ?, ?, ?)`,
       [username, year, state_funded, fk_Facultyid, fk_Groupid]
     );
-
-    return true;
   } catch (err) {
     console.log(err);
-    return false;
+    throw new Error("failed to create student");
   }
 };

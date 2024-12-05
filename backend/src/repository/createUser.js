@@ -16,10 +16,8 @@ export const createUser = async (
         (?, ?, ?, ?, ?, ?, ?)`,
       [username, name, surname, phone_number, email, home_address, gender]
     );
-
-    return true;
   } catch (err) {
     console.log(err);
-    return false;
+    throw new Error("failed to create user");
   }
 };

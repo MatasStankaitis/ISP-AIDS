@@ -33,10 +33,8 @@ export const updateStudent = async (
         username,
       ]
     );
-
-    return true;
   } catch (err) {
     console.log(err);
-    return false;
+    throw new Error("failed to update student");
   }
 };
