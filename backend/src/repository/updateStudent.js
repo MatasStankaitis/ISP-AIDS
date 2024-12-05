@@ -1,4 +1,5 @@
 import connection from "../sqlConnection.js";
+import { NotFoundError } from "../utils/errors.js";
 
 export const updateStudent = async (
   username,
@@ -33,8 +34,14 @@ export const updateStudent = async (
         username,
       ]
     );
+    if (results.affectedRows <= 0) {
+      throw new NotFoundError("user not found");
+    }
   } catch (err) {
     console.log(err);
+    if (err instanceof NotFoundError) {
+      throw err;
+    }
     throw new Error("failed to update student");
   }
 };

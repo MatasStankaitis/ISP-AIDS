@@ -7,6 +7,7 @@ import { getStudents } from "../repository/getStudents.js";
 import { updateStudent } from "../repository/updateStudent.js";
 import { studentCreateSchema } from "../schemas/studentCreateSchema.js";
 import { studentUpdateSchema } from "../schemas/studentUpdateSchema.js";
+import { ValidationError } from "../utils/errors.js";
 import { handleError } from "../utils/handleError.js";
 
 export const getStudentsController = async (req, res) => {
@@ -70,7 +71,7 @@ export const postStudentController = async (req, res) => {
 
     const { error, value } = studentCreateSchema.validate(req.body);
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      throw new ValidationError(error.details[0].message);
     }
 
     await createUser(
@@ -113,7 +114,7 @@ export const putStudentController = async (req, res) => {
 
     const { error, value } = studentUpdateSchema.validate(req.body);
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      throw new ValidationError(error.details[0].message);
     }
 
     updateSuccess = await updateStudent(

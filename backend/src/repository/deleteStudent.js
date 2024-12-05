@@ -1,4 +1,5 @@
 import connection from "../sqlConnection.js";
+import { NotFoundError } from "../utils/errors.js";
 
 export const deleteUser = async (username) => {
   try {
@@ -7,8 +8,14 @@ export const deleteUser = async (username) => {
       WHERE Users.username=?`,
       [username]
     );
+    if (results.affectedRows <= 0) {
+      throw new NotFoundError("user not found");
+    }
   } catch (err) {
     console.log(err);
-    throw new Error("failed to delete student");
+    if (err instanceof NotFoundError) {
+      throw err;
+    }
+    throw new Error("failed to update student");
   }
 };

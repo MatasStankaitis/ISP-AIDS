@@ -1,4 +1,5 @@
 import connection from "../sqlConnection.js";
+import { NotFoundError } from "../utils/errors.js";
 
 export const getStudent = async (username) => {
   try {
@@ -10,11 +11,17 @@ export const getStudent = async (username) => {
       Users.username=?`,
       [username]
     );
-    if (results.length > 0)
+    if (results.length > 0) {
       results[0].state_funded = results[0].state_funded ? true : false;
-    return results;
+      return results;
+    } else {
+      throw new NotFoundError("user not found");
+    }
   } catch (err) {
     console.log(err);
-    throw new Error("failed to fetch student");
+    if (err instanceof NotFoundError) {
+      throw err;
+    }
+    throw new Error("failed to update student");
   }
 };
