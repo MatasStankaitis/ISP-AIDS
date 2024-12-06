@@ -4,7 +4,7 @@ interface StudentDataTableRowProps {
   id: number;
   name: string;
   surname: string;
-  vidko: string;
+  username: string;
   onRemove: (name: string) => void;
 }
 
@@ -12,7 +12,7 @@ const StudentDataTableRow = ({
   id,
   name,
   surname,
-  vidko,
+  username,
   onRemove,
 }: StudentDataTableRowProps) => {
   return (
@@ -22,9 +22,9 @@ const StudentDataTableRow = ({
           <td style={{ width: "0", whiteSpace: "nowrap" }}>{id}</td>
           <td>{name}</td>
           <td>{surname}</td>
-          <td>{vidko}</td>
+          <td>{username}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
-            <Link to={"/students/" + vidko}>
+            <Link to={"/students/" + username}>
               <button type="button" className="btn btn-success edit-button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
