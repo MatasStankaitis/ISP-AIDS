@@ -1,0 +1,4 @@
+export const SUCCESS_STATUS = 200;
+export const INTERNAL_SERVER_ERROR_STATUS = 500;
+export const NOT_FOUND_ERROR_STATUS = 404;
+export const VALIDATION_ERROR_STATUS = 400;

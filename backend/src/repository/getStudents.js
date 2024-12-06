@@ -8,15 +8,12 @@ export const getStudents = async (
   academicGroupId
 ) => {
   try {
-    // Implement filtering later
     const values = [name, surname, facultyId, year, academicGroupId].map(
       (v) => v ?? null
     );
 
-    console.log(name, surname);
-
     const [results, fields] = await connection.execute(
-      `SELECT * FROM Users 
+      `SELECT Users.username, Users.surname, Users.name, Students.fk_Facultyid, Students.fk_Groupid, Students.year FROM Users 
       INNER JOIN Students ON Students.username=Users.username
       WHERE
       Users.name LIKE IFNULL(CONCAT(?,"%"), Users.name) AND
@@ -30,5 +27,6 @@ export const getStudents = async (
     return results;
   } catch (err) {
     console.log(err);
+    throw new Error("failed to fetch students");
   }
 };

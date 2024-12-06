@@ -128,7 +128,7 @@ CREATE TABLE Subjects
 CREATE TABLE Users
 (
 	username varchar (255) NOT NULL,
-	password_hash varchar (255) NOT NULL,
+	password_hash varchar (255) NULL,
 	name varchar (255) NOT NULL,
 	surname varchar (255) NOT NULL,
 	phone_number varchar (255) NOT NULL,
@@ -224,7 +224,7 @@ CREATE TABLE Students
 	CONSTRAINT is_part_of FOREIGN KEY(fk_Facultyid) REFERENCES Faculties (id),
 	CONSTRAINT is_in FOREIGN KEY(fk_Groupid) REFERENCES Academic_groups (id),
 	CONSTRAINT rents FOREIGN KEY(fk_Dorm_roomid) REFERENCES Dorm_rooms (id),
-	FOREIGN KEY(username) REFERENCES Users (username)
+	FOREIGN KEY(username) REFERENCES Users (username) ON DELETE CASCADE
 );
 
 
