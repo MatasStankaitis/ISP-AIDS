@@ -12,7 +12,7 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     switch (e.target.id) {
       case "firstnameInput":
         setName(e.target.value);
@@ -22,8 +22,8 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
       method: "GET",
     })
