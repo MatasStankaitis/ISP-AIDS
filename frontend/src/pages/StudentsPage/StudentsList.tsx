@@ -14,12 +14,25 @@ const StudentsList = () => {
   const [removeModalShow, setRemoveModalShow] = useState({
     shouldShow: false,
     studentName: "",
+    username: "",
   });
   const [exportModalShow, setExportModalShow] = useState(false);
 
   const [students, setStudents] = useState([] as listStudent[]);
 
   useEffect(() => {
+    getStudents();
+  }, []);
+
+  function handleRemoveStudent(name: string, username: string) {
+    setRemoveModalShow({
+      shouldShow: true,
+      studentName: name,
+      username: username,
+    });
+  }
+
+  const getStudents = () => {
     fetch(`${baseUrl}/students`, {
       method: "GET",
     })
@@ -28,11 +41,15 @@ const StudentsList = () => {
         setStudents(data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  };
 
-  function handleRemoveStudent(name: string) {
-    setRemoveModalShow({ shouldShow: true, studentName: name });
-  }
+  const handleHideRemoveModal = () => {
+    setRemoveModalShow({
+      shouldShow: false,
+      studentName: "",
+    });
+    getStudents();
+  };
 
   return (
     <>
@@ -67,13 +84,9 @@ const StudentsList = () => {
       />
       <RemoveModal
         name={removeModalShow.studentName}
+        username={removeModalShow.username}
         show={removeModalShow.shouldShow}
-        onHide={() =>
-          setRemoveModalShow({
-            shouldShow: false,
-            studentName: "",
-          })
-        }
+        onHide={handleHideRemoveModal}
       />
     </>
   );

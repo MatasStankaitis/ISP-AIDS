@@ -18,6 +18,8 @@ export const createUser = async (
     );
   } catch (err) {
     console.log(err);
-    throw new Error("failed to create user");
+    throw new Error(
+      "failed to create user. User with this username might already exist"
+    );
   }
 };

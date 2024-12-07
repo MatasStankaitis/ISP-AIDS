@@ -9,6 +9,7 @@ import FormField from "../../components/FormField";
 import { baseUrl } from "../../constants";
 import { useEffect, useState } from "react";
 import { creationStudent } from "../../types/creationStudent";
+import { Alert } from "react-bootstrap";
 
 const StudentDetails = () => {
   const { username } = useParams();
@@ -129,7 +130,11 @@ const StudentDetails = () => {
 
   return (
     <>
-      {error ? <p>{error}</p> : null}
+      {error ? (
+        <Alert key={"danger"} variant={"danger"}>
+          <center>{error}</center>
+        </Alert>
+      ) : null}
       <h1>Studento sukūrimas</h1>
       <Container>
         <Form onSubmit={handleSubmit}>
@@ -198,7 +203,6 @@ const StudentDetails = () => {
                   value={formState.fk_Facultyid}
                   required
                 >
-                  <option>Pasirinkti...</option>
                   {faculties.map((f, i) => (
                     <option key={i} value={f.id}>
                       {f.name}
@@ -211,7 +215,6 @@ const StudentDetails = () => {
               <Form.Group className="mb-3" controlId="year">
                 <Form.Label>Kursas</Form.Label>
                 <Form.Select onInput={handleChange} value={formState.year}>
-                  <option>Pasirinkti...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -223,7 +226,6 @@ const StudentDetails = () => {
               <Form.Group className="mb-3" controlId="gender">
                 <Form.Label>Lytis</Form.Label>
                 <Form.Select onInput={handleChange} value={formState.gender}>
-                  <option>Pasirinkti...</option>
                   {genders.map((f, i) => (
                     <option key={i} value={f.id}>
                       {f.name}
@@ -239,7 +241,6 @@ const StudentDetails = () => {
                   onInput={handleChange}
                   value={formState.fk_Groupid}
                 >
-                  <option>Pasirinkti...</option>
                   {groups.map((f, i) => (
                     <option key={i} value={f.id}>
                       {f.name}

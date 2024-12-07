@@ -2,13 +2,12 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 import FormField from "../../components/FormField";
 import { baseUrl } from "../../constants";
 import { useEffect, useState } from "react";
-import { creationStudent } from "../../types/creationStudent";
+import { Alert } from "react-bootstrap";
 
 const StudentCreation = () => {
   const navigate = useNavigate();
@@ -40,8 +39,6 @@ const StudentCreation = () => {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
-          console.log(response);
-
           navigate(-1);
         } else {
           response.json().then((data) => {
@@ -61,7 +58,6 @@ const StudentCreation = () => {
       .then((response) => response.json())
       .then((data) => {
         setGroups(data);
-        console.log(data);
       })
       .catch((error) => console.log(error));
   };
@@ -73,7 +69,6 @@ const StudentCreation = () => {
       .then((response) => response.json())
       .then((data) => {
         setFaculties(data);
-        console.log(data);
       })
       .catch((error) => console.log(error));
   };
@@ -85,7 +80,6 @@ const StudentCreation = () => {
       .then((response) => response.json())
       .then((data) => {
         setGenders(data);
-        console.log(data);
       })
       .catch((error) => console.log(error));
   };
@@ -120,7 +114,11 @@ const StudentCreation = () => {
 
   return (
     <>
-      {error ? <p>{error}</p> : null}
+      {error ? (
+        <Alert key={"danger"} variant={"danger"}>
+          <center>{error}</center>
+        </Alert>
+      ) : null}
       <h1>Studento sukūrimas</h1>
       <Container>
         <Form onSubmit={handleSubmit}>
