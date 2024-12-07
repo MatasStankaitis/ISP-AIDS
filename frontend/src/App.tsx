@@ -5,6 +5,10 @@ import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import StudentsList from "./pages/StudentsPage/StudentsList";
 import LecturersPage from "./pages/LecturerPage/LecturersPage";
+import LecturerDetails from "./pages/LecturerPage/LecturerDetails"; 
+import LecturerCreation from "./pages/LecturerPage/LecturerCreation"; 
+import LecturerEditPage from "./pages/LecturerPage/LecturerEditPage"; 
+import LecturerEditSalaryPage from "./pages/LecturerPage/LecturerEditSalaryPage"; 
 import Subjects from "./pages/Subjects";
 import SubjectsList from "./pages/SubjectsPage/SubjectsList";
 import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
@@ -30,7 +34,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="students" element={<StudentsList />} />
-          <Route path="lecturers" element={<LecturersPage />} />
+          <Route path="lecturers/*" element={<LecturersPage />} />
+          <Route path="lecturers/create" element={<LecturerCreation />} />
+          <Route path="lecturers/:id" element={<LecturerDetails />} /> 
+          <Route path="lecturers/:id/edit" element={<LecturerEditPage />} />
+          <Route path="lecturers/:id/edit-salary" element={<LecturerEditSalaryPage />} />
           <Route path="students/create" element={<StudentCreation />} />
           <Route path="students/:username" element={<StudentDetails />} />
           <Route path="subjects" element={<SubjectsList />} />

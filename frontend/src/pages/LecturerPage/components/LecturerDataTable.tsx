@@ -1,30 +1,33 @@
-import React from 'react';
-import Table from 'react-bootstrap/Table';
-import LecturerDataTableRow from './LecturerDataTableRow';
+import { ReactElement } from "react";
+import Table from "react-bootstrap/Table";
 
-const LecturerDataTable = ({ lecturers, onDelete, onEditSalary }) => {
+interface LecturerDataTableProps {
+  rows: ReactElement[]; // Accept an array of React elements
+}
+
+const LecturerDataTable = ({ rows }: LecturerDataTableProps) => {
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Vardas</th>
-          <th>Pavardė</th>
-          <th>El. paštas</th>
-          <th>Atlyginimas</th>
-          <th>Veiksmai</th>
-        </tr>
-      </thead>
-      <tbody>
-        {lecturers.map((lecturer) => (
-          <LecturerDataTableRow
-            key={lecturer.id}
-            lecturer={lecturer}
-            onDelete={onDelete}
-            onEditSalary={onEditSalary}
-          />
-        ))}
-      </tbody>
-    </Table>
+    <div className="table-div">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
+            <th>Vartotojo vardas</th>
+            <th>Telefono nr.</th>
+            <th>El. paštas</th>
+            <th>Statusas</th>
+            <th>Fakultetas</th>
+            <th>Adresas</th>
+            <th>Lytis</th>
+            <th>Atlyginimas</th>
+            <th>Veiksmai</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+    </div>
   );
 };
 
