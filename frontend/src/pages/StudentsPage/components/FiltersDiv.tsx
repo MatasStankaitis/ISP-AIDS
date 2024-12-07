@@ -1,14 +1,8 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Dispatch, SetStateAction, useState } from "react";
-import { student } from "../../../types/student";
-import { baseUrl } from "../../../constants";
+import { useState } from "react";
 
-interface FiltersDivProp {
-  onFilter: Dispatch<SetStateAction<student[]>>;
-}
-
-const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
+const FiltersDiv = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -22,6 +16,7 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
     }
   };
 
+<<<<<<< HEAD
   const handleSubmit = (e: any) => {
     e.preventDefault();
     fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
@@ -34,9 +29,11 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
       .catch((error) => console.log(error));
   };
 
+=======
+>>>>>>> develop
   return (
     <div className="filtersDiv">
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group className="mb-3" controlId="firstnameInput">
           <Form.Label>Vardas</Form.Label>
           <Form.Control

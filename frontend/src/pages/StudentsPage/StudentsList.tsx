@@ -4,11 +4,9 @@ import STUDENTS from "../../prototypeData/students";
 import FiltersDiv from "./components/FiltersDiv";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RemoveModal from "./components/RemoveModal";
 import ExportModal from "./components/ExportModal";
-import { student } from "../../types/student";
-import { baseUrl } from "../../constants";
 
 const StudentsList = () => {
   const [removeModalShow, setRemoveModalShow] = useState({
@@ -16,19 +14,6 @@ const StudentsList = () => {
     studentName: "",
   });
   const [exportModalShow, setExportModalShow] = useState(false);
-
-  const [students, setStudents] = useState([] as student[]);
-
-  useEffect(() => {
-    fetch(`${baseUrl}/students`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setStudents(data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
 
   function handleRemoveStudent(name: string) {
     setRemoveModalShow({ shouldShow: true, studentName: name });
@@ -44,14 +29,14 @@ const StudentsList = () => {
           <Button variant="primary">Pridėti studentą</Button>
         </Link>
       </div>
-      <FiltersDiv onFilter={setStudents} />
+      <FiltersDiv />
       <StudentDataTable
         rows={
           <>
-            {students.map((student, i) => {
+            {STUDENTS.map((student, i) => {
               return (
                 <StudentDataTableRow
-                  key={student.username}
+                  key={i}
                   onRemove={handleRemoveStudent}
                   id={i + 1}
                   {...student}
