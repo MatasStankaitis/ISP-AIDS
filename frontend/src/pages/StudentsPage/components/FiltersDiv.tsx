@@ -17,6 +17,9 @@ const FiltersDiv = () => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 82ea50d7ed4afa62b9c9c5d70739a443c9635cae
   const handleSubmit = (e: any) => {
     e.preventDefault();
     fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
@@ -28,9 +31,12 @@ const FiltersDiv = () => {
       })
       .catch((error) => console.log(error));
   };
+<<<<<<< HEAD
 
 =======
 >>>>>>> develop
+=======
+>>>>>>> 82ea50d7ed4afa62b9c9c5d70739a443c9635cae
   return (
     <div className="filtersDiv">
       <Form>
