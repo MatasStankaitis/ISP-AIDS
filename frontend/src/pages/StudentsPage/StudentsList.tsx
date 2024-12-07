@@ -53,7 +53,7 @@ const StudentsList = () => {
                 <StudentDataTableRow
                   key={student.username}
                   onRemove={handleRemoveStudent}
-                  id={i}
+                  id={i + 1}
                   {...student}
                 />
               );
