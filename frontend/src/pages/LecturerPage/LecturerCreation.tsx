@@ -1,19 +1,35 @@
-import STUDENTS from "../../prototypeData/students";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import FormField from "../../components/FormField";
+import FACULTIES from "../../prototypeData/faculties";
+import LECTURER_STATUSES from "../../prototypeData/lecturerStatuses";
 
 const LecturerCreation = () => {
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setShowConfirmation(true);
+
+    // Reset the confirmation after a timeout (optional)
+    setTimeout(() => setShowConfirmation(false), 5000);
+  };
+
   return (
     <>
       <h1>Dėstytojo sukūrimas</h1>
       <Container>
-        <Form>
+        {showConfirmation && (
+          <div className="alert alert-success" role="alert">
+            Dėstytojas buvo sėkmingai pridėtas!
+          </div>
+        )}
+        <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <FormField
@@ -60,13 +76,19 @@ const LecturerCreation = () => {
               />
             </Col>
             <Col>
-              <FormField
-                controlId="status"
-                label="Statusas"
-                type="text"
-                placeholder="Įrašykite dėstytojo statusą"
-              />
+              <Form.Group className="mb-3" controlId="Status">
+                <Form.Label>Statusas</Form.Label>
+                <Form.Select required>
+                  <option>Pasirinkti...</option>
+                  {LECTURER_STATUSES.map((status: { id: number; name: string }, i: number) => (
+                    <option key={i} value={status.id}>
+                      {status.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
             </Col>
+
           </Row>
           <Row>
             <Col>
@@ -95,7 +117,7 @@ const LecturerCreation = () => {
             </Col>
           </Row>
           <Row>
-          <Col>
+            <Col>
               <FormField
                 controlId="Adress"
                 label="Adresas"
@@ -104,8 +126,8 @@ const LecturerCreation = () => {
               />
             </Col>
             <Col>
-            <FormField
-                controlId="salary"
+              <FormField
+                controlId="Salary"
                 label="Atlyginimas"
                 type="text"
                 placeholder="Įrašykite atlyginimą"
@@ -115,23 +137,23 @@ const LecturerCreation = () => {
           <Row>
             <Col>
               <FormField
-                  controlId="PictureUrl"
-                  label="Nuotraukos URL"
-                  type="text"
-                  placeholder="Įrašykite nuotraukos URL"
-                />
+                controlId="PictureUrl"
+                label="Nuotraukos URL"
+                type="text"
+                placeholder="Įrašykite nuotraukos URL"
+              />
             </Col>
           </Row>
-
           <Row>
             <Col>
+              <Button style={{ width: "100%" }} variant="primary" type="submit">
+                Patvirtinti
+              </Button>
+            </Col>
+            <Col>
               <Link to="/lecturers">
-                <Button
-                  style={{ width: "100%" }}
-                  variant="primary"
-                  type="submit"
-                >
-                  Patvirtinti
+                <Button style={{ width: "100%" }} variant="secondary">
+                  Grįžti į sąrašą
                 </Button>
               </Link>
             </Col>

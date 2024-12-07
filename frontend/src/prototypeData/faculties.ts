@@ -1,16 +1,7 @@
 const FACULTIES = [
-  {
-    id: 1,
-    name: "Physics",
-  },
-  {
-    id: 2,
-    name: "Economics",
-  },
-  {
-    id: 3,
-    name: "Information Technology",
-  },
+  { id: 1, name: "Informatikos fakultetas" },
+  { id: 2, name: "Matematikos ir gamtos mokslų fakultetas" },
+  { id: 3, name: "Fizikos fakultetas" },
 ];
 
 export default FACULTIES;
