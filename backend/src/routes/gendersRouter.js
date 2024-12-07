@@ -1,4 +1,4 @@
-import { getGendersController } from "../controllers/gendersController.js";
+import { getGendersController } from "#controllers/students/gendersController.js";
 
 import express from "express";
 const router = express.Router();

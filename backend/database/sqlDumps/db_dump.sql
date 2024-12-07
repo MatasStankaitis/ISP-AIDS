@@ -19,6 +19,8 @@ DROP TABLE IF EXISTS Genders;
 DROP TABLE IF EXISTS Academic_groups;
 DROP TABLE IF EXISTS Faculties;
 DROP TABLE IF EXISTS Dorms;
+DROP TABLE IF EXISTS Room_reservations;
+
 SET NAMES 'utf8mb4';
 CREATE TABLE Dorms
 (
@@ -256,10 +258,11 @@ CREATE TABLE Grades
 
 CREATE TABLE Dorm_requests
 (
+	id int NOT NULL AUTO_INCREMENT,
 	date_created date NOT NULL,
 	type int NOT NULL,
 	status int NOT NULL,
-	id int NOT NULL AUTO_INCREMENT,
+	description TEXT,
 	fk_Administratorusername varchar (255) NULL,
 	fk_Studentusername varchar (255) NOT NULL,
 	PRIMARY KEY(id),
@@ -269,10 +272,23 @@ CREATE TABLE Dorm_requests
 	CONSTRAINT creates FOREIGN KEY(fk_Studentusername) REFERENCES Students (username)
 );
 
+CREATE TABLE Room_reservations
+(
+    id int NOT NULL AUTO_INCREMENT,
+    fk_Roomid int NOT NULL,
+    fk_Studentusername varchar(255) NOT NULL,
+    reservation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    canceled_date timestamp NULL,
+    active boolean NOT NULL DEFAULT true,
+    PRIMARY KEY(id),
+    CONSTRAINT has_room FOREIGN KEY(fk_Roomid) REFERENCES Dorm_rooms(id),
+    CONSTRAINT has_student FOREIGN KEY(fk_Studentusername) REFERENCES Students(username)
+);
+
 -- INSERTIONS:
 INSERT INTO Academic_groups (name, mentor_name, mentor_surname) 
 VALUES 
-('IFF-2/4', 'Jonas', 'Jonaitis'),
+('IFF-2/69', 'Jonas', 'Jonaitis'),
 ('IFF-2/5', 'Ignas', 'Ignaitis'),
 ('IFF-2/6', 'Petras', 'Petraitis');
 
@@ -293,3 +309,37 @@ INSERT INTO Students (year, state_funded, username, fk_Facultyid, fk_Groupid)
 VALUES
 (1, TRUE, 'alebal', 1, 1),
 (2, FALSE, 'alebal1', 2, 2);
+
+INSERT INTO Dorms (number, address, room_count) 
+VALUES 
+(1, 'Test Street 1', 10),
+(2, 'Test Street 2', 15);
+
+INSERT INTO Dorm_rooms (room_number, floor_number, price, quality, status, fk_Dormid)
+VALUES 
+(101, 1, 200, 1, 1, 1),  -- free room in dorm 1
+(102, 1, 200, 1, 2, 1),  -- taken room in dorm 1
+(201, 2, 250, 2, 1, 2);  -- free room in dorm 2
+
+-- First create admin user
+INSERT INTO Users (username, password_hash, name, surname, phone_number, email, home_address, gender)
+VALUES ('admin1', 'hashedpassword3', 'Admin', 'User', '1111111111', 'admin1@example.com', '789 Admin St', 1);
+
+-- Add admin to Administrators table
+INSERT INTO Administrators (username)
+VALUES ('admin1');
+
+-- Insert sample data
+INSERT INTO Dorm_requests 
+(fk_Studentusername, type, description, status, date_created) 
+VALUES 
+('alebal', 1, 'Need permission for weekend guest from Friday to Sunday', 1, CURRENT_TIMESTAMP),
+('alebal1', 2, 'Request room change to first floor due to leg injury', 1, CURRENT_TIMESTAMP),
+('alebal', 4, 'Broken heater in room 101, room is very cold', 1, CURRENT_TIMESTAMP);
+
+-- Now insert requests with correct column name
+INSERT INTO Dorm_requests 
+(fk_Studentusername, type, description, status, fk_Administratorusername, date_created) 
+VALUES 
+('alebal', 2, 'Room change request - current neighbors too noisy', 2, 'admin1', CURRENT_DATE),
+('alebal1', 4, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin1', CURRENT_DATE);

@@ -1,5 +1,4 @@
-import connection from "../sqlConnection.js";
-import { NotFoundError } from "../utils/errors.js";
+import connection from "#config/sqlConnection.js";
 
 export const updateStudent = async (
   username,

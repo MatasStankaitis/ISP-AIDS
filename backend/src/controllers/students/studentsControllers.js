@@ -1,14 +1,14 @@
-import { SUCCESS_STATUS } from "../constants.js";
-import { createStudent } from "../repository/createStudent.js";
-import { createUser } from "../repository/createUser.js";
-import { deleteUser as deleteUser } from "../repository/deleteStudent.js";
-import { getStudent } from "../repository/getStudent.js";
-import { getStudents } from "../repository/getStudents.js";
-import { updateStudent } from "../repository/updateStudent.js";
-import { studentCreateSchema } from "../schemas/studentCreateSchema.js";
-import { studentUpdateSchema } from "../schemas/studentUpdateSchema.js";
-import { ValidationError } from "../utils/errors.js";
-import { handleError } from "../utils/handleError.js";
+import { SUCCESS_STATUS } from "#utils/constants.js";
+import { createStudent } from "#repository/students/createStudent.js";
+import { createUser } from "#repository/students/createUser.js";
+import { deleteUser as deleteUser } from "#repository/students/deleteStudent.js";
+import { getStudent } from "#repository/students/getStudent.js";
+import { getStudents } from "#repository/students/getStudents.js";
+import { updateStudent } from "#repository/students/updateStudent.js";
+import { studentCreateSchema } from "#schemas/studentCreateSchema.js";
+import { studentUpdateSchema } from "#schemas/studentUpdateSchema.js";
+import { ValidationError } from "#utils/errors.js";
+import { handleError } from "#utils/handleError.js";
 
 export const getStudentsController = async (req, res) => {
   try {

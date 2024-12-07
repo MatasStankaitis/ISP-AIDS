@@ -1,5 +1,5 @@
-import { INTERNAL_SERVER_ERROR_STATUS, SUCCESS_STATUS } from "../constants.js";
-import { getGenders } from "../repository/getGenders.js";
+import { INTERNAL_SERVER_ERROR_STATUS, SUCCESS_STATUS } from "#utils/constants.js";
+import { getGenders } from "#repository/students/getGenders.js";
 
 export const getGendersController = async (req, res) => {
   try {

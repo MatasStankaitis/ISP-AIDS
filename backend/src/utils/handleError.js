@@ -2,7 +2,7 @@ import {
   INTERNAL_SERVER_ERROR_STATUS,
   NOT_FOUND_ERROR_STATUS,
   VALIDATION_ERROR_STATUS,
-} from "../constants.js";
+} from "#utils/constants.js";
 import { NotFoundError, ValidationError } from "./errors.js";
 
 export const handleError = (res, err) => {

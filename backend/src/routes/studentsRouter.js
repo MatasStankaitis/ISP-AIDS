@@ -4,7 +4,7 @@ import {
   getStudentByUsernameController,
   postStudentController,
   deleteStudentController,
-} from "../controllers/studentsControllers.js";
+} from "#controllers/students/studentsControllers.js";
 import express from "express";
 const router = express.Router();
 
