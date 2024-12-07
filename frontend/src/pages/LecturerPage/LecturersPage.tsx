@@ -5,7 +5,7 @@ const LecturersPage = () => {
 
   return (
     <div>
-      <h1>Lecturers Page</h1>
+      <h1>Dėstytojų sąrašas</h1>
       {/* Ensure LecturerList is included */}
       <LecturerList />
     </div>

@@ -18,14 +18,14 @@ const LecturerRemoveModal = ({ name, onHide, show }: LecturerRemoveModalProps) =
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Remove Lecturer?
+          Panaikinti dėstytoją?
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Are you sure you want to remove {name}? This action cannot be undone.</p>
+        <p>Ar tikrai norite ištrinti dėstytoją {name}? Šis veiksmas yra negrįžtamas.</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={onHide}>Confirm</Button>
+        <Button variant="danger" onClick={onHide}>Patvirtinti</Button>
       </Modal.Footer>
     </Modal>
   );

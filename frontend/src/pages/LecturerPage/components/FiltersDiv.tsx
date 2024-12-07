@@ -1,6 +1,12 @@
 import Form from "react-bootstrap/Form";
 
-const FiltersDiv = ({ name, surname, onChange }) => {
+interface FiltersDivProps {
+  name: string; // 'name' should be a string
+  surname: string; // 'surname' should be a string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // 'onChange' should be a function
+}
+
+const FiltersDiv: React.FC<FiltersDivProps> = ({ name, surname, onChange }) => {
   return (
     <div className="filtersDiv">
       <Form>
@@ -8,7 +14,7 @@ const FiltersDiv = ({ name, surname, onChange }) => {
           <Form.Label>Vardas</Form.Label>
           <Form.Control
             onChange={onChange}
-            type="firstName"
+            type="text" // Change to a valid type 'text'
             value={name}
             placeholder="Vardenis"
           />
@@ -17,7 +23,7 @@ const FiltersDiv = ({ name, surname, onChange }) => {
           <Form.Label>Pavardė</Form.Label>
           <Form.Control
             onChange={onChange}
-            type="lastName"
+            type="text" // Change to a valid type 'text'
             value={surname}
             placeholder="Pavardenis"
           />

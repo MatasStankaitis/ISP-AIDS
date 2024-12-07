@@ -16,14 +16,14 @@ const LecturerEditSalaryPage = () => {
 
   return (
     <Container>
-      <h1>Edit Salary</h1>
+      <h1>Redaguoti atlyginimą</h1>
       <Form>
         <Form.Group>
-          <Form.Label>Current Salary</Form.Label>
+          <Form.Label>Dabartinis atlyginimas</Form.Label>
           <Form.Control defaultValue={`$${lecturer?.salary || "0.00"}`} />
         </Form.Group>
         <Button variant="primary" onClick={handleSave}>
-          Save
+          Išsaugoti
         </Button>
       </Form>
     </Container>

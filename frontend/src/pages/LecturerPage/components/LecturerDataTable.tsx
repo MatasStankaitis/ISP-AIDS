@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import Table from "react-bootstrap/Table";
 
 interface LecturerDataTableProps {
-  rows: ReactElement[];
+  rows: ReactElement[]; // Accept an array of React elements
 }
 
 const LecturerDataTable = ({ rows }: LecturerDataTableProps) => {
@@ -12,14 +12,20 @@ const LecturerDataTable = ({ rows }: LecturerDataTableProps) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Actions</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
+            <th>Vartotojo vardas</th>
+            <th>Telefono nr.</th>
+            <th>El. paštas</th>
+            <th>Statusas</th>
+            <th>Fakultetas</th>
+            <th>Adresas</th>
+            <th>Lytis</th>
+            <th>Atlyginimas</th>
+            <th>Veiksmai</th>
           </tr>
         </thead>
-        <tbody>
-          {rows} {/* Directly use the rows prop */}
-        </tbody>
+        <tbody>{rows}</tbody>
       </Table>
     </div>
   );
