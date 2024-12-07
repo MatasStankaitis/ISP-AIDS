@@ -1,13 +1,25 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { baseUrl } from "../../../constants";
 
 interface RemoveModalProps {
   name: string;
   onHide: () => void;
   show: boolean;
+  username: string;
 }
 
-const RemoveModal = ({ name, onHide, show }: RemoveModalProps) => {
+const RemoveModal = ({ name, onHide, show, username }: RemoveModalProps) => {
+  const deleteStudent = () => {
+    fetch(`${baseUrl}/students/${username}`, {
+      method: "DELETE",
+    }).then(onHide);
+  };
+
+  const handleClick = () => {
+    deleteStudent();
+  };
+
   return (
     <Modal
       onHide={onHide}
@@ -29,7 +41,7 @@ const RemoveModal = ({ name, onHide, show }: RemoveModalProps) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="btn btn-danger" onClick={onHide}>
+        <Button className="btn btn-danger" onClick={handleClick}>
           Pašalinti studentą
         </Button>
       </Modal.Footer>

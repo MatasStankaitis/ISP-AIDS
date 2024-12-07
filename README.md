@@ -13,7 +13,7 @@ docker-compose up -d
 
 To start a backend server
 
-from backend folder rename .env-template to .env
+from backend folder duplicate .env-template and rename to .env
 
 cd backend
 npm i

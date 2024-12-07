@@ -5,7 +5,7 @@ interface StudentDataTableRowProps {
   name: string;
   surname: string;
   username: string;
-  onRemove: (name: string) => void;
+  onRemove: (name: string, username: string) => void;
 }
 
 const StudentDataTableRow = ({
@@ -47,7 +47,7 @@ const StudentDataTableRow = ({
             <button
               type="button"
               className="btn btn-outline-danger delete-button"
-              onClick={() => onRemove(name)}
+              onClick={() => onRemove(name, username)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
