@@ -8,7 +8,7 @@ export const studentCreateSchema = Joi.object({
   email: Joi.string().email().required(),
   home_address: Joi.string().required(),
   gender: Joi.number().min(0).required(),
-  year: Joi.number().min(0).max(5).required(),
+  year: Joi.number().min(0).max(4).required(),
   state_funded: Joi.boolean().strict().required(),
   fk_Facultyid: Joi.number().min(0).required(),
   fk_Groupid: Joi.number().min(0).required(),

@@ -1,4 +1,4 @@
-export type student = {
+export type listStudent = {
   username: string;
   surname: string;
   name: string;

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import RemoveModal from "./components/RemoveModal";
 import ExportModal from "./components/ExportModal";
-import { student } from "../../types/student";
+import { listStudent } from "../../types/listStudent";
 import { baseUrl } from "../../constants";
 
 const StudentsList = () => {
@@ -17,7 +17,7 @@ const StudentsList = () => {
   });
   const [exportModalShow, setExportModalShow] = useState(false);
 
-  const [students, setStudents] = useState([] as student[]);
+  const [students, setStudents] = useState([] as listStudent[]);
 
   useEffect(() => {
     fetch(`${baseUrl}/students`, {
