@@ -5,6 +5,10 @@ import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import StudentsList from "./pages/StudentsPage/StudentsList";
 import LecturersPage from "./pages/LecturerPage/LecturersPage";
+import LecturerDetails from "./pages/LecturerPage/LecturerDetails"; //edited
+import LecturerCreation from "./pages/LecturerPage/LecturerCreation"; //edited
+import LecturerEditPage from "./pages/LecturerPage/LecturerEditPage"; // Adjust this path based on file location
+import LecturerEditSalaryPage from "./pages/LecturerPage/LecturerEditSalaryPage"; // Adjust path as needed
 import Subjects from "./pages/Subjects";
 import SubjectsList from "./pages/SubjectsPage/SubjectsList";
 import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
@@ -30,7 +34,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="students" element={<StudentsList />} />
-          <Route path="lecturers" element={<LecturersPage />} />
+          <Route path="lecturers/*" element={<LecturersPage />} /> {/* //edited */}
+          <Route path="lecturers/create" element={<LecturerCreation />} /> {/* //edited */}
+          <Route path="lecturers/:id" element={<LecturerDetails />} /> {/* //edited */}
+          <Route path="lecturers/:id/edit" element={<LecturerEditPage />} />
+          <Route path="lecturers/:id/edit-salary" element={<LecturerEditSalaryPage />} />
           <Route path="students/create" element={<StudentCreation />} />
           <Route path="students/:username" element={<StudentDetails />} />
           <Route path="subjects" element={<SubjectsList />} />

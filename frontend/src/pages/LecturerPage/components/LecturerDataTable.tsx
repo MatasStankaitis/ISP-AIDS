@@ -1,30 +1,27 @@
-import React from 'react';
-import Table from 'react-bootstrap/Table';
-import LecturerDataTableRow from './LecturerDataTableRow';
+import { ReactElement } from "react";
+import Table from "react-bootstrap/Table";
 
-const LecturerDataTable = ({ lecturers, onDelete, onEditSalary }) => {
+interface LecturerDataTableProps {
+  rows: ReactElement[];
+}
+
+const LecturerDataTable = ({ rows }: LecturerDataTableProps) => {
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Vardas</th>
-          <th>Pavardė</th>
-          <th>El. paštas</th>
-          <th>Atlyginimas</th>
-          <th>Veiksmai</th>
-        </tr>
-      </thead>
-      <tbody>
-        {lecturers.map((lecturer) => (
-          <LecturerDataTableRow
-            key={lecturer.id}
-            lecturer={lecturer}
-            onDelete={onDelete}
-            onEditSalary={onEditSalary}
-          />
-        ))}
-      </tbody>
-    </Table>
+    <div className="table-div">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows} {/* Directly use the rows prop */}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

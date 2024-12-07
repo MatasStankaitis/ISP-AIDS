@@ -1,47 +1,42 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
 
-const LecturerCreation = ({ onAdd }) => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    salary: ''
-  });
+const LecturerCreation = () => {
+  const [name, setName] = useState("");
+  const [department, setDepartment] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onAdd(formData);
-    setFormData({ firstName: '', lastName: '', email: '', salary: '' });
+  const handleSubmit = () => {
+    // Simulate API save
+    alert(`Lecturer ${name} added to department ${department}`);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="firstName">
-        <Form.Label>Vardas</Form.Label>
-        <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group controlId="lastName">
-        <Form.Label>Pavardė</Form.Label>
-        <Form.Control type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group controlId="email">
-        <Form.Label>El. paštas</Form.Label>
-        <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group controlId="salary">
-        <Form.Label>Atlyginimas</Form.Label>
-        <Form.Control type="number" name="salary" value={formData.salary} onChange={handleChange} required />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Pridėti dėstytoją
-      </Button>
-    </Form>
+    <Container>
+      <h1>Create Lecturer</h1>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter lecturer's name"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Department</Form.Label>
+          <Form.Control
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            placeholder="Enter department"
+          />
+        </Form.Group>
+        <Button type="submit" variant="primary">
+          Save
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

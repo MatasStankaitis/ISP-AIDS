@@ -1,18 +1,40 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
-const LecturerDataTableRow = ({ lecturer, onDelete, onEditSalary }) => {
+interface LecturerDataTableRowProps {
+  id: number;
+  name: string;
+  department: string;
+  onRemove: (name: string) => void;
+}
+
+const LecturerDataTableRow = ({
+  id,
+  name,
+  department,
+  onRemove,
+}: LecturerDataTableRowProps) => {
   return (
-    <tr>
-      <td>{lecturer.firstName}</td>
-      <td>{lecturer.lastName}</td>
-      <td>{lecturer.email}</td>
-      <td>{lecturer.salary} €</td>
-      <td>
-        <Button variant="info" onClick={() => onEditSalary(lecturer.id)}>Redaguoti atlyginimą</Button>{' '}
-        <Button variant="danger" onClick={() => onDelete(lecturer.id)}>Pašalinti</Button>
-      </td>
-    </tr>
+    <>
+      <tr>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td>{department}</td>
+        <td>
+          <Link to={"/lecturers/" + id}>
+            <button type="button" className="btn btn-success edit-button">
+              Details
+            </button>
+          </Link>
+          <button
+            type="button"
+            className="btn btn-outline-danger delete-button"
+            onClick={() => onRemove(name)}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </>
   );
 };
 
