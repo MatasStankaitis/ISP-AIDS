@@ -1,5 +1,5 @@
-import connection from "../sqlConnection.js";
-import { NotFoundError } from "../utils/errors.js";
+import connection from "#config/sqlConnection.js";
+import { NotFoundError } from "#utils/errors.js";
 
 export const deleteUser = async (username) => {
   try {

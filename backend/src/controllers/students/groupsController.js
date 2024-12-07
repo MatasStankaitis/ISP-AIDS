@@ -1,5 +1,5 @@
-import { INTERNAL_SERVER_ERROR_STATUS, SUCCESS_STATUS } from "../constants.js";
-import { getGroups } from "../repository/getGroups.js";
+import { INTERNAL_SERVER_ERROR_STATUS, SUCCESS_STATUS } from "#utils/constants.js";
+import { getGroups } from "#repository/students/getGroups.js";
 
 export const getGroupsController = async (req, res) => {
   try {

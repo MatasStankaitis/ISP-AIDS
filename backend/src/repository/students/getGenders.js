@@ -1,4 +1,4 @@
-import connection from "../sqlConnection.js";
+import connection from "#config/sqlConnection.js";
 
 export const getGenders = async () => {
   try {
