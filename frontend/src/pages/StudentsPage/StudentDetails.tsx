@@ -20,7 +20,7 @@ const StudentDetails = () => {
           <Row>
             <Col>
               <FormField
-                ControlId="Firstname"
+                controlId="Firstname"
                 label="Vardas"
                 type="text"
                 placeholder="Įrašykite vardą"
@@ -29,7 +29,7 @@ const StudentDetails = () => {
             </Col>
             <Col>
               <FormField
-                ControlId="Surname"
+                controlId="Surname"
                 label="Pavardė"
                 type="text"
                 placeholder="Įrašykite pavardę"
@@ -40,7 +40,7 @@ const StudentDetails = () => {
           <Row>
             <Col>
               <FormField
-                ControlId="Username"
+                controlId="Username"
                 label="Vartotojo vardas"
                 type="text"
                 placeholder="Įrašykite vartotojo vardą"
@@ -49,7 +49,7 @@ const StudentDetails = () => {
             </Col>
             <Col>
               <FormField
-                ControlId="PhoneNumber"
+                controlId="PhoneNumber"
                 label="Telefono nr."
                 type="text"
                 placeholder="Įrašykite telefono numerį"
@@ -60,7 +60,7 @@ const StudentDetails = () => {
           <Row>
             <Col>
               <FormField
-                ControlId="Email"
+                controlId="Email"
                 label="El. paštas"
                 type="text"
                 placeholder="Įrašykite El. paštą"
@@ -69,7 +69,7 @@ const StudentDetails = () => {
             </Col>
             <Col>
               <FormField
-                ControlId="HomeAddress"
+                controlId="HomeAddress"
                 label="Gyvenamosios vietos adresas"
                 type="text"
                 placeholder="Įrašykite adresą"

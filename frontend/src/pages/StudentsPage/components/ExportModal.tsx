@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FACULTIES from "../../../prototypeData/faculties";
 import { CSVLink } from "react-csv";
 import { useEffect, useRef, useState } from "react";
 import { baseUrl } from "../../../constants";
