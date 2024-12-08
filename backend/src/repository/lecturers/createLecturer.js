@@ -1,53 +1,71 @@
-import connection from "../sqlConnection.js";
+import connection from "../../config/sqlConnection.js";
 
 // Function to create a lecturer
 export async function createLecturer(lecturerData) {
-  const query = `
-    INSERT INTO Users (username, name, surname, phone_number, email, home_address, gender)
-    VALUES (?, ?, ?, ?, ?, ?, ?);
-    INSERT INTO Lecturers (username, current_salary, faculty, status)
-    VALUES (?, ?, ?, ?);
-  `;
-  const values = [
-    lecturerData.username,
-    lecturerData.name,
-    lecturerData.surname,
-    lecturerData.phone_number,
-    lecturerData.email,
-    lecturerData.home_address,
-    lecturerData.gender,
-    lecturerData.username,
-    lecturerData.current_salary,
-    lecturerData.faculty,
-    lecturerData.status,
-  ];
+  try {
+    // Insert into Users table
+    await connection.query(
+      `INSERT INTO Users (username, name, surname, phone_number, email, home_address, gender, photo_URL) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        lecturerData.username,
+        lecturerData.name,
+        lecturerData.surname,
+        lecturerData.phone_number,
+        lecturerData.email,
+        lecturerData.home_address,
+        lecturerData.gender,
+        lecturerData.picture_url,
+      ]
+    );
 
-  const [rows] = await connection.query(query, values);
-  return rows;
+    // Insert into Lecturers table
+    await connection.query(
+      `INSERT INTO Lecturers (username, current_salary, faculty, status) 
+       VALUES (?, ?, ?, ?)`,
+      [
+        lecturerData.username,
+        lecturerData.current_salary,
+        lecturerData.faculty,
+        lecturerData.status,
+      ]
+    );
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error in createLecturer:", error);
+    throw error;
+  }
 }
 
 // Function to fetch all lecturers
 export async function getAllLecturers() {
-  const query = `
-    SELECT 
-      l.username,
-      u.name,
-      u.surname,
-      u.phone_number,
-      u.email,
-      u.home_address,
-      u.gender AS gender_id,
-      g.name AS gender_name,
-      l.faculty AS faculty_id,
-      f.name AS faculty_name,
-      l.current_salary,
-      l.status AS status_id
-    FROM Lecturers l
-    JOIN Users u ON l.username = u.username
-    LEFT JOIN Genders g ON u.gender = g.id
-    LEFT JOIN Faculties f ON l.faculty = f.id;
-  `;
-
-  const [rows] = await connection.query(query);
-  return rows;
+  try {
+    const query = `
+      SELECT 
+        u.username, 
+        u.name, 
+        u.surname, 
+        u.phone_number, 
+        u.email, 
+        u.home_address, 
+        u.photo_URL, 
+        g.name AS gender_name,
+        f.name AS faculty_name,
+        l.current_salary, 
+        l.status AS status_id, 
+        s.name AS status_name,
+        l.experience 
+      FROM Lecturers l
+      INNER JOIN Users u ON l.username = u.username
+      LEFT JOIN Genders g ON u.gender = g.id
+      LEFT JOIN Faculties f ON l.faculty = f.id
+      LEFT JOIN Lecturer_statuses s ON l.status = s.id;
+    `;
+    const [rows] = await connection.query(query);
+    return rows;
+  } catch (error) {
+    console.error("Error in getAllLecturers:", error);
+    throw error;
+  }
 }
