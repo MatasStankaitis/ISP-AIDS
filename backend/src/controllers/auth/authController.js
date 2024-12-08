@@ -1,9 +1,18 @@
-import connection from '#config/sqlConnection.js';
-import argon2 from 'argon2';
-import session from 'express-session';
+import connection from "#config/sqlConnection.js";
+import argon2 from "argon2";
+import session from "express-session";
 
 export const registerController = async (req, res) => {
-  const { username, password, name, surname, phone_number, email, home_address, gender } = req.body;
+  const {
+    username,
+    password,
+    name,
+    surname,
+    phone_number,
+    email,
+    home_address,
+    gender,
+  } = req.body;
 
   try {
     // Hash the password before storing
@@ -13,13 +22,24 @@ export const registerController = async (req, res) => {
     await connection.execute(
       `INSERT INTO Users (username, password_hash, name, surname, phone_number, email, home_address, gender, approved)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, FALSE)`,
-      [username, password_hash, name, surname, phone_number, email, home_address, gender]
+      [
+        username,
+        password_hash,
+        name,
+        surname,
+        phone_number,
+        email,
+        home_address,
+        gender,
+      ]
     );
 
-    res.status(201).json({ message: 'Registration successful. Awaiting approval.' });
+    res
+      .status(201)
+      .json({ message: "Registration successful. Awaiting approval." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Registration failed' });
+    res.status(500).json({ error: "Registration failed" });
   }
 };
 
@@ -34,18 +54,18 @@ export const loginController = async (req, res) => {
     );
 
     if (users.length === 0) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = users[0];
 
     // Check if user is approved
     if (!user.approved) {
-      return res.status(403).json({ error: 'Account not approved' });
+      return res.status(403).json({ error: "Account not approved" });
     }
 
-    if (! await argon2.verify(user.password_hash, password)) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    if (!(await argon2.verify(user.password_hash, password))) {
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     // Determine user role
@@ -54,53 +74,55 @@ export const loginController = async (req, res) => {
     req.session.user = { username: user.username, role };
     req.session.save((err) => {
       if (err) {
-        console.error('Session save error:', err);
-        return res.status(500).json({ error: 'Login failed' });
+        console.error("Session save error:", err);
+        return res.status(500).json({ error: "Login failed" });
       }
-      res.status(200).json({ message: 'Login successful', username: user.username, role });
+      res
+        .status(200)
+        .json({ message: "Login successful", username: user.username, role });
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Login failed' });
+    res.status(500).json({ error: "Login failed" });
   }
 };
 
 // Helper function to get user role
 export const getUserRole = async (username) => {
-  console.log('Getting role for:', username);
+  console.log("Getting role for:", username);
   // Check Administrator
   const [admins] = await connection.execute(
     `SELECT username FROM Administrators WHERE username = ?`,
     [username]
   );
-  if (admins.length > 0) return 'administrator';
+  if (admins.length > 0) return "administrator";
 
   // Check Lecturer
   const [lecturers] = await connection.execute(
     `SELECT username FROM Lecturers WHERE username = ?`,
     [username]
   );
-  if (lecturers.length > 0) return 'lecturer';
+  if (lecturers.length > 0) return "lecturer";
 
   // Check Student
   const [students] = await connection.execute(
     `SELECT username FROM Students WHERE username = ?`,
     [username]
   );
-  if (students.length > 0) return 'student';
+  if (students.length > 0) return "student";
 
   // Default role if none found
-  return 'guest';
+  return "guest";
 };
 
 export const logoutController = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error('Session destruction error:', err);
-      res.status(500).json({ error: 'Logout failed' });
+      console.error("Session destruction error:", err);
+      res.status(500).json({ error: "Logout failed" });
     } else {
-      res.clearCookie('connect.sid');
-      res.status(200).json({ message: 'Logout successful' });
+      res.clearCookie("connect.sid");
+      res.status(200).json({ message: "Logout successful" });
     }
   });
 };
