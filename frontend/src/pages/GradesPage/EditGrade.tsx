@@ -62,7 +62,7 @@ const EditGradesPage = () => {
   const handleSubmit = () => {
     console.log(grades);
     updateStudentsGrades();
-    navigate(`/grades/${subjectCode}/students`);
+    navigate(`/home/grades/${subjectCode}/students`);
   };
 
   return (

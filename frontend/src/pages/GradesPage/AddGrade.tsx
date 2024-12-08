@@ -41,7 +41,7 @@ const AddGradePage = () => {
   const handleSubmit = () => {
     // Logic to save grades for the student (e.g., API call)
     CreateStudentGrade();
-    navigate(`/grades/${subjectCode}/students`);
+    navigate(`/home/grades/${subjectCode}/students`);
   };
 
   return (

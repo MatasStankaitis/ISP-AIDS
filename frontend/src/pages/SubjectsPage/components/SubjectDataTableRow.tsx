@@ -68,7 +68,7 @@ const SubjectDataTableRow = ({
             >
               {showTimes ? "Hide Times" : "Show Times"}
             </button>
-            <Link to={`/home/grades/${code}`}>
+            <Link to={`/home/grades/${code}/students`}>
               <button type="button" className="btn btn-outline-primary">
                 View Grades
               </button>
