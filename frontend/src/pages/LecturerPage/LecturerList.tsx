@@ -28,7 +28,6 @@ const LecturerList = () => {
     try {
       const response = await fetch(`${baseUrl}/lecturers`);
       const data = await response.json();
-      console.log("Fetched lecturers:", data); // Log lecturers data
       setLecturers(data);
     } catch (error) {
       console.error("Failed to fetch lecturers:", error);
@@ -40,7 +39,6 @@ const LecturerList = () => {
     try {
       const response = await fetch(`${baseUrl}/genders`);
       const data = await response.json();
-      console.log("Fetched genders:", data); // Add this
       setGenders(data);
     } catch (error) {
       console.error("Failed to fetch genders:", error);
@@ -61,26 +59,11 @@ const LecturerList = () => {
     try {
       const response = await fetch(`${baseUrl}/faculties`);
       const data = await response.json();
-      console.log("Fetched faculties:", data); // Add this
       setFaculties(data);
     } catch (error) {
       console.error("Failed to fetch faculties:", error);
     }
   };
-
-  const getReadableGender = (genderId: number) => {
-    console.log("Gender ID:", genderId, "Available genders:", genders); // Debug log
-    return genders.find((g: any) => g.id === genderId)?.name || "N/A";
-  };
-
-  const getReadableStatus = (statusId: number) =>
-    statuses.find((s: any) => s.id === statusId)?.name || "N/A";
-
-  const getReadableFaculty = (facultyId: number) => {
-    console.log("Faculty ID:", facultyId, "Available faculties:", faculties); // Debug log
-    return faculties.find((f: any) => f.id === facultyId)?.name || "N/A";
-  };
-
   const handleRemoveClick = (name: string) => {
     setRemoveModal({ show: true, lecturerName: name });
   };
@@ -109,9 +92,9 @@ const LecturerList = () => {
             phone_number={lecturer.phone_number}
             email={lecturer.email}
             home_address={lecturer.home_address}
-            gender={getReadableGender(lecturer.gender)} // Ensure proper mapping
-            status={getReadableStatus(lecturer.status)}
-            faculty={getReadableFaculty(lecturer.faculty)} // Ensure proper mapping
+            gender={lecturer.gender_name} // Ensure proper mapping
+            status={lecturer.status_name}
+            faculty={lecturer.faculty_name} // Ensure proper mapping
             current_salary={lecturer.current_salary}
             onRemove={handleRemoveClick}
           />

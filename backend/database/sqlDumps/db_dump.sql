@@ -155,10 +155,12 @@ CREATE TABLE Lecturers
 	current_salary double precision NULL,
 	experience int NOT NULL,
 	status int NOT NULL,
+	faculty int NULL,
 	username varchar (255) NOT NULL,
 	PRIMARY KEY(username),
 	FOREIGN KEY(status) REFERENCES Lecturer_statuses (id),
-	FOREIGN KEY(username) REFERENCES Users (username)
+	FOREIGN KEY(username) REFERENCES Users (username),
+	FOREIGN KEY(faculty) REFERENCES Faculties(id)
 );
 
 CREATE TABLE Subject_times
