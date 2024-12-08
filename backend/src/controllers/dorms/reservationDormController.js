@@ -7,10 +7,10 @@ import { handleError } from "#utils/handleError.js";
 export const reserveDormRoomController = async (req, res) => {
   try {
     const { roomId, studentUsername } = req.body;
-    await reserveDormRoom(roomId, studentUsername);
+    const data = await reserveDormRoom(roomId, studentUsername);
     res.status(SUCCESS_STATUS).json({
       success: true,
-      message: "Successfully reserved room"
+      message: data.message,
     });
   } catch (err) {
     handleError(res, err);

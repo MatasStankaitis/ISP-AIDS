@@ -1,17 +1,19 @@
 import connection from "#config/sqlConnection.js";
 import { ValidationError } from "#utils/errors.js";
 
-export const createDormRequest = async (studentUsername, type, description) => {
+export const createDormRequest = async (studentUsername, title, type, description) => {
   try {
     if (!studentUsername || !type) {
       throw new ValidationError("Student username and request type are required");
     }
-
+    console.log("studentUsername: ", studentUsername);
+    console.log("type: ", type);
+    console.log("description: ", description);
+    console.log("title: ", title);
+    
     const [results] = await connection.execute(
-      `INSERT INTO Dorm_requests 
-       (fk_Studentusername, type, description, status, date_created) 
-       VALUES (?, ?, ?, 1, CURRENT_TIMESTAMP)`,
-      [studentUsername, type, description]
+      `INSERT INTO Dorm_requests (fk_Studentusername, title, type, description, status, date_created) VALUES (?, ?, ?, ?, 1, CURRENT_DATE())`,
+      [studentUsername, title, type, description]
     );
 
     if (results.affectedRows === 0) {

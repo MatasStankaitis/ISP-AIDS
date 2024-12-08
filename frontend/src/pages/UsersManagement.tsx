@@ -62,29 +62,29 @@ const UsersManagement: React.FC = () => {
   };
   return (
     <div>
-      <h2>Users Management</h2>
+      <h2>Vartotųjų valdymas</h2>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Approved</th>
-            <th>Actions</th>
+            <th>Vartotojo vardas</th>
+            <th>Patvirtintas</th>
+            <th>Veiksmai</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.username}>
               <td>{user.username}</td>
-              <td>{user.approved ? 'Yes' : 'No'}</td>
+              <td>{user.approved ? 'Taip' : 'Ne'}</td>
               <td>
                 {!user.approved && (
                   <Button variant="success" onClick={() => handleApprove(user.username)}>
-                    Approve
+                    Patvirtinti
                   </Button>
                 )}
                 {user.approved && (
                   <Button variant="danger" onClick={() => handleDisapprove(user.username)}>
-                    Disapprove
+                    Atmesti
                   </Button>
                 )}
               </td>

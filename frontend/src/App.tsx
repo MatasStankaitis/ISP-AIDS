@@ -26,7 +26,7 @@ import DormsPage from "./pages/DormsPage/DormsPage";
 import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
 import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
 import DormAdd from "./pages/DormsPage/DormManagement/DormAdd";
-import RequestHandling from "./pages/DormsPage/DormRequest/RequestHandling";
+import RequestManagement from "./pages/DormsPage/DormRequest/RequestManagement";
 import LoginPage from "./pages/auth/Login";
 import RegisterPage from "./pages/auth/Register";
 import Dashboard from "./pages/auth/Dashboard";
@@ -256,8 +256,8 @@ function App() {
         <Route
           path="dorms/requests"
           element={
-            <PrivateRoute roles={["administrator", "student"]}>
-              <RequestHandling />
+            <PrivateRoute roles={['administrator', 'student']}>
+              <RequestManagement />
             </PrivateRoute>
           }
         />

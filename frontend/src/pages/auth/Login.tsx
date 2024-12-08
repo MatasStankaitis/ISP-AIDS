@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { baseUrl } from "../../constants";
 import { Form, Button, Container, Alert } from 'react-bootstrap';
+import background from '../../assets/background.png'; // Import the background image
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -48,7 +49,18 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <Container className="mt-5" style={{ maxWidth: '400px' }}>
+      <div
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+    <Container className="p-4" style={{ maxWidth: '600px', backdropFilter: 'blur(15px)', borderRadius: '15px' }}>
       <h2 className="mb-4 text-center">Login</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -82,6 +94,7 @@ const LoginPage: React.FC = () => {
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
     </Container>
+    </div>
   );
 };
 

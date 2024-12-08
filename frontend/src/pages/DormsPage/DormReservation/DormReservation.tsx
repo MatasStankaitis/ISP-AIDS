@@ -1,57 +1,83 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
+import { Form, Container, Button, Alert, Row, Col } from "react-bootstrap";
 import DormSelect from "./DormSelect";
 import RoomSelect from "./RoomSelect";
+import { baseUrl } from "../../../constants";
+import { AuthContext } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const DormReservation = () => {
+  const [dorms, setDorms] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [selectedDorm, setSelectedDorm] = useState<string | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const dorms = ["Bendrabutis 1", "Bendrabutis 2", "Bendrabutis 3"]; // Replace with actual dorm data
-  const rooms = {
-    "Bendrabutis 1": ["Kambarys 101", "Kambarys 102"],
-    "Bendrabutis 2": ["Kambarys 201", "Kambarys 202"],
-    "Bendrabutis 3": ["Kambarys 301", "Kambarys 302"],
-  };
+  useEffect(() => {
+    fetch(`${baseUrl}/dorms`)
+      .then((response) => response.json())
+      .then((data) => setDorms(data))
+      .catch((error) => console.error("Failed to fetch dorms", error));
+  }, []);
 
   const handleDormChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDorm(e.target.value);
-    setSelectedRoom(null); // Reset selected room when dorm changes
+    const dormId = e.target.value;
+    setSelectedDorm(dormId);
+    setSelectedRoom(null);
+    fetch(`${baseUrl}/dorms/${dormId}/rooms`)
+      .then((response) => response.json())
+      .then((data) => setRooms(data))
+      .catch((error) => console.error("Failed to fetch rooms", error));
   };
 
   const handleRoomChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedRoom(e.target.value);
   };
 
-  const handleReserve = (e: FormEvent) => {
+  const handleReserve = async (e: FormEvent) => {
     e.preventDefault();
-    if (selectedRoom) {
-      alert(`Room ${selectedRoom} reserved!`);
-      // Add your reservation logic here
-    } else {
-      alert("Please select a room to reserve.");
+    if (!selectedRoom || !authContext?.user?.username) return;
+
+    try {
+      const response = await fetch(`${baseUrl}/dorms/rooms/reserve`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roomId: selectedRoom, studentUsername: authContext.user.username }),
+      });
+
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
+      console.error("Failed to reserve room", error);
+      setMessage("Failed to reserve room");
     }
   };
 
   return (
     <Container>
       <h1>Bendrabučio rezervacija</h1>
+      {message && <Alert variant="info">{message}</Alert>}
       <Form onSubmit={handleReserve}>
-        <DormSelect
-          dorms={dorms}
-          selectedDorm={selectedDorm}
-          onChange={handleDormChange}
-        />
+        <DormSelect dorms={dorms} selectedDorm={selectedDorm} onChange={handleDormChange} />
         {selectedDorm && (
-          <RoomSelect
-            rooms={rooms[selectedDorm]}
-            selectedRoom={selectedRoom}
-            onChange={handleRoomChange}
-          />
+          <RoomSelect rooms={rooms} selectedRoom={selectedRoom} onChange={handleRoomChange} />
         )}
-        <Button variant="primary" type="submit" disabled={!selectedRoom}>
-          Rezervuoti
-        </Button>
+        <Row className="mt-3">
+          <Col>
+            <Button variant="secondary" onClick={() => navigate(-1)}>
+              Grįžti atgal
+            </Button>
+          </Col>
+          <Col className="text-end">
+            <Button variant="primary" type="submit" disabled={!selectedRoom}>
+              Rezervuoti
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

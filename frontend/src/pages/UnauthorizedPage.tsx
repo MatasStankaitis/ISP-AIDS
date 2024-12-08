@@ -7,9 +7,9 @@ const UnauthorizedPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Unauthorized Access</h2>
-      <p>You do not have permission to view this page.</p>
-      <button onClick={() => navigate(-1)}>Go Back</button>
+      <h2>Neautorizuotas bandymas prisijungti</h2>
+      <p>Negalite peržiūrėti šio puslapio.</p>
+      <button onClick={() => navigate(-1)}>Grįžti atgal</button>
     </div>
   );
 };
