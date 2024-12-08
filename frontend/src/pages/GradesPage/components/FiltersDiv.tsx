@@ -1,9 +1,41 @@
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { Dispatch, SetStateAction, useState } from "react";
+import { listStudent } from "../../../types/listStudent";
+import { baseUrl } from "../../../constants";
 
-const FiltersDiv = ({ name, surname, onChange }) => {
+interface FiltersDivProp {
+  onFilter: Dispatch<SetStateAction<listStudent[]>>;
+}
+const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+
+  const onChange = (e: any) => {
+    switch (e.target.id) {
+      case "firstnameInput":
+        setName(e.target.value);
+        break;
+      case "surnameInput":
+        setSurname(e.target.value);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onFilter(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="filtersDiv">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="firstnameInput">
           <Form.Label>Vardas</Form.Label>
           <Form.Control
@@ -22,6 +54,13 @@ const FiltersDiv = ({ name, surname, onChange }) => {
             placeholder="Pavardenis"
           />
         </Form.Group>
+        <Button
+          style={{ width: "100%", marginBottom: "20px" }}
+          variant="primary"
+          type="submit"
+        >
+          Filtruoti
+        </Button>
       </Form>
     </div>
   );
