@@ -168,6 +168,7 @@ CREATE TABLE Subject_times
 	classroom varchar (255) NOT NULL,
 	even_week boolean NOT NULL,
 	id int NOT NULL AUTO_INCREMENT,
+	capacity int NOT NULL,
 	fk_Subjectcode varchar (255) NOT NULL,
 	PRIMARY KEY(id),
 	CONSTRAINT hasSubject FOREIGN KEY(fk_Subjectcode) REFERENCES Subjects (code)
@@ -343,3 +344,29 @@ INSERT INTO Dorm_requests
 VALUES 
 ('alebal', 2, 'Room change request - current neighbors too noisy', 2, 'admin1', CURRENT_DATE),
 ('alebal1', 4, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin1', CURRENT_DATE);
+
+-- Subjects
+INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid)
+VALUES
+('INF101', 'Introduction to Computer Science', 6, 'An introductory course on computer science fundamentals.', 'English', false, 1),
+('PHY101', 'General Physics I', 5, 'An introductory course on classical mechanics and thermodynamics.', 'English', false, 2),
+('MAT101', 'Calculus I', 6, 'A course on differential and integral calculus.', 'English', false, 3),
+('INF102', 'Data Structures and Algorithms', 6, 'A course focusing on data structures and algorithms.', 'English', false, 1),
+('MAT102', 'Linear Algebra', 5, 'A course on vector spaces, matrices, and linear transformations.', 'English', false, 3);
+
+INSERT INTO Subject_times (hour, day, classroom, even_week, capacity, fk_Subjectcode)
+VALUES
+(9, 1, 'Room 101', true, 30, 'INF101'),
+(11, 1, 'Room 101', true, 30, 'INF101'),
+(11, 3, 'Room 102', false, 25, 'PHY101'),
+(14, 5, 'Room 103', true, 20, 'MAT101'),
+(10, 2, 'Room 104', false, 30, 'INF102'),
+(13, 4, 'Room 105', true, 25, 'MAT102');
+
+INSERT INTO Student_subjects (passed, fk_Studentusername, fk_SubjectTimeid)
+VALUES
+(true, 'alebal', 1),
+(false, 'alebal1', 2),
+(true, 'alebal', 3),
+(false, 'alebal1', 4),
+(true, 'alebal', 5);
