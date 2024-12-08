@@ -43,7 +43,7 @@ const SubjectCreation = () => {
       body: JSON.stringify(formState),
     })
       .then((response) => response.json())
-      .then(() => navigate("/subjects"))
+      .then(() => navigate("/home/subjects"))
       .catch((error) => console.error("Error creating subject:", error));
   };
 

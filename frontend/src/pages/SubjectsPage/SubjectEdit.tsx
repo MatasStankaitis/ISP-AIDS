@@ -92,7 +92,7 @@ const SubjectEdit = () => {
             });
           }
         });
-        navigate("/subjects");
+        navigate("/home/subjects");
       })
       .catch((error) => console.error("Error updating subject:", error));
   };

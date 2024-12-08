@@ -37,7 +37,7 @@ const LecturerList = () => {
   return (
     <>
       <div className="flex-container">
-        <Link to="/lecturers/create">
+        <Link to="/home/lecturers/create">
           <Button variant="primary">Pridėti dėstytoją</Button>
         </Link>
       </div>

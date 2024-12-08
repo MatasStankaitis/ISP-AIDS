@@ -5,6 +5,8 @@ import gendersRouter from "./routes/gendersRouter.js";
 import facultiesRouter from "./routes/facultiesRouter.js";
 import dormsRouter from "./routes/dormsRouter.js";
 import subjectsRouter from "./routes/subjectsRouter.js";
+import authRouter from "./routes/authRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 
 const router = express.Router();
 
@@ -14,5 +16,7 @@ router.use("/genders", gendersRouter);
 router.use("/faculties", facultiesRouter);
 router.use("/dorms", dormsRouter);
 router.use("/subjects", subjectsRouter);
+router.use("/auth", authRouter);
+router.use("/admin", adminRouter);
 
 export default router;
