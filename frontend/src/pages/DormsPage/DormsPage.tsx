@@ -6,10 +6,10 @@ const DormsPage = () => {
     <Container>
       <h1>Bendrabučių duomenų valdymas</h1>
       <div className="flex-container">
-        <NavButton to="/dorms/reservation">Kambario rezervacija</NavButton>
-        <NavButton to="/dorms/edit">Redaguoti bendrabutį</NavButton>
-        <NavButton to="/dorms/add">Pridėti bendrabutį</NavButton>
-        <NavButton to="/dorms/requests">Prašymų valdymas</NavButton>
+        <NavButton to="/home/dorms/reservation">Kambario rezervacija</NavButton>
+        <NavButton to="/home/dorms/edit">Redaguoti bendrabutį</NavButton>
+        <NavButton to="/home/dorms/add">Pridėti bendrabutį</NavButton>
+        <NavButton to="/home/dorms/requests">Prašymų valdymas</NavButton>
       </div>
     </Container>
   );

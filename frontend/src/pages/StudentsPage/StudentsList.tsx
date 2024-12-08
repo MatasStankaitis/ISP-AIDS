@@ -56,7 +56,7 @@ const StudentsList = () => {
         <Button onClick={() => setExportModalShow(true)} variant="primary">
           Exportuoti
         </Button>
-        <Link to={"/students/create"}>
+        <Link to={"/home/students/create"}>
           <Button variant="primary">Pridėti studentą</Button>
         </Link>
       </div>

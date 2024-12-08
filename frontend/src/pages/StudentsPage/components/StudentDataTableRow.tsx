@@ -24,7 +24,7 @@ const StudentDataTableRow = ({
           <td>{surname}</td>
           <td>{username}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
-            <Link to={"/students/" + username}>
+            <Link to={"/home/students/" + username}>
               <button type="button" className="btn btn-success edit-button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

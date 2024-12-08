@@ -41,7 +41,7 @@ const StudentDetails = () => {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
-          navigate(-1);
+          navigate("/home/students");
         } else {
           response.json().then((data) => {
             setError(data.error);
@@ -133,7 +133,7 @@ const StudentDetails = () => {
           <center>{error}</center>
         </Alert>
       ) : null}
-      <h1>Studento sukūrimas</h1>
+      <h1>Studento redagavimas</h1>
       <Container>
         <Form onSubmit={handleSubmit}>
           <Row>

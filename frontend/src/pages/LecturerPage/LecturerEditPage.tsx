@@ -15,7 +15,7 @@ const LecturerEditPage = () => {
 
     const handleSave = () => {
         console.log("Mock saving lecturer data"); // Placeholder for saving logic
-        navigate(`/lecturers/${id}`);
+        navigate(`/home/lecturers/${id}`);
     };
 
     if (!lecturer) {
@@ -122,7 +122,7 @@ const LecturerEditPage = () => {
                         </Button>
                     </Col>
                     <Col>
-                        <Link to={`/lecturers/${id}`}>
+                        <Link to={`/home/lecturers/${id}`}>
                             <Button style={{ width: "100%" }} variant="secondary">
                                 Grįžti į profilį
                             </Button>
