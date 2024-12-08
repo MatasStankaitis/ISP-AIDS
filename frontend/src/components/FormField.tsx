@@ -7,6 +7,7 @@ interface FormFieldProps {
   placeholder: string;
   defaultValue?: string;
   onChange?: any;
+  name?: string;
   value?: any;
 }
 
@@ -17,6 +18,7 @@ const FormField = ({
   placeholder,
   defaultValue,
   onChange,
+  name,
   value,
 }: FormFieldProps) => (
   <Form.Group className="mb-3" controlId={controlId}>
@@ -26,6 +28,7 @@ const FormField = ({
       onChange={onChange}
       required
       type={type}
+      name={name}
       placeholder={placeholder}
       defaultValue={defaultValue}
     />

@@ -1,27 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LecturerDataTable from "./components/LecturerDataTable";
 import LecturerDataTableRow from "./components/LecturerDataTableRow";
 import LecturerFilterDiv from "./components/LecturerFilterDiv";
-import LECTURERS from "../../prototypeData/lecturers";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
+import { baseUrl } from "../../constants";
 
 const LecturerList = () => {
-  const [filteredLecturers, setFilteredLecturers] = useState(LECTURERS);
+  const [lecturers, setLecturers] = useState([]);
+  const [genders, setGenders] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [faculties, setFaculties] = useState([]);
   const [removeModal, setRemoveModal] = useState({
     show: false,
     lecturerName: "",
   });
 
-  const handleFilter = (searchText: string) => {
-    const lowerCaseSearch = searchText.toLowerCase();
-    const filtered = LECTURERS.filter(
-      (lecturer) =>
-        lecturer.name.toLowerCase().includes(lowerCaseSearch) ||
-        lecturer.surname.toLowerCase().includes(lowerCaseSearch)
-    );
-    setFilteredLecturers(filtered);
+  useEffect(() => {
+    fetchLecturers();
+    fetchGenders();
+    fetchStatuses();
+    fetchFaculties();
+  }, []);
+
+  const fetchLecturers = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/lecturers`);
+      const data = await response.json();
+      console.log("Fetched lecturers:", data); // Log lecturers data
+      setLecturers(data);
+    } catch (error) {
+      console.error("Failed to fetch lecturers:", error);
+    }
+  };
+
+
+  const fetchGenders = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/genders`);
+      const data = await response.json();
+      console.log("Fetched genders:", data); // Add this
+      setGenders(data);
+    } catch (error) {
+      console.error("Failed to fetch genders:", error);
+    }
+  };
+
+  const fetchStatuses = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/lecturers/statuses`);
+      const data = await response.json();
+      setStatuses(data);
+    } catch (error) {
+      console.error("Failed to fetch statuses:", error);
+    }
+  };
+
+  const fetchFaculties = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/faculties`);
+      const data = await response.json();
+      console.log("Fetched faculties:", data); // Add this
+      setFaculties(data);
+    } catch (error) {
+      console.error("Failed to fetch faculties:", error);
+    }
+  };
+
+  const getReadableGender = (genderId: number) => {
+    console.log("Gender ID:", genderId, "Available genders:", genders); // Debug log
+    return genders.find((g: any) => g.id === genderId)?.name || "N/A";
+  };
+
+  const getReadableStatus = (statusId: number) =>
+    statuses.find((s: any) => s.id === statusId)?.name || "N/A";
+
+  const getReadableFaculty = (facultyId: number) => {
+    console.log("Faculty ID:", facultyId, "Available faculties:", faculties); // Debug log
+    return faculties.find((f: any) => f.id === facultyId)?.name || "N/A";
   };
 
   const handleRemoveClick = (name: string) => {
@@ -31,7 +88,6 @@ const LecturerList = () => {
   const handleConfirmRemove = () => {
     console.log(`Pašalinti dėstytoją: ${removeModal.lecturerName}`);
     setRemoveModal({ show: false, lecturerName: "" });
-    // Additional logic to remove the lecturer from the list can be added here.
   };
 
   return (
@@ -41,18 +97,27 @@ const LecturerList = () => {
           <Button variant="primary">Pridėti dėstytoją</Button>
         </Link>
       </div>
-      <LecturerFilterDiv onFilter={handleFilter} />
+      <LecturerFilterDiv />
       <LecturerDataTable
-        rows={filteredLecturers.map((lecturer) => (
+        rows={lecturers.map((lecturer, index) => (
           <LecturerDataTableRow
-            key={lecturer.id}
-            {...lecturer}
+            key={lecturer.username}
+            id={index + 1}
+            name={lecturer.name}
+            surname={lecturer.surname}
+            username={lecturer.username}
+            phone_number={lecturer.phone_number}
+            email={lecturer.email}
+            home_address={lecturer.home_address}
+            gender={getReadableGender(lecturer.gender)} // Ensure proper mapping
+            status={getReadableStatus(lecturer.status)}
+            faculty={getReadableFaculty(lecturer.faculty)} // Ensure proper mapping
+            current_salary={lecturer.current_salary}
             onRemove={handleRemoveClick}
           />
         ))}
       />
 
-      {/* Confirmation Modal */}
       <Modal
         show={removeModal.show}
         onHide={() => setRemoveModal({ show: false, lecturerName: "" })}
