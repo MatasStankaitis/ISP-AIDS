@@ -24,12 +24,12 @@ const GradesList = () => {
     }
   };
 
-  const addGradeHandler = (studentId) => {
-    navigate(`/grades/add/${studentId}`);
+  const addGradeHandler = (username: string) => {
+    navigate(`/grades/${subjectCode}/students/${username}/create`);
   };
 
   const editGradesHandler = (username: string) => {
-    navigate(`/grades/${subjectCode}/students/${username}`);
+    navigate(`/grades/${subjectCode}/students/${username}/edit`);
   };
 
   const viewGradesHandler = (studentId) => {

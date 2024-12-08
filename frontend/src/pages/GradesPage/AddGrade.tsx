@@ -1,51 +1,73 @@
 ﻿// AddGradePage.js
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { baseUrl } from "../../constants";
+import FormField from "../../components/FormField";
 
 const AddGradePage = () => {
-    const { studentId } = useParams();
-    const navigate = useNavigate();
-    const [grades, setGrades] = useState([]);
-    const [currentGrade, setCurrentGrade] = useState("");
+  const navigate = useNavigate();
+  const [grade, setGrade] = useState({
+    value: null,
+    comment: "",
+    is_exam: true,
+    importance: 5,
+  });
+  const { subjectCode, username } = useParams();
 
-    const handleAddGrade = () => {
-        if (currentGrade) {
-            setGrades([...grades, currentGrade]);
-            setCurrentGrade("");
-        }
-    };
+  const handleChange = (id: string, value: any) => {
+    setGrade((previous) => {
+      return { ...previous, [id]: value };
+    });
+  };
+  const CreateStudentGrade = () => {
+    const dataToSend = grade;
+    return fetch(
+      `${baseUrl}/grades/${subjectCode}/students/${username}/grades`,
+      {
+        method: "POST",
+        body: JSON.stringify(dataToSend),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {})
+      .catch((err) => {
+        err;
+      });
+  };
 
-    const handleSubmit = () => {
-        // Logic to save grades for the student (e.g., API call)
-        console.log(`Grades for student ${studentId}:`, grades);
-        navigate(`/grades`);
-    };
+  const handleSubmit = () => {
+    // Logic to save grades for the student (e.g., API call)
+    CreateStudentGrade();
+    navigate(`/grades/${subjectCode}/students`);
+  };
 
-    return (
-        <div>
-            <h2>Pridėti pažymį ({studentId}) studentui</h2>
-            <Form.Group controlId="gradeInput">
-                <Form.Label>Įvesti pažymį</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={currentGrade}
-                    onChange={(e) => setCurrentGrade(e.target.value)}
-                />
-            </Form.Group>
-            <Button onClick={handleAddGrade}>Pridėti pažymį</Button>
-            <div>
-                <h4>Pažymiai kurie bus pridėti:</h4>
-                <ul>
-                    {grades.map((grade, index) => (
-                        <li key={index}>{grade}</li>
-                    ))}
-                </ul>
-            </div>
-            <Button variant="primary" onClick={handleSubmit}>Išsaugoti pažymius</Button>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Pridėti pažymį ({username}) studentui</h2>
+      <div>
+        <FormField
+          placeholder="pažymys"
+          label={`Įrašykite Pažtymį`}
+          controlId={`value`}
+          type="text"
+          value={grade.value}
+          onChange={(e) => handleChange(e.target.id, e.target.value)}
+        ></FormField>
+        <FormField
+          placeholder="komentaras"
+          label={`Komentaras`}
+          controlId={`comment`}
+          type="text"
+          value={grade.comment}
+          onChange={(e) => handleChange(e.target.id, e.target.value)}
+        ></FormField>
+      </div>
+      <Button onClick={handleSubmit}>Pridėti pažymį</Button>
+    </div>
+  );
 };
 
 export default AddGradePage;

@@ -50,9 +50,12 @@ function App() {
           <Route path="subject/edit" element={<SubjectEdit />} />
           <Route path="subjectsSelection" element={<SubjectsSelection />} />
           <Route path="grades/:subjectCode/students" element={<GradesList />} />
-          <Route path="grades/add/:studentId" element={<AddGradePage />} />
           <Route
-            path="/grades/:subjectCode/students/:username"
+            path="/grades/:subjectCode/students/:username/create"
+            element={<AddGradePage />}
+          />
+          <Route
+            path="/grades/:subjectCode/students/:username/edit"
             element={<EditGradesPage />}
           />
           <Route path="grades/view/:studentId" element={<ViewGradesPage />} />
