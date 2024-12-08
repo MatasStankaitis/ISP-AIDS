@@ -19,11 +19,7 @@ export const getGradesController = async (req, res) => {
 
     const grades = await getStudentGradesBySubject(subjectCode, username);
 
-    if (grades.length === 0) {
-      throw NotFoundError("grades not found");
-    } else {
-      res.status(SUCCESS_STATUS).json(grades);
-    }
+    res.status(SUCCESS_STATUS).json(grades);
   } catch (err) {
     handleError(res, err);
   }

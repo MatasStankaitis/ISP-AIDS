@@ -55,7 +55,7 @@ const GradesList = () => {
 
   return (
     <>
-      <FiltersDiv onFilter={setStudents} />
+      <FiltersDiv onFilter={setStudents} subjectCode={subjectCode} />
       <StudentDataTable
         rows={
           <>

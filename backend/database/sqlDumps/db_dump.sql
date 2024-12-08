@@ -373,8 +373,4 @@ VALUES
 (false, 'student2', 3),
 (true, 'student', 2),
 (false, 'student2', 4),
-(true, 'student', 5),
-(TRUE, 'alebal', 1),
-(FALSE, 'alebal1', 2),
-(TRUE, 'alebal', 3),
-(FALSE, 'alebal1', 4);
+(true, 'student', 5);

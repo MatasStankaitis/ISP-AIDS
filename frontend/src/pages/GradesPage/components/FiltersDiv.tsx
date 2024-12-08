@@ -6,8 +6,9 @@ import { baseUrl } from "../../../constants";
 
 interface FiltersDivProp {
   onFilter: Dispatch<SetStateAction<listStudent[]>>;
+  subjectCode: string;
 }
-const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
+const FiltersDiv = ({ onFilter, subjectCode }: FiltersDivProp) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -23,7 +24,7 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
+    fetch(`${baseUrl}/grades/${subjectCode}/students`, {
       method: "GET",
     })
       .then((response) => response.json())
