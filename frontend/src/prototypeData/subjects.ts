@@ -6,7 +6,7 @@ const SUBJECTS = [
     description:
       "An introductory course to programming covering basic concepts and syntax.",
     language: "English",
-    isRemote: true,
+    is_remote: true,
   },
   {
     code: "s102",
@@ -15,7 +15,7 @@ const SUBJECTS = [
     description:
       "Covers fundamental data structures and algorithms essential for computer science.",
     language: "English",
-    isRemote: false,
+    is_remote: false,
   },
   {
     code: "s103",
@@ -24,7 +24,7 @@ const SUBJECTS = [
     description:
       "A course on linear algebra concepts including vectors, matrices, and transformations.",
     language: "Lithuanian",
-    isRemote: false,
+    is_remote: false,
   },
   {
     code: "s104",
@@ -32,7 +32,7 @@ const SUBJECTS = [
     credits: 5,
     description: "Introduction to database management systems and SQL.",
     language: "English",
-    isRemote: true,
+    is_remote: true,
   },
   {
     code: "s105",
@@ -41,7 +41,7 @@ const SUBJECTS = [
     description:
       "Principles of software engineering, covering development methodologies and lifecycle.",
     language: "Lithuanian",
-    isRemote: false,
+    is_remote: false,
   },
 ];
 

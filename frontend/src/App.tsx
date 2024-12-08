@@ -9,7 +9,6 @@ import LecturerDetails from "./pages/LecturerPage/LecturerDetails";
 import LecturerCreation from "./pages/LecturerPage/LecturerCreation"; 
 import LecturerEditPage from "./pages/LecturerPage/LecturerEditPage"; 
 import LecturerEditSalaryPage from "./pages/LecturerPage/LecturerEditSalaryPage"; 
-import Subjects from "./pages/Subjects";
 import SubjectsList from "./pages/SubjectsPage/SubjectsList";
 import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
 import SubjectEdit from "./pages/SubjectsPage/SubjectEdit";
@@ -44,9 +43,9 @@ function App() {
           <Route path="subjects" element={<SubjectsList />} />
           <Route path="subjects/create" element={<SubjectCreation />} />
           <Route path="subjects/remove" element={<SubjectsRemoval />} />
-          <Route path="subject/edit" element={<SubjectEdit />} />
+          <Route path="subjects/edit/:code" element={<SubjectEdit />} />
           <Route path="subjectsSelection" element={<SubjectsSelection />} />
-          <Route path="/grades" element={<GradesList />} />
+          <Route path="/grades/:code" element={<GradesList />} />
           <Route path="/grades/add/:studentId" element={<AddGradePage />} />
           <Route path="/grades/edit/:studentId" element={<EditGradesPage />} />
           <Route path="/grades/view/:studentId" element={<ViewGradesPage />} />

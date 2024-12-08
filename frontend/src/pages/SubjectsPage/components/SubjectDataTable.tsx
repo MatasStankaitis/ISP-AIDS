@@ -12,6 +12,7 @@ const SubjectDataTable = ({ rows }) => {
             <th>Credits</th>
             <th>Language</th>
             <th>Remote</th>
+            <th>Faculty ID</th>
             <th>Actions</th>
           </tr>
         </thead>

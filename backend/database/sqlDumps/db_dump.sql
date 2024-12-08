@@ -168,6 +168,7 @@ CREATE TABLE Subject_times
 	classroom varchar (255) NOT NULL,
 	even_week boolean NOT NULL,
 	id int NOT NULL AUTO_INCREMENT,
+	capacity int NOT NULL,
 	fk_Subjectcode varchar (255) NOT NULL,
 	PRIMARY KEY(id),
 	CONSTRAINT hasSubject FOREIGN KEY(fk_Subjectcode) REFERENCES Subjects (code)
@@ -344,13 +345,6 @@ VALUES
 ('alebal', 2, 'Room change request - current neighbors too noisy', 2, 'admin1', CURRENT_DATE),
 ('alebal1', 4, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin1', CURRENT_DATE);
 
--- Insert Faculties
-INSERT INTO Faculties (name, address, dean_name, vice_dean_name, phone_number, email)
-VALUES
-('Informatikos', 'Studentų gatvė 1, Kaunas', 'Jonas', 'Kazys', '1111111', 'informatika@gmail.com'),
-('Fizikos', 'Studentų gatvė 2, Kaunas', 'Jonas', 'Ignas', '22222222', 'fizika@gmail.com'),
-('Matematikos', 'Studentų gatvė 3, Kaunas', 'Jonas', 'Skirmantas', '3333333', 'matematika@gmail.com');
-
 -- Subjects
 INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid)
 VALUES
@@ -359,3 +353,20 @@ VALUES
 ('MAT101', 'Calculus I', 6, 'A course on differential and integral calculus.', 'English', false, 3),
 ('INF102', 'Data Structures and Algorithms', 6, 'A course focusing on data structures and algorithms.', 'English', false, 1),
 ('MAT102', 'Linear Algebra', 5, 'A course on vector spaces, matrices, and linear transformations.', 'English', false, 3);
+
+INSERT INTO Subject_times (hour, day, classroom, even_week, capacity, fk_Subjectcode)
+VALUES
+(9, 1, 'Room 101', true, 30, 'INF101'),
+(11, 1, 'Room 101', true, 30, 'INF101'),
+(11, 3, 'Room 102', false, 25, 'PHY101'),
+(14, 5, 'Room 103', true, 20, 'MAT101'),
+(10, 2, 'Room 104', false, 30, 'INF102'),
+(13, 4, 'Room 105', true, 25, 'MAT102');
+
+INSERT INTO Student_subjects (passed, fk_Studentusername, fk_SubjectTimeid)
+VALUES
+(true, 'alebal', 1),
+(false, 'alebal1', 2),
+(true, 'alebal', 3),
+(false, 'alebal1', 4),
+(true, 'alebal', 5);
