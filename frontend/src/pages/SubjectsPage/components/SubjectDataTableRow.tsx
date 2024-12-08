@@ -29,7 +29,9 @@ const SubjectDataTableRow = ({
       fetch(`${baseUrl}/subjects/${code}/times`)
         .then((response) => response.json())
         .then((data) => setSubjectTimes(data))
-        .catch((error) => console.error("Error fetching subject times:", error));
+        .catch((error) =>
+          console.error("Error fetching subject times:", error)
+        );
     }
   }, [showTimes, code]);
 
@@ -45,8 +47,17 @@ const SubjectDataTableRow = ({
           <td>{is_remote ? "Yes" : "No"}</td>
           <td>{facultyName}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
+            <Link to={`/grades/${code}/students`}>
+              <button type="button" className="btn btn-success edit-button">
+                Students
+              </button>
+            </Link>
+
             <Link to={`/home/subjects/edit/${code}`}>
-              <button type="button" className="btn btn-outline-danger delete-button">
+              <button
+                type="button"
+                className="btn btn-outline-danger delete-button"
+              >
                 Edit
               </button>
             </Link>
@@ -57,7 +68,7 @@ const SubjectDataTableRow = ({
             >
               {showTimes ? "Hide Times" : "Show Times"}
             </button>
-            <Link to={`/home/grades/${code}`}>
+            <Link to={`/home/grades/${code}/students`}>
               <button type="button" className="btn btn-outline-primary">
                 View Grades
               </button>
@@ -70,7 +81,11 @@ const SubjectDataTableRow = ({
               <ul>
                 {subjectTimes.map((time) => (
                   <li key={time.id}>
-                    {`Time: ${time.hour}h, Day: ${dayMapping[time.day]}, Classroom: ${time.classroom}, Registered Students: ${time.registered_students}/${time.capacity}`}
+                    {`Time: ${time.hour}h, Day: ${
+                      dayMapping[time.day]
+                    }, Classroom: ${time.classroom}, Registered Students: ${
+                      time.registered_students
+                    }/${time.capacity}`}
                   </li>
                 ))}
               </ul>

@@ -1,38 +1,38 @@
-import React, { useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
-import Layout from './pages/Layout';
-import Home from './pages/Home';
-import NoPage from './pages/NoPage';
-import StudentsList from './pages/StudentsPage/StudentsList';
-import LecturersPage from './pages/LecturerPage/LecturersPage';
-import LecturerDetails from './pages/LecturerPage/LecturerDetails';
-import LecturerCreation from './pages/LecturerPage/LecturerCreation';
-import LecturerEditPage from './pages/LecturerPage/LecturerEditPage';
-import LecturerEditSalaryPage from './pages/LecturerPage/LecturerEditSalaryPage';
-import SubjectsList from './pages/SubjectsPage/SubjectsList';
-import SubjectCreation from './pages/SubjectsPage/SubjectCreation';
-import SubjectEdit from './pages/SubjectsPage/SubjectEdit';
-import SubjectsRemoval from './pages/SubjectsPage/SubjectsRemoval';
-import SubjectsSelection from './pages/SubjectsPage/SubjectsSelection';
-import StudentDetails from './pages/StudentsPage/StudentDetails';
-import StudentCreation from './pages/StudentsPage/StudentCreation';
-import GradesList from './pages/GradesPage/GradesList';
-import AddGradePage from './pages/GradesPage/AddGrade';
-import EditGradesPage from './pages/GradesPage/EditGrade';
-import ViewGradesPage from './pages/GradesPage/components/ReportPage';
-import DormsPage from './pages/DormsPage/DormsPage';
-import DormReservation from './pages/DormsPage/DormReservation/DormReservation';
-import DormEdit from './pages/DormsPage/DormManagement/DormEdit';
-import DormAdd from './pages/DormsPage/DormManagement/DormAdd';
-import RequestHandling from './pages/DormsPage/DormRequest/RequestHandling';
-import LoginPage from './pages/auth/Login';
-import RegisterPage from './pages/auth/Register';
-import Dashboard from './pages/auth/Dashboard';
-import UnauthorizedPage from './pages/UnauthorizedPage';
-import UsersManagement from './pages/UsersManagement';
-import PrivateRoute from './pages/auth/components/PrivateRoute';
-import './App.css';
+import React, { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import NoPage from "./pages/NoPage";
+import StudentsList from "./pages/StudentsPage/StudentsList";
+import LecturersPage from "./pages/LecturerPage/LecturersPage";
+import LecturerDetails from "./pages/LecturerPage/LecturerDetails";
+import LecturerCreation from "./pages/LecturerPage/LecturerCreation";
+import LecturerEditPage from "./pages/LecturerPage/LecturerEditPage";
+import LecturerEditSalaryPage from "./pages/LecturerPage/LecturerEditSalaryPage";
+import SubjectsList from "./pages/SubjectsPage/SubjectsList";
+import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
+import SubjectEdit from "./pages/SubjectsPage/SubjectEdit";
+import SubjectsRemoval from "./pages/SubjectsPage/SubjectsRemoval";
+import SubjectsSelection from "./pages/SubjectsPage/SubjectsSelection";
+import StudentDetails from "./pages/StudentsPage/StudentDetails";
+import StudentCreation from "./pages/StudentsPage/StudentCreation";
+import GradesList from "./pages/GradesPage/GradesList";
+import AddGradePage from "./pages/GradesPage/AddGrade";
+import EditGradesPage from "./pages/GradesPage/EditGrade";
+import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
+import DormsPage from "./pages/DormsPage/DormsPage";
+import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
+import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
+import DormAdd from "./pages/DormsPage/DormManagement/DormAdd";
+import RequestHandling from "./pages/DormsPage/DormRequest/RequestHandling";
+import LoginPage from "./pages/auth/Login";
+import RegisterPage from "./pages/auth/Register";
+import Dashboard from "./pages/auth/Dashboard";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import UsersManagement from "./pages/UsersManagement";
+import PrivateRoute from "./pages/auth/components/PrivateRoute";
+import "./App.css";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -70,7 +70,7 @@ function App() {
         <Route
           path="students"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <StudentsList />
             </PrivateRoute>
           }
@@ -78,7 +78,7 @@ function App() {
         <Route
           path="students/create"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <StudentCreation />
             </PrivateRoute>
           }
@@ -86,7 +86,7 @@ function App() {
         <Route
           path="students/:username"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <StudentDetails />
             </PrivateRoute>
           }
@@ -96,7 +96,7 @@ function App() {
         <Route
           path="lecturers"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <LecturersPage />
             </PrivateRoute>
           }
@@ -104,7 +104,7 @@ function App() {
         <Route
           path="lecturers/create"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <LecturerCreation />
             </PrivateRoute>
           }
@@ -112,7 +112,7 @@ function App() {
         <Route
           path="lecturers/:id"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <LecturerDetails />
             </PrivateRoute>
           }
@@ -120,7 +120,7 @@ function App() {
         <Route
           path="lecturers/:id/edit"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <LecturerEditPage />
             </PrivateRoute>
           }
@@ -128,7 +128,7 @@ function App() {
         <Route
           path="lecturers/:id/edit-salary"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <LecturerEditSalaryPage />
             </PrivateRoute>
           }
@@ -138,7 +138,7 @@ function App() {
         <Route
           path="subjects"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer']}>
+            <PrivateRoute roles={["administrator", "lecturer"]}>
               <SubjectsList />
             </PrivateRoute>
           }
@@ -146,7 +146,7 @@ function App() {
         <Route
           path="subjects/create"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <SubjectCreation />
             </PrivateRoute>
           }
@@ -154,7 +154,7 @@ function App() {
         <Route
           path="subjects/remove"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <SubjectsRemoval />
             </PrivateRoute>
           }
@@ -162,7 +162,7 @@ function App() {
         <Route
           path="subjects/edit/:code"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer']}>
+            <PrivateRoute roles={["administrator", "lecturer"]}>
               <SubjectEdit />
             </PrivateRoute>
           }
@@ -170,7 +170,7 @@ function App() {
         <Route
           path="subjectsSelection"
           element={
-            <PrivateRoute roles={['student']}>
+            <PrivateRoute roles={["student"]}>
               <SubjectsSelection />
             </PrivateRoute>
           }
@@ -178,25 +178,25 @@ function App() {
 
         {/* Grades Routes */}
         <Route
-          path="grades/:code"
+          path="grades/:subjectCode/students"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer']}>
+            <PrivateRoute roles={["administrator", "lecturer"]}>
               <GradesList />
             </PrivateRoute>
           }
         />
         <Route
-          path="grades/add/:studentId"
+          path="grades/:subjectCode/students/:username/create"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer']}>
+            <PrivateRoute roles={["administrator", "lecturer"]}>
               <AddGradePage />
             </PrivateRoute>
           }
         />
         <Route
-          path="grades/edit/:studentId"
+          path="grades/:subjectCode/students/:username/edit"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer']}>
+            <PrivateRoute roles={["administrator", "lecturer"]}>
               <EditGradesPage />
             </PrivateRoute>
           }
@@ -204,7 +204,7 @@ function App() {
         <Route
           path="grades/view/:studentId"
           element={
-            <PrivateRoute roles={['administrator', 'lecturer', 'student']}>
+            <PrivateRoute roles={["administrator", "lecturer", "student"]}>
               <ViewGradesPage />
             </PrivateRoute>
           }
@@ -214,7 +214,7 @@ function App() {
         <Route
           path="dorms"
           element={
-            <PrivateRoute roles={['administrator', 'student']}>
+            <PrivateRoute roles={["administrator", "student"]}>
               <DormsPage />
             </PrivateRoute>
           }
@@ -222,7 +222,7 @@ function App() {
         <Route
           path="dorms/reservation"
           element={
-            <PrivateRoute roles={['student']}>
+            <PrivateRoute roles={["student"]}>
               <DormReservation />
             </PrivateRoute>
           }
@@ -230,7 +230,7 @@ function App() {
         <Route
           path="dorms/edit"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <DormEdit />
             </PrivateRoute>
           }
@@ -238,7 +238,7 @@ function App() {
         <Route
           path="dorms/add"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <DormAdd />
             </PrivateRoute>
           }
@@ -246,7 +246,7 @@ function App() {
         <Route
           path="dorms/requests"
           element={
-            <PrivateRoute roles={['administrator', 'student']}>
+            <PrivateRoute roles={["administrator", "student"]}>
               <RequestHandling />
             </PrivateRoute>
           }
@@ -256,7 +256,7 @@ function App() {
         <Route
           path="admin"
           element={
-            <PrivateRoute roles={['administrator']}>
+            <PrivateRoute roles={["administrator"]}>
               <UsersManagement />
             </PrivateRoute>
           }
@@ -265,7 +265,7 @@ function App() {
         <Route
           path="dashboard"
           element={
-            <PrivateRoute roles={['student', 'lecturer', 'administrator']}>
+            <PrivateRoute roles={["student", "lecturer", "administrator"]}>
               <Dashboard />
             </PrivateRoute>
           }

@@ -344,7 +344,7 @@ VALUES
 -- Now insert requests with correct column name
 INSERT INTO Dorm_requests 
 (fk_Studentusername, type, description, status, fk_Administratorusername, date_created) 
-VALUES 
+VALUES
 ('student', 1, 'Room change request - current neighbors too noisy', 2, 'admin', CURRENT_DATE),
 ('student2', 2, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin', CURRENT_DATE);
 
