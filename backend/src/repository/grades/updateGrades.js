@@ -1,6 +1,6 @@
 import connection from "#config/sqlConnection.js";
 
-export const updateStudentGrade = async (
+export const updateStudentGradesBySubjectAndStudent = async (
   gradeId,
   value,
   comment,
@@ -13,14 +13,7 @@ export const updateStudentGrade = async (
       `UPDATE Grades 
       SET value=?, comment=?, updated_at=?, is_exam=?, importance=?
       WHERE id=?`,
-      [
-        value,
-        comment,
-        updated_at,
-        is_exam,
-        importance,
-        gradeId
-      ]
+      [value, comment, updated_at, is_exam, importance, gradeId]
     );
 
     if (results.affectedRows <= 0) {
