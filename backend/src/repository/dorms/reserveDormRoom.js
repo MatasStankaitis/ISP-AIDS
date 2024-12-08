@@ -12,7 +12,6 @@ export const reserveDormRoom = async (roomId, studentUsername) => {
     if (roomCheck.length === 0) {
       throw new NotFoundError("Room not found");
     }
-    console.log(roomCheck[0].status);
     if (roomCheck[0].status !== 1) {
       throw new Error("Room is not available");
     }

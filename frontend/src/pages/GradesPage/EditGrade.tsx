@@ -28,7 +28,7 @@ const EditGradesPage = () => {
     const handleSubmit = () => {
         // Logic to save updated grades for the student (e.g., API call)
         console.log(`Updated grades for student ${studentId}:`, grades);
-        navigate(`/grades`);
+        navigate(`home/grades`);
     };
 
     return (

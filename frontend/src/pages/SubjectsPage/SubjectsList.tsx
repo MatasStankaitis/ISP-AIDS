@@ -45,10 +45,10 @@ const SubjectsList = () => {
   return (
     <>
       <div className="flex-container">
-        <Link to={"/subjects/create"}>
+        <Link to={"/home/subjects/create"}>
           <Button variant="primary">Add Subject</Button>
         </Link>
-        <Link to={"/subjects/remove"}>
+        <Link to={"/home/subjects/remove"}>
           <Button variant="primary">Remove Subjects</Button>
         </Link>
       </div>

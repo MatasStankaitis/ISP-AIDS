@@ -45,7 +45,7 @@ const SubjectDataTableRow = ({
           <td>{is_remote ? "Yes" : "No"}</td>
           <td>{facultyName}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
-            <Link to={`/subjects/edit/${code}`}>
+            <Link to={`/home/subjects/edit/${code}`}>
               <button type="button" className="btn btn-outline-danger delete-button">
                 Edit
               </button>
@@ -57,7 +57,7 @@ const SubjectDataTableRow = ({
             >
               {showTimes ? "Hide Times" : "Show Times"}
             </button>
-            <Link to={`/grades/${code}`}>
+            <Link to={`/home/grades/${code}`}>
               <button type="button" className="btn btn-outline-primary">
                 View Grades
               </button>

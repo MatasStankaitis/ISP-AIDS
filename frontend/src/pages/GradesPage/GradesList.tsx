@@ -22,15 +22,15 @@ const GradesList = () => {
     };
 
     const addGradeHandler = (studentId) => {
-        navigate(`/grades/add/${studentId}`);
+        navigate(`/home/grades/add/${studentId}`);
     };
 
     const editGradesHandler = (studentId) => {
-        navigate(`/grades/edit/${studentId}`);
+        navigate(`/home/grades/edit/${studentId}`);
     };
 
     const viewGradesHandler = (studentId) => {
-        navigate(`/grades/view/${studentId}`);
+        navigate(`/home/grades/view/${studentId}`);
     };
 
     return (

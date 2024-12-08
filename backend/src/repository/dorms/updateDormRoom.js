@@ -7,8 +7,7 @@ export const updateDormRoom = async (roomId, status) => {
     if (status === undefined) {
       throw new ValidationError("Status must be provided for update");
     } 
-    console.log(roomId);
-    console.log(status);
+   
     const [result] = await connection.execute(
       `UPDATE Dorm_rooms 
        SET status = ?

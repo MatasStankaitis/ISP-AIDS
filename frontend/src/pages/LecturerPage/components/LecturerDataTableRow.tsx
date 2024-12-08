@@ -43,7 +43,7 @@ const LecturerDataTableRow = ({
       <td>{gender}</td>
       <td>{`€${salary.toFixed(2)}`}</td>
       <td>
-        <Link to={`/lecturers/${id}`}>
+        <Link to={`/home/lecturers/${id}`}>
           <button type="button" className="btn btn-success">
             Peržiūrėti
           </button>

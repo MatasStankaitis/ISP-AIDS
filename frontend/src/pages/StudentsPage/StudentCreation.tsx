@@ -39,7 +39,7 @@ const StudentCreation = () => {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
-          navigate(-1);
+          navigate('/home/students');
         } else {
           response.json().then((data) => {
             setError(data.error);

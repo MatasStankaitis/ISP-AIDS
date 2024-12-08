@@ -1,63 +1,286 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/Layout";
-import "./App.css";
-import Home from "./pages/Home";
-import NoPage from "./pages/NoPage";
-import StudentsList from "./pages/StudentsPage/StudentsList";
-import LecturersPage from "./pages/LecturerPage/LecturersPage";
-import LecturerDetails from "./pages/LecturerPage/LecturerDetails"; 
-import LecturerCreation from "./pages/LecturerPage/LecturerCreation"; 
-import LecturerEditPage from "./pages/LecturerPage/LecturerEditPage"; 
-import LecturerEditSalaryPage from "./pages/LecturerPage/LecturerEditSalaryPage"; 
-import SubjectsList from "./pages/SubjectsPage/SubjectsList";
-import SubjectCreation from "./pages/SubjectsPage/SubjectCreation";
-import SubjectEdit from "./pages/SubjectsPage/SubjectEdit";
-import SubjectsRemoval from "./pages/SubjectsPage/SubjectsRemoval";
-import SubjectsSelection from "./pages/SubjectsPage/SubjectsSelection";
-import StudentDetails from "./pages/StudentsPage/StudentDetails";
-import StudentCreation from "./pages/StudentsPage/StudentCreation";
-import GradesList from "./pages/GradesPage/GradesList";
-import AddGradePage from "./pages/GradesPage/AddGrade";
-import EditGradesPage from "./pages/GradesPage/EditGrade";
-import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
-import DormsPage from "./pages/DormsPage/DormsPage";
-import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
-import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
-import DormAdd from "./pages/DormsPage/DormManagement/DormAdd";
-import RequestHandling from "./pages/DormsPage/DormRequest/RequestHandling";
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import NoPage from './pages/NoPage';
+import StudentsList from './pages/StudentsPage/StudentsList';
+import LecturersPage from './pages/LecturerPage/LecturersPage';
+import LecturerDetails from './pages/LecturerPage/LecturerDetails';
+import LecturerCreation from './pages/LecturerPage/LecturerCreation';
+import LecturerEditPage from './pages/LecturerPage/LecturerEditPage';
+import LecturerEditSalaryPage from './pages/LecturerPage/LecturerEditSalaryPage';
+import SubjectsList from './pages/SubjectsPage/SubjectsList';
+import SubjectCreation from './pages/SubjectsPage/SubjectCreation';
+import SubjectEdit from './pages/SubjectsPage/SubjectEdit';
+import SubjectsRemoval from './pages/SubjectsPage/SubjectsRemoval';
+import SubjectsSelection from './pages/SubjectsPage/SubjectsSelection';
+import StudentDetails from './pages/StudentsPage/StudentDetails';
+import StudentCreation from './pages/StudentsPage/StudentCreation';
+import GradesList from './pages/GradesPage/GradesList';
+import AddGradePage from './pages/GradesPage/AddGrade';
+import EditGradesPage from './pages/GradesPage/EditGrade';
+import ViewGradesPage from './pages/GradesPage/components/ReportPage';
+import DormsPage from './pages/DormsPage/DormsPage';
+import DormReservation from './pages/DormsPage/DormReservation/DormReservation';
+import DormEdit from './pages/DormsPage/DormManagement/DormEdit';
+import DormAdd from './pages/DormsPage/DormManagement/DormAdd';
+import RequestHandling from './pages/DormsPage/DormRequest/RequestHandling';
+import LoginPage from './pages/auth/Login';
+import RegisterPage from './pages/auth/Register';
+import Dashboard from './pages/auth/Dashboard';
+import UnauthorizedPage from './pages/UnauthorizedPage';
+import UsersManagement from './pages/UsersManagement';
+import PrivateRoute from './pages/auth/components/PrivateRoute';
+import './App.css';
 
 function App() {
+  const authContext = useContext(AuthContext);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="students" element={<StudentsList />} />
-          <Route path="lecturers/*" element={<LecturersPage />} />
-          <Route path="lecturers/create" element={<LecturerCreation />} />
-          <Route path="lecturers/:id" element={<LecturerDetails />} /> 
-          <Route path="lecturers/:id/edit" element={<LecturerEditPage />} />
-          <Route path="lecturers/:id/edit-salary" element={<LecturerEditSalaryPage />} />
-          <Route path="students/create" element={<StudentCreation />} />
-          <Route path="students/:username" element={<StudentDetails />} />
-          <Route path="subjects" element={<SubjectsList />} />
-          <Route path="subjects/create" element={<SubjectCreation />} />
-          <Route path="subjects/remove" element={<SubjectsRemoval />} />
-          <Route path="subjects/edit/:code" element={<SubjectEdit />} />
-          <Route path="subjectsSelection" element={<SubjectsSelection />} />
-          <Route path="/grades/:code" element={<GradesList />} />
-          <Route path="/grades/add/:studentId" element={<AddGradePage />} />
-          <Route path="/grades/edit/:studentId" element={<EditGradesPage />} />
-          <Route path="/grades/view/:studentId" element={<ViewGradesPage />} />
-          <Route path="dorms" element={<DormsPage />} />
-          <Route path="dorms/reservation" element={<DormReservation />} />
-          <Route path="dorms/edit" element={<DormEdit />} />
-          <Route path="dorms/add" element={<DormAdd />} />
-          <Route path="dorms/requests" element={<RequestHandling />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+
+      {/* Redirect root path based on authentication status */}
+      <Route
+        path="/"
+        element={
+          authContext?.user ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      {/* Private Routes under "/home" */}
+      <Route
+        path="/home/*"
+        element={
+          <PrivateRoute>
+            <Layout />
+          </PrivateRoute>
+        }
+      >
+        <Route index element={<Home />} />
+
+        {/* Students Routes */}
+        <Route
+          path="students"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <StudentsList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="students/create"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <StudentCreation />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="students/:username"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <StudentDetails />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Lecturers Routes */}
+        <Route
+          path="lecturers"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <LecturersPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="lecturers/create"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <LecturerCreation />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="lecturers/:id"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <LecturerDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="lecturers/:id/edit"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <LecturerEditPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="lecturers/:id/edit-salary"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <LecturerEditSalaryPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Subjects Routes */}
+        <Route
+          path="subjects"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer']}>
+              <SubjectsList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="subjects/create"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <SubjectCreation />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="subjects/remove"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <SubjectsRemoval />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="subjects/edit/:code"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer']}>
+              <SubjectEdit />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="subjectsSelection"
+          element={
+            <PrivateRoute roles={['student']}>
+              <SubjectsSelection />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Grades Routes */}
+        <Route
+          path="grades/:code"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer']}>
+              <GradesList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="grades/add/:studentId"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer']}>
+              <AddGradePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="grades/edit/:studentId"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer']}>
+              <EditGradesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="grades/view/:studentId"
+          element={
+            <PrivateRoute roles={['administrator', 'lecturer', 'student']}>
+              <ViewGradesPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Dorms Routes */}
+        <Route
+          path="dorms"
+          element={
+            <PrivateRoute roles={['administrator', 'student']}>
+              <DormsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="dorms/reservation"
+          element={
+            <PrivateRoute roles={['student']}>
+              <DormReservation />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="dorms/edit"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <DormEdit />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="dorms/add"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <DormAdd />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="dorms/requests"
+          element={
+            <PrivateRoute roles={['administrator', 'student']}>
+              <RequestHandling />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Users Management */}
+        <Route
+          path="admin"
+          element={
+            <PrivateRoute roles={['administrator']}>
+              <UsersManagement />
+            </PrivateRoute>
+          }
+        />
+        {/* Dashboard */}
+        <Route
+          path="dashboard"
+          element={
+            <PrivateRoute roles={['student', 'lecturer', 'administrator']}>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* No Match Route */}
+        <Route path="*" element={<NoPage />} />
+      </Route>
+
+      {/* Unauthorized Page */}
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+      {/* Catch-all Route */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

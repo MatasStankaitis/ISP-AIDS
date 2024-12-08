@@ -20,7 +20,7 @@ const AddGradePage = () => {
     const handleSubmit = () => {
         // Logic to save grades for the student (e.g., API call)
         console.log(`Grades for student ${studentId}:`, grades);
-        navigate(`/grades`);
+        navigate(`/home/grades`);
     };
 
     return (
