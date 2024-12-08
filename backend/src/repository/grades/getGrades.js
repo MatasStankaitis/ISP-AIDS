@@ -3,7 +3,7 @@ import connection from "#config/sqlConnection.js";
 export const getStudentGradesBySubject = async (subjectCode, username) => {
   try {
     const [results, fields] = await connection.execute(
-      `SELECT Users.username, Users.surname, Users.name, Grades.value, Grades.comment, Grades.created_at, Grades.updated_at, Grades.is_exam, Grades.importance 
+      `SELECT Users.username, Users.surname, Users.name, Grades.id, Grades.value, Grades.comment, Grades.created_at, Grades.updated_at, Grades.is_exam, Grades.importance 
       FROM Users 
       INNER JOIN Students ON Students.username = Users.username
       INNER JOIN Student_subjects ON Student_subjects.fk_Studentusername = Students.username

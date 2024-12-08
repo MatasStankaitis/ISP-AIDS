@@ -6,6 +6,7 @@ import { getStudentsBySubject } from "#repository/grades/getStudents.js"; // Imp
 import { SUCCESS_STATUS } from "#utils/constants.js";
 import { handleError } from "#utils/handleError.js";
 import { NotFoundError } from "#utils/errors.js";
+import connection from "#config/sqlConnection.js";
 
 // Controller to get all grades for a student in a subject
 export const getGradesController = async (req, res) => {
@@ -134,20 +135,17 @@ export const updateGradeController = async (req, res) => {
 
 // Controller to get all students in a subject
 export const getStudentsBySubjectController = async (req, res) => {
-    try {
-      const { subjectCode } = req.params;
-  
-      if (!subjectCode) {
-        throw NotFoundError("Wrong subject code provided.");
-      }
-  
-      const students = await getStudentsBySubject(subjectCode);
-  
-      res.status(SUCCESS_STATUS).json(students);
-      
-    } catch (err) {
-      handleError(res, err);
+  try {
+    const { subjectCode } = req.params;
+
+    if (!subjectCode) {
+      throw NotFoundError("Wrong subject code provided.");
     }
-  };
 
+    const students = await getStudentsBySubject(subjectCode);
 
+    res.status(SUCCESS_STATUS).json(students);
+  } catch (err) {
+    handleError(res, err);
+  }
+};
