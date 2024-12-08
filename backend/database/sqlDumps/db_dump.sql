@@ -343,3 +343,19 @@ INSERT INTO Dorm_requests
 VALUES 
 ('alebal', 2, 'Room change request - current neighbors too noisy', 2, 'admin1', CURRENT_DATE),
 ('alebal1', 4, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin1', CURRENT_DATE);
+
+-- Insert Faculties
+INSERT INTO Faculties (name, address, dean_name, vice_dean_name, phone_number, email)
+VALUES
+('Informatikos', 'Studentų gatvė 1, Kaunas', 'Jonas', 'Kazys', '1111111', 'informatika@gmail.com'),
+('Fizikos', 'Studentų gatvė 2, Kaunas', 'Jonas', 'Ignas', '22222222', 'fizika@gmail.com'),
+('Matematikos', 'Studentų gatvė 3, Kaunas', 'Jonas', 'Skirmantas', '3333333', 'matematika@gmail.com');
+
+-- Subjects
+INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid)
+VALUES
+('INF101', 'Introduction to Computer Science', 6, 'An introductory course on computer science fundamentals.', 'English', false, 1),
+('PHY101', 'General Physics I', 5, 'An introductory course on classical mechanics and thermodynamics.', 'English', false, 2),
+('MAT101', 'Calculus I', 6, 'A course on differential and integral calculus.', 'English', false, 3),
+('INF102', 'Data Structures and Algorithms', 6, 'A course focusing on data structures and algorithms.', 'English', false, 1),
+('MAT102', 'Linear Algebra', 5, 'A course on vector spaces, matrices, and linear transformations.', 'English', false, 3);
