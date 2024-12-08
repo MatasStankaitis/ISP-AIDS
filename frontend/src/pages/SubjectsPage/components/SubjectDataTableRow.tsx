@@ -19,7 +19,7 @@ const SubjectDataTableRow = ({
           <td>{language}</td>
           <td>{isRemote ? "Yes" : "No"}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
-            <Link to={`/grades/${code}`}>
+            <Link to={`/grades/${code}/students`}>
               <button type="button" className="btn btn-success edit-button">
                 Students
               </button>

@@ -12,6 +12,8 @@ const GradesList = () => {
   const [surname, setSurname] = useState("");
   const navigate = useNavigate();
 
+  const { subjectCode } = useParams();
+
   const onChange = (e) => {
     switch (e.target.id) {
       case "firstnameInput":
@@ -26,8 +28,8 @@ const GradesList = () => {
     navigate(`/grades/add/${studentId}`);
   };
 
-  const editGradesHandler = (studentId) => {
-    navigate(`/grades/edit/${studentId}`);
+  const editGradesHandler = (username: string) => {
+    navigate(`/grades/${subjectCode}/students/${username}`);
   };
 
   const viewGradesHandler = (studentId) => {
@@ -39,8 +41,6 @@ const GradesList = () => {
   useEffect(() => {
     getStudents();
   }, []);
-
-  const { subjectCode } = useParams();
 
   const getStudents = () => {
     fetch(`${baseUrl}/grades/${subjectCode}/students`, {
@@ -66,17 +66,17 @@ const GradesList = () => {
                   key={i}
                   {...student}
                   addGradeButton={
-                    <Button onClick={() => addGradeHandler(student.id)}>
+                    <Button onClick={() => addGradeHandler(student.username)}>
                       Pridėti pažymį
                     </Button>
                   }
                   editGradesButton={
-                    <Button onClick={() => editGradesHandler(student.id)}>
+                    <Button onClick={() => editGradesHandler(student.username)}>
                       Peržiūrėti pažymius
                     </Button>
                   }
                   viewGradesButton={
-                    <Button onClick={() => viewGradesHandler(student.id)}>
+                    <Button onClick={() => viewGradesHandler(student.username)}>
                       Ataskaita
                     </Button>
                   }

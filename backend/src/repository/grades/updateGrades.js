@@ -11,9 +11,9 @@ export const updateStudentGradesBySubjectAndStudent = async (
   try {
     const [results, fields] = await connection.execute(
       `UPDATE Grades 
-      SET value=?, comment=?, updated_at=?, is_exam=?, importance=?
+      SET value=?, comment=?, is_exam=?
       WHERE id=?`,
-      [value, comment, updated_at, is_exam, importance, gradeId]
+      [value, comment, is_exam, gradeId]
     );
 
     if (results.affectedRows <= 0) {

@@ -1,35 +1,50 @@
 ﻿// EditGradesPage.js
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import FormField from "../../components/FormField";
-
-// Mock function to simulate fetching existing grades
-const fetchGradesForStudent = (studentId) => {
-  return [
-    {
-      id: 1,
-      value: 8,
-      comment: "Good performance, needs improvement in coding skills",
-    },
-    {
-      id: 5,
-      value: 6,
-      comment: "Bad performance",
-    },
-  ];
-};
+import { baseUrl } from "../../constants";
 
 const EditGradesPage = () => {
   const { studentId } = useParams();
   const navigate = useNavigate();
   const [grades, setGrades] = useState([]);
+  const { subjectCode, username } = useParams();
+
+  // Mock function to simulate fetching existing grades
+  const fetchGradesForStudent = () => {
+    fetch(`${baseUrl}/grades/${subjectCode}/students/${username}/grades`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setGrades(data);
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
-    const initialGrades = fetchGradesForStudent(studentId);
-    setGrades(initialGrades);
-  }, [studentId]);
+    fetchGradesForStudent();
+  }, []);
+
+  const updateStudentsGrades = () => {
+    const dataToSend = grades;
+
+    return fetch(
+      `${baseUrl}/grades/${subjectCode}/students/${username}/grades`,
+      {
+        method: "PUT",
+        body: JSON.stringify(dataToSend),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {})
+      .catch((err) => {
+        err;
+      });
+  };
 
   const handleGradeChange = (id: any, newGrade: any, eventId: any) => {
     const newGrades = grades.map((grade) => {
@@ -45,9 +60,9 @@ const EditGradesPage = () => {
   };
 
   const handleSubmit = () => {
-    // Logic to save updated grades for the student (e.g., API call)
-    console.log(`Updated grades for student ${studentId}:`, grades);
-    navigate(`/grades`);
+    console.log(grades);
+    updateStudentsGrades();
+    navigate(`/grades/${subjectCode}/students`);
   };
 
   return (

@@ -79,31 +79,12 @@ export const addGradeController = async (req, res) => {
 export const updateGradeController = async (req, res) => {
   try {
     const { subjectCode, username } = req.params;
-    const gradesToUpdate = req.body.grades; // Expecting an array of grade objects
-
-    if (!gradesToUpdate || !Array.isArray(gradesToUpdate)) {
-      throw NotFoundError("grades not found");
-    }
-
-    // Retrieve fk_StudentSubjectid based on subjectCode and username
-    const [studentSubjectRows] = await connection.execute(
-      `SELECT ss.id AS studentSubjectId, st.fk_Subjectcode
-         FROM Student_subjects ss
-         INNER JOIN Students s ON ss.fk_Studentusername = s.username
-         INNER JOIN Subject_times st ON ss.fk_SubjectTimeid = st.id
-         WHERE st.fk_Subjectcode = ? AND s.username = ?`,
-      [subjectCode, username]
-    );
-
-    if (studentSubjectRows.length === 0) {
-      throw NotFoundError("grades not found");
-    }
-
-    const fk_StudentSubjectid = studentSubjectRows[0].studentSubjectId;
+    const gradesToUpdate = req.body; // Expecting an array of grade objects
 
     // Update each grade
     for (const gradeData of gradesToUpdate) {
       const {
+        id,
         value,
         comment,
         is_exam,
@@ -116,7 +97,7 @@ export const updateGradeController = async (req, res) => {
       }
 
       await updateStudentGradesBySubjectAndStudent(
-        fk_StudentSubjectid,
+        id,
         value,
         comment,
         is_exam,
