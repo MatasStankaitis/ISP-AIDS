@@ -45,10 +45,14 @@ const SubjectEdit = () => {
   };
 
   const handleTimeChange = (index, e) => {
-    const { id, value } = e.target;
+    const { id, value, type, checked } = e.target;
     const updatedTimes = [...subjectTimes];
-    updatedTimes[index] = { ...updatedTimes[index], [id]: value };
+    updatedTimes[index] = { ...updatedTimes[index], [id]: type === "checkbox" ? checked : value };
     setSubjectTimes(updatedTimes);
+  };
+
+  const handleAddTime = () => {
+    setSubjectTimes([...subjectTimes, { hour: "", day: "", classroom: "", capacity: "", even_week: false, fk_Subjectcode: code, isNew: true }]);
   };
 
   const handleSubmit = (e) => {
@@ -68,15 +72,38 @@ const SubjectEdit = () => {
         }
         return response.json();
       })
-      .then(() => navigate("/subjects"))
+      .then(() => {
+        subjectTimes.forEach((time) => {
+          if (time.id) {
+            fetch(`${baseUrl}/subjects/times/${time.id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(time),
+            });
+          } else {
+            fetch(`${baseUrl}/subjects/${code}/times`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(time),
+            });
+          }
+        });
+        navigate("/subjects");
+      })
       .catch((error) => console.error("Error updating subject:", error));
   };
 
   const handleTimeSubmit = (index, e) => {
     e.preventDefault();
     const time = subjectTimes[index];
-    fetch(`${baseUrl}/subjects/times/${time.id}`, {
-      method: "PUT",
+    const url = time.isNew ? `${baseUrl}/subjects/${code}/times` : `${baseUrl}/subjects/times/${time.id}`;
+    const method = time.isNew ? "POST" : "PUT";
+    fetch(url, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },
@@ -90,7 +117,13 @@ const SubjectEdit = () => {
         }
         return response.json();
       })
-      .then(() => alert("Subject time updated successfully"))
+      .then(() => {
+        if (time.isNew) {
+          const updatedTimes = [...subjectTimes];
+          updatedTimes[index].isNew = false;
+          setSubjectTimes(updatedTimes);
+        }
+      })
       .catch((error) => console.error("Error updating subject time:", error));
   };
 
@@ -110,7 +143,6 @@ const SubjectEdit = () => {
       .then(() => {
         const updatedTimes = subjectTimes.filter((_, i) => i !== index);
         setSubjectTimes(updatedTimes);
-        alert("Subject time deleted successfully");
       })
       .catch((error) => console.error("Error deleting subject time:", error));
   };
@@ -183,10 +215,9 @@ const SubjectEdit = () => {
           Save
         </Button>
       </Form>
-
       <h2>Edit Subject Times</h2>
       {subjectTimes.map((time, index) => (
-        <Form key={time.id} onSubmit={(e) => handleTimeSubmit(index, e)}>
+        <Form key={time.id || index} onSubmit={(e) => handleTimeSubmit(index, e)}>
           <Form.Group controlId="hour">
             <Form.Label>Hour</Form.Label>
             <Form.Control
@@ -223,14 +254,27 @@ const SubjectEdit = () => {
               required
             />
           </Form.Group>
+          <Form.Group controlId="even_week">
+            <Form.Check
+              type="checkbox"
+              label="Even Week"
+              checked={time.even_week}
+              onChange={(e) => handleTimeChange(index, e)}
+            />
+          </Form.Group>
           <Button variant="primary" type="submit">
-            Save Time
+            {time.isNew ? "Create Time" : "Save Time"}
           </Button>
-          <Button variant="danger" onClick={() => handleTimeDelete(index)}>
-            Delete Time
-          </Button>
+          {!time.isNew && (
+            <Button variant="danger" onClick={() => handleTimeDelete(index)}>
+              Delete Time
+            </Button>
+          )}
         </Form>
       ))}
+      <Button variant="secondary" onClick={handleAddTime}>
+        Add Time
+      </Button>
     </Container>
   );
 };

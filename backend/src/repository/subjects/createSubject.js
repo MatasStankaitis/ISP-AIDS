@@ -7,13 +7,14 @@ export const createSubject = async (
   description,
   language,
   is_remote,
-  fk_Facultyid
+  fk_Facultyid,
+  year  // Add this parameter
 ) => {
   try {
     const [results] = await connection.execute(
-      `INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [code, name, credits, description, language, is_remote, fk_Facultyid]
+      `INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid, year)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [code, name, credits, description, language, is_remote, fk_Facultyid, year]  // Add this value
     );
     return results.insertId;
   } catch (err) {
