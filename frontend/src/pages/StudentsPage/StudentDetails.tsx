@@ -2,13 +2,11 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
 import { useNavigate, useParams } from "react-router-dom";
 import FormField from "../../components/FormField";
 import { baseUrl } from "../../constants";
 import { useEffect, useState } from "react";
-import { creationStudent } from "../../types/creationStudent";
 import { Alert } from "react-bootstrap";
 
 const StudentDetails = () => {
