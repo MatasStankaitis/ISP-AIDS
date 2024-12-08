@@ -343,3 +343,38 @@ INSERT INTO Dorm_requests
 VALUES 
 ('alebal', 2, 'Room change request - current neighbors too noisy', 2, 'admin1', CURRENT_DATE),
 ('alebal1', 4, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin1', CURRENT_DATE);
+
+
+INSERT INTO Subjects (code, name, credits, description, language, is_remote, fk_Facultyid) 
+VALUES
+('CS101', 'Introduction to Computer Science', 6, 'Fundamentals of computer science and programming.', 'English', TRUE, 1),
+('MAT202', 'Linear Algebra', 5, 'Matrices, vectors, and linear transformations.', 'Lithuanian', FALSE, 3),
+('PHY303', 'Modern Physics', 4, 'Principles of quantum mechanics and relativity.', 'English', FALSE, 2);
+
+-- Insert example data into Subject_times table
+INSERT INTO Subject_times (hour, day, classroom, even_week, fk_Subjectcode)
+VALUES
+(10, 1, 'Room 101', TRUE, 'CS101'),
+(12, 2, 'Room 202', FALSE, 'MAT202'),
+(14, 3, 'Room 303', TRUE, 'PHY303'),
+(16, 4, 'Room 404', FALSE, 'CS101');
+
+-- Insert example data into Student_subjects table
+INSERT INTO Student_subjects (passed, fk_Studentusername, fk_SubjectTimeid)
+VALUES
+(TRUE, 'alebal', 1),
+(FALSE, 'alebal1', 2),
+(TRUE, 'alebal', 3),
+(FALSE, 'alebal1', 4);
+
+-- Add grades for 'alebal' for CS101 and PHY303
+INSERT INTO Grades (value, comment, created_at, updated_at, is_exam, importance, fk_StudentSubjectid)
+VALUES
+(8, 'Good performance, needs improvement in coding skills', '2024-12-01', '2024-12-01', TRUE, 3, 1),  -- CS101
+(9, 'Strong understanding of quantum mechanics', '2024-12-01', '2024-12-01', FALSE, 4, 3);  -- PHY303
+
+-- Add grades for 'alebal1' for MAT202 and CS101
+INSERT INTO Grades (value, comment, created_at, updated_at, is_exam, importance, fk_StudentSubjectid)
+VALUES
+(6, 'Passed but struggled with the material', '2024-12-01', '2024-12-01', TRUE, 2, 2),  -- MAT202
+(7, 'Needs to improve overall programming skills', '2024-12-01', '2024-12-01', FALSE, 3, 4);  -- CS101

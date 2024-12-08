@@ -1,4 +1,9 @@
-﻿import Table from "react-bootstrap/Table";
+﻿import { ReactElement } from "react";
+import Table from "react-bootstrap/Table";
+
+interface StudentDataTableProps {
+  rows: ReactElement;
+}
 
 const StudentDataTable = ({ rows }) => {
   return (
