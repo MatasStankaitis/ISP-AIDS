@@ -143,11 +143,8 @@ export const getStudentsBySubjectController = async (req, res) => {
   
       const students = await getStudentsBySubject(subjectCode);
   
-      if (students.length === 0) {
-        throw NotFoundError("No students found for the subject.");
-      } else {
-        res.status(SUCCESS_STATUS).json(students);
-      }
+      res.status(SUCCESS_STATUS).json(students);
+      
     } catch (err) {
       handleError(res, err);
     }

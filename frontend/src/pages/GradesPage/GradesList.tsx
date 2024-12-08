@@ -4,7 +4,7 @@ import STUDENTS from "../../prototypeData/students";
 import { useState, useEffect } from "react";
 import FiltersDiv from "./components/FiltersDiv";
 import Button from "react-bootstrap/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "../../constants";
 
 
@@ -41,8 +41,10 @@ const GradesList = () => {
       getStudents();
     }, []);
 
+    const { subjectCode} = useParams();
+
     const getStudents = () => {
-      fetch(`${baseUrl}/grades/CS101/students`, {
+      fetch(`${baseUrl}/grades/${subjectCode}/students`, {
         method: "GET",
       })
         .then((response) => response.json())
@@ -58,11 +60,7 @@ const GradesList = () => {
             <StudentDataTable
                 rows={
                     <>
-                        {STUDENTS.filter(
-                            (student) =>
-                                student.name.toUpperCase().startsWith(name.toUpperCase()) &&
-                                student.surname.toUpperCase().startsWith(surname.toUpperCase())
-                        ).map((student, i) => {
+                        {students.map((student, i) => {
                             student.id = i + 1;
                             return (
                                 <StudentDataTableRow
