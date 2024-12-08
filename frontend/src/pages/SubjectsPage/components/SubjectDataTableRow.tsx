@@ -57,6 +57,11 @@ const SubjectDataTableRow = ({
             >
               {showTimes ? "Hide Times" : "Show Times"}
             </button>
+            <Link to={`/grades/${code}`}>
+              <button type="button" className="btn btn-outline-primary">
+                View Grades
+              </button>
+            </Link>
           </td>
         </tr>
         {showTimes && subjectTimes.length > 0 && (
@@ -66,11 +71,6 @@ const SubjectDataTableRow = ({
                 {subjectTimes.map((time) => (
                   <li key={time.id}>
                     {`Time: ${time.hour}h, Day: ${dayMapping[time.day]}, Classroom: ${time.classroom}, Registered Students: ${time.registered_students}/${time.capacity}`}
-                    <Link to={`/grades/${code}-${time.hour}-${time.day}`}>
-                      <button type="button" className="btn btn-outline-primary">
-                        View Grades
-                      </button>
-                    </Link>
                   </li>
                 ))}
               </ul>

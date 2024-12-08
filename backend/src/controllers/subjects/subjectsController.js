@@ -35,6 +35,7 @@ export const createSubjectController = async (req, res) => {
       language,
       is_remote,
       fk_Facultyid,
+      year  // Add this parameter
     } = req.body;
     const subjectId = await createSubject(
       code,
@@ -43,7 +44,8 @@ export const createSubjectController = async (req, res) => {
       description,
       language,
       is_remote,
-      fk_Facultyid
+      fk_Facultyid,
+      year  // Add this value
     );
     res.status(SUCCESS_STATUS).json({
       success: true,
@@ -58,7 +60,7 @@ export const createSubjectController = async (req, res) => {
 export const updateSubjectController = async (req, res) => {
   try {
     const { code } = req.params;
-    const { name, credits, description, language, is_remote, fk_Facultyid } =
+    const { name, credits, description, language, is_remote, fk_Facultyid, year } =
       req.body;
     await updateSubject(
       code,
@@ -67,7 +69,8 @@ export const updateSubjectController = async (req, res) => {
       description,
       language,
       is_remote,
-      fk_Facultyid
+      fk_Facultyid,
+      year  // Add this value
     );
     res.status(SUCCESS_STATUS).json({ success: true });
   } catch (err) {

@@ -8,14 +8,15 @@ export const updateSubject = async (
   description,
   language,
   is_remote,
-  fk_Facultyid
+  fk_Facultyid,
+  year  // Add this parameter
 ) => {
   try {
     const [results] = await connection.execute(
       `UPDATE Subjects 
-       SET name = ?, credits = ?, description = ?, language = ?, is_remote = ?, fk_Facultyid = ?
+       SET name = ?, credits = ?, description = ?, language = ?, is_remote = ?, fk_Facultyid = ?, year = ?
        WHERE code = ?`,
-      [name, credits, description, language, is_remote, fk_Facultyid, code]
+      [name, credits, description, language, is_remote, fk_Facultyid, year, code]  // Add this value
     );
 
     if (results.affectedRows === 0) {

@@ -1,13 +1,18 @@
 import connection from "#config/sqlConnection.js";
-import { NotFoundError } from "#utils/errors.js";
+import { NotFoundError, ValidationError } from "#utils/errors.js";
 
-export const updateSubjectTime = async (id, hour, day, classroom, capacity) => {
+export const updateSubjectTime = async (id, hour, day, classroom, capacity, even_week) => {
   try {
+    // Validate that all required fields are provided and are valid
+    if (hour === undefined || day === undefined || classroom === undefined || capacity === undefined || even_week === undefined) {
+      throw new ValidationError("All fields (hour, day, classroom, capacity, even_week) must be provided and valid");
+    }
+
     const [results] = await connection.execute(
       `UPDATE Subject_times 
-       SET hour = ?, day = ?, classroom = ?, capacity = ?
+       SET hour = ?, day = ?, classroom = ?, capacity = ?, even_week = ?
        WHERE id = ?`,
-      [hour, day, classroom, capacity, id]
+      [hour, day, classroom, capacity, even_week, id]
     );
 
     if (results.affectedRows === 0) {
@@ -16,7 +21,7 @@ export const updateSubjectTime = async (id, hour, day, classroom, capacity) => {
 
     return true;
   } catch (err) {
-    if (err instanceof NotFoundError) {
+    if (err instanceof NotFoundError || err instanceof ValidationError) {
       throw err;
     }
     console.error(err);
