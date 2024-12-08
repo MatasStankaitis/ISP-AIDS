@@ -46,10 +46,10 @@ function App() {
           <Route path="subjects/remove" element={<SubjectsRemoval />} />
           <Route path="subject/edit" element={<SubjectEdit />} />
           <Route path="subjectsSelection" element={<SubjectsSelection />} />
-          <Route path="/grades" element={<GradesList />} />
-          <Route path="/grades/add/:studentId" element={<AddGradePage />} />
-          <Route path="/grades/edit/:studentId" element={<EditGradesPage />} />
-          <Route path="/grades/view/:studentId" element={<ViewGradesPage />} />
+          <Route path="grades/:subjectCode" element={<GradesList />} />
+          <Route path="grades/add/:studentId" element={<AddGradePage />} />
+          <Route path="grades/edit/:studentId" element={<EditGradesPage />} />
+          <Route path="grades/view/:studentId" element={<ViewGradesPage />} />
           <Route path="dorms" element={<DormsPage />} />
           <Route path="dorms/reservation" element={<DormReservation />} />
           <Route path="dorms/edit" element={<DormEdit />} />

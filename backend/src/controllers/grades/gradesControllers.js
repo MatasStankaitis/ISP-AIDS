@@ -2,6 +2,7 @@
 import { getStudentGradesBySubject } from "#repository/grades/getGrades.js";
 import { addStudentGrade } from "#repository/grades/addGrade.js";
 import { updateStudentGradesBySubjectAndStudent } from "#repository/grades/updateGrades.js";
+import { getStudentsBySubject } from "#repository/grades/getStudents.js"; // Import the getStudentsBySubject method
 import { SUCCESS_STATUS } from "#utils/constants.js";
 import { handleError } from "#utils/handleError.js";
 import { NotFoundError } from "#utils/errors.js";
@@ -12,7 +13,7 @@ export const getGradesController = async (req, res) => {
     const { subjectCode, username } = req.params;
 
     if (!subjectCode || !username) {
-      throw NotFoundError("notFOund");
+      throw NotFoundError("notFound");
     }
 
     const grades = await getStudentGradesBySubject(subjectCode, username);
@@ -130,3 +131,26 @@ export const updateGradeController = async (req, res) => {
     handleError(res, err);
   }
 };
+
+// Controller to get all students in a subject
+export const getStudentsBySubjectController = async (req, res) => {
+    try {
+      const { subjectCode } = req.params;
+  
+      if (!subjectCode) {
+        throw NotFoundError("Wrong subject code provided.");
+      }
+  
+      const students = await getStudentsBySubject(subjectCode);
+  
+      if (students.length === 0) {
+        throw NotFoundError("No students found for the subject.");
+      } else {
+        res.status(SUCCESS_STATUS).json(students);
+      }
+    } catch (err) {
+      handleError(res, err);
+    }
+  };
+
+
