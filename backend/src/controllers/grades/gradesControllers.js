@@ -114,12 +114,12 @@ export const updateGradeController = async (req, res) => {
 export const getStudentsBySubjectController = async (req, res) => {
   try {
     const { subjectCode } = req.params;
-
+    const { name, surname } = req.query;
     if (!subjectCode) {
       throw NotFoundError("Wrong subject code provided.");
     }
 
-    const students = await getStudentsBySubject(subjectCode);
+    const students = await getStudentsBySubject(subjectCode, name, surname);
 
     res.status(SUCCESS_STATUS).json(students);
   } catch (err) {

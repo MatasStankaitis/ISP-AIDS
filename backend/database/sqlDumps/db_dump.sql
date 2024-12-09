@@ -367,7 +367,6 @@ VALUES
 INSERT INTO Subject_times (hour, day, classroom, even_week, capacity, fk_Subjectcode)
 VALUES
 (9, 1, 'A101', true, 30, 'INF101'),
-(11, 1, 'A101', true, 30, 'INF101'),
 (11, 3, 'A102', false, 25, 'PHY101'),
 (14, 5, 'A103', true, 20, 'MAT101'),
 (10, 2, 'A104', false, 30, 'INF102'),
@@ -378,5 +377,42 @@ VALUES
 (true, 'student', 1),
 (false, 'student2', 3),
 (true, 'student', 2),
-(false, 'student2', 4),
+(false, 'student2', 1),
 (true, 'student', 5);
+
+INSERT INTO Grades (value, comment, created_at, updated_at, is_exam, importance, fk_StudentSubjectid)
+VALUES
+-- Grades for student in INF101
+(8, 'Geras medžiagos supratimas.', '2024-01-01', '2024-01-01', true, 3, 1),
+(9, 'Puikus pasirodymas.', '2024-01-15', '2024-01-15', false, 2, 1),
+(7, 'Reikia tobulinti kai kurias sritis.', '2024-02-01', '2024-02-01', true, 3, 1),
+(8, 'Nuoseklus pasirodymas.', '2024-02-15', '2024-02-15', false, 2, 1),
+(9, 'Puikus dalyvavimas.', '2024-03-01', '2024-03-01', true, 3, 1),
+
+-- Grades for student2 in PHY101
+(6, 'Susidūrė su tam tikrais sunkumais.', '2024-01-01', '2024-01-01', true, 3, 3),
+(7, 'Pagerėjo pasirodymas.', '2024-01-15', '2024-01-15', false, 2, 3),
+(5, 'Vos išlaikė.', '2024-02-01', '2024-02-01', true, 3, 3),
+(6, 'Reikia daugiau pastangų.', '2024-02-15', '2024-02-15', false, 2, 3),
+(7, 'Geresnis supratimas.', '2024-03-01', '2024-03-01', true, 3, 3),
+
+-- Grades for student in MAT101
+(9, 'Puikus supratimas.', '2024-01-01', '2024-01-01', true, 3, 2),
+(8, 'Geras pasirodymas.', '2024-01-15', '2024-01-15', false, 2, 2),
+(9, 'Nuoseklus darbas.', '2024-02-01', '2024-02-01', true, 3, 2),
+(10, 'Išskirtinis pasiekimas.', '2024-02-15', '2024-02-15', false, 2, 2),
+(9, 'Puikus dalyvavimas.', '2024-03-01', '2024-03-01', true, 3, 2),
+
+-- Grades for student2 in INF102
+(7, 'Geras supratimas.', '2024-01-01', '2024-01-01', true, 3, 4),
+(8, 'Pagerėjo pasirodymas.', '2024-01-15', '2024-01-15', false, 2, 4),
+(6, 'Reikia daugiau pastangų.', '2024-02-01', '2024-02-01', true, 3, 4),
+(7, 'Geresnis supratimas.', '2024-02-15', '2024-02-15', false, 2, 4),
+(8, 'Nuoseklus darbas.', '2024-03-01', '2024-03-01', true, 3, 4),
+
+-- Grades for student in MAT102
+(8, 'Geras supratimas.', '2024-01-01', '2024-01-01', true, 3, 5),
+(9, 'Puikus pasirodymas.', '2024-01-15', '2024-01-15', false, 2, 5),
+(7, 'Reikia tobulėjimo.', '2024-02-01', '2024-02-01', true, 3, 5),
+(8, 'Nuoseklus darbas.', '2024-02-15', '2024-02-15', false, 2, 5),
+(9, 'Puikus dalyvavimas.', '2024-03-01', '2024-03-01', true, 3, 5);

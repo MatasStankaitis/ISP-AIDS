@@ -14,7 +14,7 @@ const EditGradesPage = () => {
   // Mock function to simulate fetching existing grades
   const fetchGradesForStudent = () => {
     fetch(`${baseUrl}/grades/${subjectCode}/students/${username}/grades`, {
-      method: "GET",
+      method: "GET",  
     })
       .then((response) => response.json())
       .then((data) => {
@@ -68,34 +68,36 @@ const EditGradesPage = () => {
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Redaguoti pažymį studentui: {username} </h2>
-      {grades.map((grade, index) => (
-        <div className="mb-3 p-3 border rounded">
-          <FormField
-            placeholder="pažymys"
-            label={`Pažymys nr. ${index + 1}`}
-            key={`grade_${index}`}
-            controlId={`value`}
-            type="text"
-            value={grade.value}
-            onChange={(e) =>
-              handleGradeChange(grade.id, e.target.value, e.target.id)
-            }
-          ></FormField>
-          <FormField
-            placeholder="komentaras"
-            label={`Komentaras`}
-            key={`comment_${index}`}
-            controlId={`comment`}
-            type="text"
-            value={grade.comment}
-            onChange={(e) =>
-              handleGradeChange(grade.id, e.target.value, e.target.id)
-            }
-          ></FormField>
-        </div>
-      ))}
+      {grades.length > 0 ? (
+        grades.map((grade, index) => (
+          <div key={index} className="mb-3 p-3 border rounded">
+            <FormField
+              placeholder="pažymys"
+              label={`Pažymys nr. ${index + 1}`}
+              controlId={`value`}
+              type="text"
+              value={grade.value}
+              onChange={(e) =>
+                handleGradeChange(grade.id, e.target.value, e.target.id)
+              }
+            />
+            <FormField
+              placeholder="komentaras"
+              label="Komentaras"
+              controlId={`comment`}
+              type="text"
+              value={grade.comment}
+              onChange={(e) =>
+                handleGradeChange(grade.id, e.target.value, e.target.id)
+              }
+            />
+          </div>
+        ))
+      ) : (
+        <p>Studentas neturi pažymių.</p>
+      )}
       <Button variant="primary" onClick={handleSubmit}>
-        Išsaugoti pakitimus
+        Išsaugoti ir grįžti atgal
       </Button>
     </div>
   );

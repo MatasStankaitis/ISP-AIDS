@@ -52,6 +52,9 @@ const GradesList = () => {
       })
       .catch((error) => console.log(error));
   };
+  const handleSubmit = () => {
+    navigate(`/home/subjects`);
+  };
 
   return (
     <>
@@ -86,6 +89,9 @@ const GradesList = () => {
           </>
         }
       />
+      <Button variant="primary" onClick={handleSubmit}>
+        Grįžti atgal
+      </Button>
     </>
   );
 };
