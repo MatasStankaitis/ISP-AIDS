@@ -9,6 +9,7 @@ import { baseUrl } from "../../constants";
 
 const LecturerList = () => {
   const [lecturers, setLecturers] = useState([]);
+  const [filteredLecturers, setFilteredLecturers] = useState([]);
   const [genders, setGenders] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [faculties, setFaculties] = useState([]);
@@ -29,11 +30,11 @@ const LecturerList = () => {
       const response = await fetch(`${baseUrl}/lecturers`);
       const data = await response.json();
       setLecturers(data);
+      setFilteredLecturers(data); // Set the initial filtered lecturers
     } catch (error) {
       console.error("Failed to fetch lecturers:", error);
     }
   };
-
 
   const fetchGenders = async () => {
     try {
@@ -64,8 +65,20 @@ const LecturerList = () => {
       console.error("Failed to fetch faculties:", error);
     }
   };
-  const handleRemoveClick = (name: string) => {
-    setRemoveModal({ show: true, lecturerName: name });
+
+  const handleFilter = (searchText) => {
+    const lowerCaseSearch = searchText.toLowerCase();
+    const filtered = lecturers.filter(
+      (lecturer) =>
+        lecturer.name.toLowerCase().includes(lowerCaseSearch) ||
+        lecturer.surname.toLowerCase().includes(lowerCaseSearch) ||
+        (lecturer.username && lecturer.username.toLowerCase().includes(lowerCaseSearch))
+    );
+    setFilteredLecturers(filtered);
+  };
+
+  const handleRemoveClick = (username) => {
+    setRemoveModal({ show: true, lecturerName: username });
   };
 
   const handleConfirmRemove = async () => {
@@ -73,19 +86,15 @@ const LecturerList = () => {
       const response = await fetch(`${baseUrl}/lecturers/${removeModal.lecturerName}`, {
         method: "DELETE",
       });
-  
       if (response.ok) {
-        console.log(`Lecturer "${removeModal.lecturerName}" deleted successfully.`);
+        setLecturers(lecturers.filter((lect) => lect.username !== removeModal.lecturerName));
+        setFilteredLecturers(filteredLecturers.filter((lect) => lect.username !== removeModal.lecturerName));
         setRemoveModal({ show: false, lecturerName: "" });
-        fetchLecturers(); // Refresh the list
       } else {
-        const errorData = await response.json();
-        console.error("Failed to delete lecturer:", errorData.error);
-        alert("Nepavyko pašalinti dėstytojo.");
+        console.error("Failed to remove lecturer");
       }
     } catch (error) {
-      console.error("Error deleting lecturer:", error);
-      alert("Nepavyko pašalinti dėstytojo.");
+      console.error("Error removing lecturer:", error);
     }
   };
 
@@ -96,9 +105,9 @@ const LecturerList = () => {
           <Button variant="primary">Pridėti dėstytoją</Button>
         </Link>
       </div>
-      <LecturerFilterDiv />
+      <LecturerFilterDiv onFilter={handleFilter} />
       <LecturerDataTable
-        rows={lecturers.map((lecturer, index) => (
+        rows={filteredLecturers.map((lecturer, index) => (
           <LecturerDataTableRow
             key={lecturer.username}
             id={index + 1}
@@ -108,9 +117,9 @@ const LecturerList = () => {
             phone_number={lecturer.phone_number}
             email={lecturer.email}
             home_address={lecturer.home_address}
-            gender={lecturer.gender_name} // Ensure proper mapping
+            gender={lecturer.gender_name}
             status={lecturer.status_name}
-            faculty={lecturer.faculty_name} // Ensure proper mapping
+            faculty={lecturer.faculty_name}
             current_salary={lecturer.current_salary}
             onRemove={handleRemoveClick}
           />

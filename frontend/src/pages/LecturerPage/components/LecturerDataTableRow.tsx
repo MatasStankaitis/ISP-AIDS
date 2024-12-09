@@ -13,7 +13,7 @@ interface LecturerDataTableRowProps {
   status: string;
   faculty: string;
   current_salary: number;
-  onRemove: (name: string) => void;
+  onRemove: (username: string) => void; // Changed parameter to username
 }
 
 const LecturerDataTableRow = ({
@@ -30,7 +30,7 @@ const LecturerDataTableRow = ({
   onRemove,
 }: LecturerDataTableRowProps) => (
   <tr>
-    <td>{username}</td> {/* Unique Identifier or Index */}
+    <td>{username}</td> {/* Unique Identifier */}
     <td>{name}</td>
     <td>{surname}</td>
     <td>{username}</td>
@@ -45,7 +45,7 @@ const LecturerDataTableRow = ({
       <Link to={`/lecturers/${username}`}>
         <Button variant="success">Peržiūrėti</Button>
       </Link>
-      <Button variant="danger" onClick={() => onRemove(name)}>
+      <Button variant="danger" onClick={() => onRemove(username)}> {/* Pass username */}
         Pašalinti
       </Button>
     </td>

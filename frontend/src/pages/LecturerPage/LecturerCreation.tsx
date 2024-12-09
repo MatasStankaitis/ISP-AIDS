@@ -6,8 +6,6 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { Link, useNavigate } from "react-router-dom";
 import FormField from "../../components/FormField";
-import FACULTIES from "../../prototypeData/faculties";
-import LECTURER_STATUSES from "../../prototypeData/lecturerStatuses";
 import { baseUrl } from "../../constants";
 
 const LecturerCreation = () => {
@@ -22,7 +20,7 @@ const LecturerCreation = () => {
     phone_number: "",
     email: "",
     home_address: "",
-    gender: "", // For gender dropdown
+    gender: "", // Dropdown for gender
     current_salary: "",
     faculty: "",
     status: "",
@@ -31,7 +29,6 @@ const LecturerCreation = () => {
 
   const navigate = useNavigate();
 
-  // Fetch Genders
   const fetchGenders = () => {
     fetch(`${baseUrl}/lecturers/genders`, {
       method: "GET",
@@ -45,7 +42,6 @@ const LecturerCreation = () => {
       });
   };
 
-  // Fetch Faculties and Statuses
   const fetchFacultiesAndStatuses = () => {
     fetch(`${baseUrl}/lecturers/statuses`, { method: "GET" })
       .then((response) => response.json())
@@ -54,7 +50,12 @@ const LecturerCreation = () => {
       })
       .catch((err) => console.error("Failed to fetch lecturer statuses:", err));
 
-    setFaculties(FACULTIES); // Example: Hardcoded faculties
+    fetch(`${baseUrl}/faculties`, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setFaculties(data);
+      })
+      .catch((err) => console.error("Failed to fetch faculties:", err));
   };
 
   const createLecturer = () => {
@@ -67,7 +68,7 @@ const LecturerCreation = () => {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
-          navigate(-1);
+          navigate(-1); // Navigate back to the lecturer list on success
         } else {
           response.json().then((data) => setError(data.error));
         }

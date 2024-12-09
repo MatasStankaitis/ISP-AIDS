@@ -14,51 +14,66 @@ export const getLecturerStatusesController = async (req, res) => {
 
 // Controller to create a new lecturer
 export const createLecturerController = async (req, res) => {
-  try {
-    const {
-      username,
-      name,
-      surname,
-      phone_number,
-      email,
-      home_address,
-      gender,
-      current_salary,
-      status,
-      picture_url,
-      faculty,
-    } = req.body;
-
-    // Validate Faculty
-    const [[facultyExists]] = await connection.query(
-      `SELECT id FROM Faculties WHERE id = ?`,
-      [faculty]
-    );
-    if (!facultyExists) {
-      return res.status(400).json({ error: "Invalid faculty ID" });
+    try {
+      const {
+        username, // Required field
+        name,
+        surname,
+        phone_number,
+        email,
+        home_address,
+        gender,
+        current_salary,
+        status,
+        picture_url,
+        faculty,
+      } = req.body;
+  
+      // Validate required fields
+      if (
+        !username || // Ensure username is present
+        !name ||
+        !surname ||
+        !email ||
+        !home_address ||
+        !gender ||
+        !current_salary ||
+        !status ||
+        !faculty
+      ) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+  
+      // Validate Faculty
+      const [[facultyExists]] = await connection.query(
+        `SELECT id FROM Faculties WHERE id = ?`,
+        [faculty]
+      );
+      if (!facultyExists) {
+        return res.status(400).json({ error: "Invalid faculty ID" });
+      }
+  
+      // Insert into Users table
+      await connection.query(
+        `INSERT INTO Users (username, name, surname, phone_number, email, home_address, gender, photo_URL) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [username, name, surname, phone_number, email, home_address, gender, picture_url]
+      );
+  
+      // Insert into Lecturers table
+      await connection.query(
+        `INSERT INTO Lecturers (username, current_salary, experience, status, faculty) 
+         VALUES (?, ?, ?, ?, ?)`,
+        [username, current_salary, 0, status, faculty]
+      );
+  
+      res.status(201).json({ message: "Lecturer created successfully." });
+    } catch (error) {
+      console.error("Error in createLecturerController:", error);
+      res.status(500).json({ error: "Failed to create lecturer." });
     }
-
-    // Create Lecturer
-    await createLecturer({
-      username,
-      name,
-      surname,
-      phone_number,
-      email,
-      home_address,
-      gender,
-      current_salary,
-      status,
-      picture_url,
-      faculty,
-    });
-
-    res.status(201).json({ message: "Lecturer created successfully." });
-  } catch (error) {
-    console.error("Error in createLecturerController:", error);
-    res.status(500).json({ error: "Failed to create lecturer." });
-  }
-};
+  };
+  
 
 // Controller to fetch all lecturers
 export const getAllLecturersController = async (req, res) => {
@@ -150,33 +165,58 @@ export const getSingleLecturerController = async (req, res) => {
   };
 // Controller to delete a lecturer
 export const deleteLecturerController = async (req, res) => {
+  try {
+    const { username } = req.params;
+    console.log("Deleting lecturer with username:", username);
+
+    const [lecturerResult] = await connection.query(
+      `DELETE FROM Lecturers WHERE username = ?`,
+      [username]
+    );
+    console.log("Lecturer delete result:", lecturerResult);
+
+    const [userResult] = await connection.query(
+      `DELETE FROM Users WHERE username = ?`,
+      [username]
+    );
+    console.log("User delete result:", userResult);
+
+    if (lecturerResult.affectedRows > 0 && userResult.affectedRows > 0) {
+      res.status(200).json({ message: "Lecturer deleted successfully." });
+    } else {
+      res.status(404).json({ error: "Lecturer not found." });
+    }
+  } catch (error) {
+    console.error("Error deleting lecturer:", error);
+    res.status(500).json({ error: "Failed to delete lecturer." });
+  }
+};
+export const updateLecturerSalaryController = async (req, res) => {
+    const { username } = req.params;
+    const { current_salary } = req.body;
+  
+    if (!current_salary || isNaN(current_salary)) {
+      return res.status(400).json({ error: "Invalid salary input" });
+    }
+  
     try {
-      const { username } = req.params;
-      console.log("Deleting lecturer with username:", username);
-  
-      const [lecturerResult] = await connection.query(
-        `DELETE FROM Lecturers WHERE username = ?`,
-        [username]
+      const [result] = await connection.query(
+        `UPDATE Lecturers SET current_salary = ? WHERE username = ?`,
+        [current_salary, username]
       );
-      console.log("Lecturer delete result:", lecturerResult);
   
-      const [userResult] = await connection.query(
-        `DELETE FROM Users WHERE username = ?`,
-        [username]
-      );
-      console.log("User delete result:", userResult);
-  
-      if (lecturerResult.affectedRows > 0 && userResult.affectedRows > 0) {
-        res.status(200).json({ message: "Lecturer deleted successfully." });
-      } else {
-        res.status(404).json({ error: "Lecturer not found." });
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Lecturer not found" });
       }
+  
+      res.status(200).json({ message: "Salary updated successfully" });
     } catch (error) {
-      console.error("Error deleting lecturer:", error);
-      res.status(500).json({ error: "Failed to delete lecturer." });
+      console.error("Error updating salary:", error);
+      res.status(500).json({ error: "Failed to update salary" });
     }
   };
   
+
   
   
   
