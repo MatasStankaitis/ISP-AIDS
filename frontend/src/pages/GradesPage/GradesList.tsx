@@ -72,7 +72,7 @@ const GradesList = () => {
                   }
                   editGradesButton={
                     <Button onClick={() => editGradesHandler(student.username)}>
-                      Peržiūrėti pažymius
+                      Redaguoti pažymius
                     </Button>
                   }
                   viewGradesButton={
