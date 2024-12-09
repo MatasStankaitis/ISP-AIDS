@@ -1,5 +1,4 @@
-﻿// AddGradePage.js
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { baseUrl } from "../../constants";
@@ -15,13 +14,29 @@ const AddGradePage = () => {
     is_exam: true,
     importance: 5,
   });
+  const [error, setError] = useState("");
   const { subjectCode, username } = useParams();
 
-  const handleChange = (id: string, value: any) => {
+  const handleChange = (id, value) => {
     setGrade((previous) => {
       return { ...previous, [id]: value };
     });
   };
+
+  const validateGrade = () => {
+    if (grade.value === null || grade.value === "") {
+      setError("Pažymio laukas negali būti tuščias.");
+      return false;
+    }
+    const numericValue = Number(grade.value);
+    if (isNaN(numericValue) || numericValue < 1 || numericValue > 10) {
+      setError("Pažymys turi būti skaičius nuo 1 iki 10.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const CreateStudentGrade = () => {
     const dataToSend = grade;
     return fetch(
@@ -36,14 +51,16 @@ const AddGradePage = () => {
     )
       .then((response) => {})
       .catch((err) => {
-        err;
+        console.error(err);
       });
   };
 
-  const handleSubmit = () => {
-    // Logic to save grades for the student (e.g., API call)
-    CreateStudentGrade();
-    navigate(`/home/grades/${subjectCode}/students`);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateGrade()) {
+      CreateStudentGrade();
+      navigate(`/home/grades/${subjectCode}/students`);
+    }
   };
 
   return (
@@ -52,6 +69,7 @@ const AddGradePage = () => {
       <div className="mb-3 p-3 border rounded">
         <Container>
           <Form onSubmit={handleSubmit}>
+            {error && <div className="alert alert-danger">{error}</div>}
             <FormField
               placeholder="pažymys"
               label={`Įrašykite pažymį`}
