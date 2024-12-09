@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import FormField from "../../components/FormField";
 import { baseUrl } from "../../constants";
 
-const EditGradesPage = () => {
+const StudentViewGradePage = () => {
   const { studentId } = useParams();
   const navigate = useNavigate();
   const [grades, setGrades] = useState([]);
@@ -61,44 +61,24 @@ const EditGradesPage = () => {
 
   const handleSubmit = () => {
     console.log(grades);
-    updateStudentsGrades();
+    //updateStudentsGrades();
     navigate(`/home/grades/${subjectCode}/students`);
   };
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Redaguoti pažymį studentui: {username} </h2>
+      <h2 className="mb-4">Gauti modulio pažymiai: {subjectCode}</h2>
       {grades.map((grade, index) => (
-        <div className="mb-3 p-3 border rounded">
-          <FormField
-            placeholder="pažymys"
-            label={`Pažymys nr. ${index + 1}`}
-            key={`grade_${index}`}
-            controlId={`value`}
-            type="text"
-            value={grade.value}
-            onChange={(e) =>
-              handleGradeChange(grade.id, e.target.value, e.target.id)
-            }
-          ></FormField>
-          <FormField
-            placeholder="komentaras"
-            label={`Komentaras`}
-            key={`comment_${index}`}
-            controlId={`comment`}
-            type="text"
-            value={grade.comment}
-            onChange={(e) =>
-              handleGradeChange(grade.id, e.target.value, e.target.id)
-            }
-          ></FormField>
-        </div>
+        <div key={index} className="mb-3 p-3 border rounded">
+        <p><strong>Gautas pažymys:</strong> {grade.value}</p>
+        <p><strong>Komentaras:</strong> {grade.comment}</p>
+      </div>
       ))}
       <Button variant="primary" onClick={handleSubmit}>
-        Išsaugoti pakitimus
+        Grįžti atgal
       </Button>
     </div>
   );
 };
 
-export default EditGradesPage;
+export default StudentViewGradePage;

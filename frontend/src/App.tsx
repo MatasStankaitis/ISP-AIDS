@@ -20,6 +20,7 @@ import StudentCreation from "./pages/StudentsPage/StudentCreation";
 import GradesList from "./pages/GradesPage/GradesList";
 import AddGradePage from "./pages/GradesPage/AddGrade";
 import EditGradesPage from "./pages/GradesPage/EditGrade";
+import StudentViewGrade from "./pages/GradesPage/ViewGrades";
 import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
 import DormsPage from "./pages/DormsPage/DormsPage";
 import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
@@ -33,6 +34,7 @@ import UnauthorizedPage from "./pages/UnauthorizedPage";
 import UsersManagement from "./pages/UsersManagement";
 import PrivateRoute from "./pages/auth/components/PrivateRoute";
 import "./App.css";
+import StudentViewGradePage from "./pages/GradesPage/ViewGrades";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -206,6 +208,14 @@ function App() {
           element={
             <PrivateRoute roles={["administrator", "lecturer", "student"]}>
               <ViewGradesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="grades/:subjectCode/students/:username/mygrades"
+          element={
+            <PrivateRoute roles={["administrator", "lecturer", "student"]}>
+              < StudentViewGradePage />
             </PrivateRoute>
           }
         />
