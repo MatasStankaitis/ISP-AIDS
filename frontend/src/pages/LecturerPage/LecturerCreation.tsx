@@ -241,7 +241,7 @@ const LecturerCreation = () => {
               </Button>
             </Col>
             <Col>
-              <Link to="/lecturers">
+              <Link to="/home/lecturers">
                 <Button style={{ width: "100%" }} variant="secondary">
                   Grįžti į sąrašą
                 </Button>

@@ -28,28 +28,37 @@ const LecturerDataTableRow = ({
   faculty,
   current_salary,
   onRemove,
-}: LecturerDataTableRowProps) => (
-  <tr>
-    <td>{username}</td> {/* Unique Identifier */}
-    <td>{name}</td>
-    <td>{surname}</td>
-    <td>{username}</td>
-    <td>{phone_number || "N/A"}</td>
-    <td>{email}</td>
-    <td>{status || "N/A"}</td>
-    <td>{faculty || "N/A"}</td>
-    <td>{home_address || "N/A"}</td>
-    <td>{gender || "N/A"}</td>
-    <td>{current_salary ? `€${current_salary}` : "N/A"}</td>
-    <td>
-      <Link to={`/lecturers/${username}`}>
-        <Button variant="success">Peržiūrėti</Button>
-      </Link>
-      <Button variant="danger" onClick={() => onRemove(username)}> {/* Pass username */}
-        Pašalinti
-      </Button>
-    </td>
-  </tr>
-);
+}: LecturerDataTableRowProps) => {
+  return (
+    <tr>
+      <td>{username}</td>
+      <td>{name}</td>
+      <td>{surname}</td>
+      <td>{username}</td>
+      <td>{phone_number}</td>
+      <td>{email}</td>
+      <td>{status}</td>
+      <td>{faculty}</td>
+      <td>{home_address}</td>
+      <td>{gender}</td>
+      <td>{`€${current_salary.toFixed(2)}`}</td>
+      <td>
+        <Link to={`/home/lecturers/${username}`}>
+          <button type="button" className="btn btn-success">
+            Peržiūrėti
+          </button>
+        </Link>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => onRemove(name)}
+        >
+          Pašalinti
+        </button>
+      </td>
+    </tr>
+  );
+};
+
 
 export default LecturerDataTableRow;

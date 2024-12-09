@@ -1,52 +1,104 @@
 ﻿// EditGradesPage.js
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
-// Mock function to simulate fetching existing grades
-const fetchGradesForStudent = (studentId) => {
-    return ["A", "B", "C"]; // Replace with real fetch logic
-};
+import FormField from "../../components/FormField";
+import { baseUrl } from "../../constants";
 
 const EditGradesPage = () => {
-    const { studentId } = useParams();
-    const navigate = useNavigate();
-    const [grades, setGrades] = useState([]);
+  const { studentId } = useParams();
+  const navigate = useNavigate();
+  const [grades, setGrades] = useState([]);
+  const { subjectCode, username } = useParams();
 
-    useEffect(() => {
-        const initialGrades = fetchGradesForStudent(studentId);
-        setGrades(initialGrades);
-    }, [studentId]);
+  // Mock function to simulate fetching existing grades
+  const fetchGradesForStudent = () => {
+    fetch(`${baseUrl}/grades/${subjectCode}/students/${username}/grades`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setGrades(data);
+      })
+      .catch((error) => console.log(error));
+  };
 
-    const handleGradeChange = (index, newGrade) => {
-        const updatedGrades = [...grades];
-        updatedGrades[index] = newGrade;
-        setGrades(updatedGrades);
-    };
+  useEffect(() => {
+    fetchGradesForStudent();
+  }, []);
 
-    const handleSubmit = () => {
-        // Logic to save updated grades for the student (e.g., API call)
-        console.log(`Updated grades for student ${studentId}:`, grades);
-        navigate(`/grades`);
-    };
+  const updateStudentsGrades = () => {
+    const dataToSend = grades;
 
-    return (
+    return fetch(
+      `${baseUrl}/grades/${subjectCode}/students/${username}/grades`,
+      {
+        method: "PUT",
+        body: JSON.stringify(dataToSend),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {})
+      .catch((err) => {
+        err;
+      });
+  };
+
+  const handleGradeChange = (id: any, newGrade: any, eventId: any) => {
+    const newGrades = grades.map((grade) => {
+      if (grade.id == id) {
+        return { ...grade, [eventId]: newGrade };
+      } else {
+        return grade;
+      }
+    });
+
+    console.log(newGrades);
+    setGrades(newGrades);
+  };
+
+  const handleSubmit = () => {
+    console.log(grades);
+    updateStudentsGrades();
+    navigate(`/home/grades/${subjectCode}/students`);
+  };
+
+  return (
+    <div>
+      <h2>Redaguoti pažymį ({studentId}) studentui</h2>
+      {grades.map((grade, index) => (
         <div>
-            <h2>Redaguoti pažymį ({studentId}) studentui</h2>
-            {grades.map((grade, index) => (
-                <Form.Group key={index} controlId={`gradeInput-${index}`}>
-                    <Form.Label>Pažymys nr. {index + 1}</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={grade}
-                        onChange={(e) => handleGradeChange(index, e.target.value)}
-                    />
-                </Form.Group>
-            ))}
-            <Button variant="primary" onClick={handleSubmit}>Išsaugoti pakitimus</Button>
+          <FormField
+            placeholder="pažymys"
+            label={`Pažymys nr. ${index + 1}`}
+            key={`grade_${index}`}
+            controlId={`value`}
+            type="text"
+            value={grade.value}
+            onChange={(e) =>
+              handleGradeChange(grade.id, e.target.value, e.target.id)
+            }
+          ></FormField>
+          <FormField
+            placeholder="komentaras"
+            label={`Komentaras`}
+            key={`comment_${index}`}
+            controlId={`comment`}
+            type="text"
+            value={grade.comment}
+            onChange={(e) =>
+              handleGradeChange(grade.id, e.target.value, e.target.id)
+            }
+          ></FormField>
         </div>
-    );
+      ))}
+      <Button variant="primary" onClick={handleSubmit}>
+        Išsaugoti pakitimus
+      </Button>
+    </div>
+  );
 };
 
 export default EditGradesPage;

@@ -5,7 +5,9 @@ import {
   postStudentController,
   deleteStudentController,
 } from "#controllers/students/studentsControllers.js";
+import { isAuthenticated, hasRole } from "#middleware/authMiddleware.js";
 import express from "express";
+
 const router = express.Router();
 
 router.get("/", getStudentsController);

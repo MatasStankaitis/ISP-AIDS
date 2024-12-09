@@ -92,11 +92,12 @@ const LecturerEditSalaryPage = () => {
             </Button>
           </Col>
           <Col>
-            <Button
-              style={{ width: "100%" }}
-              variant="secondary"
-              onClick={() => navigate(`/lecturers/${username}`)}
-            >
+            <Button style={{ width: "100%" }} variant="warning" onClick={() => {}}>
+              Taikyti bonusą
+            </Button>
+          </Col>
+          <Col>
+            <Button style={{ width: "100%" }} variant="secondary" onClick={() => navigate(`/home/lecturers/${username}`)}>        
               Grįžti į profilį
             </Button>
           </Col>

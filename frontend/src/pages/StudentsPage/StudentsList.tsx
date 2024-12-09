@@ -1,7 +1,6 @@
 import StudentDataTableRow from "./components/StudentDataTableRow";
 import StudentDataTable from "./components/StudentDataTable";
-import STUDENTS from "../../prototypeData/students";
-import FiltersDiv from "./components/FiltersDiv";
+import FiltersDiv from "../GradesPage/components/FiltersDiv";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -57,7 +56,7 @@ const StudentsList = () => {
         <Button onClick={() => setExportModalShow(true)} variant="primary">
           Exportuoti
         </Button>
-        <Link to={"/students/create"}>
+        <Link to={"/home/students/create"}>
           <Button variant="primary">Pridėti studentą</Button>
         </Link>
       </div>

@@ -32,7 +32,6 @@ export const getDormController = async (req, res) => {
 
 export const createDormController = async (req, res) => {
   try {
-    console.log(req.body);
     const { number, address, room_count } = req.body;
     const dormId = await createDorm(number, address, room_count);
     res.status(SUCCESS_STATUS).json({ 

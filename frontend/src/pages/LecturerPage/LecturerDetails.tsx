@@ -73,13 +73,13 @@ const LecturerDetails = () => {
         </Col>
       </Row>
       <div>
-        <Link to={`/lecturers/${id}/edit`}>
+        <Link to={`/home/lecturers/${id}/edit`}>
           <Button variant="primary">Redaguoti informaciją</Button>
         </Link>
-        <Link to={`/lecturers/${id}/edit-salary`}>
+        <Link to={`/home/lecturers/${id}/edit-salary`}>
           <Button variant="warning" className="ms-2">Redaguoti atlyginimą</Button>
         </Link>
-        <Link to="/lecturers">
+        <Link to="/home/lecturers">
           <Button variant="secondary" className="ms-2">Grįžti į sąrašą</Button>
         </Link>
       </div>

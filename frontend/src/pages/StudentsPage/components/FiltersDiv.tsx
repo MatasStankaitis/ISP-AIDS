@@ -1,13 +1,12 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Dispatch, SetStateAction, useState } from "react";
-import { student } from "../../../types/student";
+import { listStudent } from "../../../types/listStudent";
 import { baseUrl } from "../../../constants";
 
 interface FiltersDivProp {
-  onFilter: Dispatch<SetStateAction<student[]>>;
+  onFilter: Dispatch<SetStateAction<listStudent[]>>;
 }
-
 const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -22,8 +21,8 @@ const FiltersDiv = ({ onFilter }: FiltersDivProp) => {
     }
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     fetch(`${baseUrl}/students?name=${name}&surname=${surname}`, {
       method: "GET",
     })

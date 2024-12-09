@@ -2,13 +2,11 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FACULTIES from "../../prototypeData/faculties";
 import Container from "react-bootstrap/Container";
 import { useNavigate, useParams } from "react-router-dom";
 import FormField from "../../components/FormField";
 import { baseUrl } from "../../constants";
 import { useEffect, useState } from "react";
-import { creationStudent } from "../../types/creationStudent";
 import { Alert } from "react-bootstrap";
 
 const StudentDetails = () => {
@@ -43,7 +41,7 @@ const StudentDetails = () => {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
-          navigate(-1);
+          navigate("/home/students");
         } else {
           response.json().then((data) => {
             setError(data.error);
@@ -135,7 +133,7 @@ const StudentDetails = () => {
           <center>{error}</center>
         </Alert>
       ) : null}
-      <h1>Studento sukūrimas</h1>
+      <h1>Studento redagavimas</h1>
       <Container>
         <Form onSubmit={handleSubmit}>
           <Row>
