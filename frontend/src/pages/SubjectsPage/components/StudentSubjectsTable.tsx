@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 
-const SubjectDataTable = ({ rows }) => {
+const StudentSubjectsTable = ({ rows }) => {
   return (
     <div className="table-responsive">
       <Table bordered hover>
@@ -12,8 +12,7 @@ const SubjectDataTable = ({ rows }) => {
             <th>Credits</th>
             <th>Language</th>
             <th>Remote</th>
-            <th>Faculty ID</th>
-            <th>Actions</th>
+            <th>Faculty</th>
           </tr>
         </thead>
         {rows}
@@ -22,4 +21,4 @@ const SubjectDataTable = ({ rows }) => {
   );
 };
 
-export default SubjectDataTable;
+export default StudentSubjectsTable;
