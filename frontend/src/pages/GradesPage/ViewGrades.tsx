@@ -1,4 +1,4 @@
-﻿// EditGradesPage.js
+﻿
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";

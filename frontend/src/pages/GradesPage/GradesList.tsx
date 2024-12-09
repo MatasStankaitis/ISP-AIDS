@@ -32,8 +32,8 @@ const GradesList = () => {
     navigate(`/home/grades/${subjectCode}/students/${username}/edit`);
   };
 
-  const viewGradesHandler = (studentId) => {
-    navigate(`/grades/view/${studentId}`);
+  const viewGradesHandler = (username: string) => {
+    navigate(`/home/grades/${subjectCode}/students/${username}/report`);
   };
 
   const [students, setStudents] = useState([] as listStudent[]);

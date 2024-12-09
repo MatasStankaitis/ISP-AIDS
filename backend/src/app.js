@@ -11,7 +11,7 @@ const port = 3000;
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:5174', // Replace with your frontend's origin
+  origin: 'http://localhost:5173', // Replace with your frontend's origin
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
 

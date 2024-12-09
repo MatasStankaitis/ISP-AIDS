@@ -21,7 +21,7 @@ import GradesList from "./pages/GradesPage/GradesList";
 import AddGradePage from "./pages/GradesPage/AddGrade";
 import EditGradesPage from "./pages/GradesPage/EditGrade";
 import StudentViewGrade from "./pages/GradesPage/ViewGrades";
-import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
+import ReportPage from "./pages/GradesPage/Report";
 import DormsPage from "./pages/DormsPage/DormsPage";
 import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
 import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
@@ -182,7 +182,7 @@ function App() {
         <Route
           path="grades/:subjectCode/students"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <GradesList />
             </PrivateRoute>
           }
@@ -190,7 +190,7 @@ function App() {
         <Route
           path="grades/:subjectCode/students/:username/create"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <AddGradePage />
             </PrivateRoute>
           }
@@ -198,16 +198,16 @@ function App() {
         <Route
           path="grades/:subjectCode/students/:username/edit"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <EditGradesPage />
             </PrivateRoute>
           }
         />
         <Route
-          path="grades/view/:studentId"
+          path="grades/:subjectCode/students/:username/report"
           element={
-            <PrivateRoute roles={["administrator", "lecturer", "student"]}>
-              <ViewGradesPage />
+            <PrivateRoute roles={["lecturer"]}>
+              <ReportPage />
             </PrivateRoute>
           }
         />
