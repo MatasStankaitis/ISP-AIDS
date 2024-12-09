@@ -20,7 +20,8 @@ import StudentCreation from "./pages/StudentsPage/StudentCreation";
 import GradesList from "./pages/GradesPage/GradesList";
 import AddGradePage from "./pages/GradesPage/AddGrade";
 import EditGradesPage from "./pages/GradesPage/EditGrade";
-import ViewGradesPage from "./pages/GradesPage/components/ReportPage";
+import StudentViewGrade from "./pages/GradesPage/ViewGrades";
+import ReportPage from "./pages/GradesPage/Report";
 import DormsPage from "./pages/DormsPage/DormsPage";
 import DormReservation from "./pages/DormsPage/DormReservation/DormReservation";
 import DormEdit from "./pages/DormsPage/DormManagement/DormEdit";
@@ -33,6 +34,7 @@ import UnauthorizedPage from "./pages/UnauthorizedPage";
 import UsersManagement from "./pages/UsersManagement";
 import PrivateRoute from "./pages/auth/components/PrivateRoute";
 import "./App.css";
+import StudentViewGradePage from "./pages/GradesPage/ViewGrades";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -180,7 +182,7 @@ function App() {
         <Route
           path="grades/:subjectCode/students"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <GradesList />
             </PrivateRoute>
           }
@@ -188,7 +190,7 @@ function App() {
         <Route
           path="grades/:subjectCode/students/:username/create"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <AddGradePage />
             </PrivateRoute>
           }
@@ -196,16 +198,24 @@ function App() {
         <Route
           path="grades/:subjectCode/students/:username/edit"
           element={
-            <PrivateRoute roles={["administrator", "lecturer"]}>
+            <PrivateRoute roles={["lecturer"]}>
               <EditGradesPage />
             </PrivateRoute>
           }
         />
         <Route
-          path="grades/view/:studentId"
+          path="grades/:subjectCode/students/:username/report"
+          element={
+            <PrivateRoute roles={["lecturer"]}>
+              <ReportPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="grades/:subjectCode/students/:username/mygrades"
           element={
             <PrivateRoute roles={["administrator", "lecturer", "student"]}>
-              <ViewGradesPage />
+              < StudentViewGradePage />
             </PrivateRoute>
           }
         />

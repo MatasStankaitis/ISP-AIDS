@@ -45,12 +45,12 @@ const AddGradePage = () => {
   };
 
   return (
-    <div>
-      <h2>Pridėti pažymį ({username}) studentui</h2>
-      <div>
+    <div className="container mt-4">
+      <h2 className="mb-4">Pridėti pažymį studentui: {username}</h2>
+      <div className="mb-3 p-3 border rounded">
         <FormField
           placeholder="pažymys"
-          label={`Įrašykite Pažtymį`}
+          label={`Įrašykite pažymį`}
           controlId={`value`}
           type="text"
           value={grade.value}
@@ -58,7 +58,7 @@ const AddGradePage = () => {
         ></FormField>
         <FormField
           placeholder="komentaras"
-          label={`Komentaras`}
+          label={`Įrašykite komentarą`}
           controlId={`comment`}
           type="text"
           value={grade.comment}
