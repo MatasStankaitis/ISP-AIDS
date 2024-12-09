@@ -88,7 +88,8 @@ const DormEdit = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update dorm");
+        console.log(errorData);
+        throw new Error(errorData.error || "Failed to update dorm");
       }
 
       alert("Bendrabučio informacija sėkmingai atnaujinta!");

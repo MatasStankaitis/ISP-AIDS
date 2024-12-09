@@ -77,20 +77,23 @@ const RequestList: React.FC<RequestListProps> = ({ requests, isAdmin }) => {
             <td>{request.status}</td>
             <td>{request.date_created}</td>
              {isAdmin && (
-              <td>
+               <td>
                 <Button
                   variant="success"
                   onClick={() => handleApprove(request.id)}
-                  disabled={request.statusName === "Approved"}
+                  disabled={request.status === "Patvirtintas"}
+                  className={`me-2 ${request.status === "Patvirtintas" ? "disabled-button" : ""}`}
                 >
-                <FaCheck /> Patvirtinti
+                  <FaCheck /> Patvirtinti
                 </Button>
                 <Button
                   variant="danger"
                   onClick={() => handleDisapprove(request.id)}
-                  disabled={request.statusName === "Denied"}
+                  disabled={request.status === "Atmestas"}
+                  className={request.status === "Atmestas" ? "disabled-button" : ""}
+
                 >
-                <FaTimes /> Atmesti
+                  <FaTimes /> Atmesti
                 </Button>
               </td>
             )}
