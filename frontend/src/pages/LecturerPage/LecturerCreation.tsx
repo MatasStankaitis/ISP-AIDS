@@ -1,146 +1,236 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormField from "../../components/FormField";
-import FACULTIES from "../../prototypeData/faculties";
-import LECTURER_STATUSES from "../../prototypeData/lecturerStatuses";
+import { baseUrl } from "../../constants";
 
 const LecturerCreation = () => {
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [faculties, setFaculties] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [genders, setGenders] = useState([]);
+  const [formData, setFormData] = useState({
+    username: "",
+    name: "",
+    surname: "",
+    phone_number: "",
+    email: "",
+    home_address: "",
+    gender: "", // Dropdown for gender
+    current_salary: "",
+    faculty: "",
+    status: "",
+    picture_url: "",
+  });
+
+  const navigate = useNavigate();
+
+  const fetchGenders = () => {
+    fetch(`${baseUrl}/lecturers/genders`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setGenders(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch genders:", err);
+      });
+  };
+
+  const fetchFacultiesAndStatuses = () => {
+    fetch(`${baseUrl}/lecturers/statuses`, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setStatuses(data);
+      })
+      .catch((err) => console.error("Failed to fetch lecturer statuses:", err));
+
+    fetch(`${baseUrl}/faculties`, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setFaculties(data);
+      })
+      .catch((err) => console.error("Failed to fetch faculties:", err));
+  };
+
+  const createLecturer = () => {
+    fetch(`${baseUrl}/lecturers`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          navigate(-1); // Navigate back to the lecturer list on success
+        } else {
+          response.json().then((data) => setError(data.error));
+        }
+      })
+      .catch(() => {
+        setError("Nepavyko sukurti dėstytojo.");
+      });
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setShowConfirmation(true);
-
-    // Reset the confirmation after a timeout (optional)
-    setTimeout(() => setShowConfirmation(false), 5000);
+    createLecturer();
   };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  useEffect(() => {
+    fetchGenders();
+    fetchFacultiesAndStatuses();
+  }, []);
 
   return (
     <>
       <h1>Dėstytojo sukūrimas</h1>
       <Container>
-        {showConfirmation && (
-          <div className="alert alert-success" role="alert">
-            Dėstytojas buvo sėkmingai pridėtas!
-          </div>
-        )}
+        {error && <div className="alert alert-danger">{error}</div>}
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <FormField
-                controlId="Firstname"
+                controlId="name"
                 label="Vardas"
                 type="text"
                 placeholder="Įrašykite vardą"
+                value={formData.name}
+                onChange={handleChange}
               />
             </Col>
             <Col>
               <FormField
-                controlId="Surname"
+                controlId="surname"
                 label="Pavardė"
                 type="text"
                 placeholder="Įrašykite pavardę"
+                value={formData.surname}
+                onChange={handleChange}
               />
             </Col>
           </Row>
           <Row>
             <Col>
               <FormField
-                controlId="Username"
+                controlId="username"
                 label="Vartotojo vardas"
                 type="text"
                 placeholder="Įrašykite vartotojo vardą"
+                value={formData.username}
+                onChange={handleChange}
               />
             </Col>
             <Col>
               <FormField
-                controlId="PhoneNumber"
+                controlId="phone_number"
                 label="Telefono nr."
                 type="text"
                 placeholder="Įrašykite telefono numerį"
+                value={formData.phone_number}
+                onChange={handleChange}
               />
             </Col>
           </Row>
           <Row>
             <Col>
               <FormField
-                controlId="Email"
+                controlId="email"
                 label="El. paštas"
-                type="text"
+                type="email"
                 placeholder="Įrašykite El. paštą"
+                value={formData.email}
+                onChange={handleChange}
               />
             </Col>
             <Col>
-              <Form.Group className="mb-3" controlId="Status">
-                <Form.Label>Statusas</Form.Label>
-                <Form.Select required>
+              <Form.Group className="mb-3" controlId="gender">
+                <Form.Label>Lytis</Form.Label>
+                <Form.Select onChange={handleChange} value={formData.gender}>
                   <option>Pasirinkti...</option>
-                  {LECTURER_STATUSES.map((status: { id: number; name: string }, i: number) => (
-                    <option key={i} value={status.id}>
+                  {genders.map((gender, index) => (
+                    <option key={index} value={gender.id}>
+                      {gender.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormField
+                controlId="home_address"
+                label="Adresas"
+                type="text"
+                placeholder="Įrašykite adresą"
+                value={formData.home_address}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col>
+              <FormField
+                controlId="current_salary"
+                label="Atlyginimas"
+                type="number"
+                placeholder="Įrašykite atlyginimą"
+                value={formData.current_salary}
+                onChange={handleChange}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group className="mb-3" controlId="status">
+                <Form.Label>Statusas</Form.Label>
+                <Form.Select onChange={handleChange} value={formData.status}>
+                  <option>Pasirinkti...</option>
+                  {statuses.map((status, index) => (
+                    <option key={index} value={status.id}>
                       {status.name}
                     </option>
                   ))}
                 </Form.Select>
               </Form.Group>
             </Col>
-
-          </Row>
-          <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Faculty">
+              <Form.Group className="mb-3" controlId="faculty">
                 <Form.Label>Fakultetas</Form.Label>
-                <Form.Select required>
+                <Form.Select onChange={handleChange} value={formData.faculty}>
                   <option>Pasirinkti...</option>
-                  {FACULTIES.map((f, i) => (
-                    <option key={i} value={f.id}>
-                      {f.name}
+                  {faculties.map((faculty, index) => (
+                    <option key={index} value={faculty.id}>
+                      {faculty.name}
                     </option>
                   ))}
                 </Form.Select>
               </Form.Group>
             </Col>
-            <Col>
-              <Form.Group className="mb-3" controlId="Gender">
-                <Form.Label>Lytis</Form.Label>
-                <Form.Select>
-                  <option>Pasirinkti...</option>
-                  <option value="1">Vyras</option>
-                  <option value="2">Moteris</option>
-                  <option value="3">Kita</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
           </Row>
           <Row>
             <Col>
               <FormField
-                controlId="Adress"
-                label="Adresas"
-                type="text"
-                placeholder="Įrašykite adresą"
-              />
-            </Col>
-            <Col>
-              <FormField
-                controlId="Salary"
-                label="Atlyginimas"
-                type="text"
-                placeholder="Įrašykite atlyginimą"
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <FormField
-                controlId="PictureUrl"
+                controlId="picture_url"
                 label="Nuotraukos URL"
                 type="text"
                 placeholder="Įrašykite nuotraukos URL"
+                value={formData.picture_url}
+                onChange={handleChange}
               />
             </Col>
           </Row>

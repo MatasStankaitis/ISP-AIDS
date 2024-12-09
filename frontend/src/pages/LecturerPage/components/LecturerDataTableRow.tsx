@@ -1,49 +1,49 @@
+import React from "react";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 interface LecturerDataTableRowProps {
-  id: number;
   name: string;
   surname: string;
   username: string;
-  phone: string;
+  phone_number: string;
   email: string;
+  home_address: string;
+  gender: string;
   status: string;
   faculty: string;
-  address: string;
-  gender: string;
-  salary: number;
-  onRemove: (name: string) => void;
+  current_salary: number;
+  onRemove: (username: string) => void; // Changed parameter to username
 }
 
 const LecturerDataTableRow = ({
-  id,
   name,
-  surname = "N/A", // Default value
-  username = "N/A", // Default value
-  phone = "N/A", // Default value
-  email = "N/A", // Default value
-  status = "N/A", // Default value
-  faculty = "N/A", // Default value
-  address = "N/A", // Default value
-  gender = "N/A", // Default value
-  salary = 0, // Default value
+  surname,
+  username,
+  phone_number,
+  email,
+  home_address,
+  gender,
+  status,
+  faculty,
+  current_salary,
   onRemove,
 }: LecturerDataTableRowProps) => {
   return (
     <tr>
-      <td>{id}</td>
+      <td>{username}</td>
       <td>{name}</td>
       <td>{surname}</td>
       <td>{username}</td>
-      <td>{phone}</td>
+      <td>{phone_number}</td>
       <td>{email}</td>
       <td>{status}</td>
       <td>{faculty}</td>
-      <td>{address}</td>
+      <td>{home_address}</td>
       <td>{gender}</td>
-      <td>{`€${salary.toFixed(2)}`}</td>
+      <td>{`€${current_salary.toFixed(2)}`}</td>
       <td>
-        <Link to={`/home/lecturers/${id}`}>
+        <Link to={`/home/lecturers/${username}`}>
           <button type="button" className="btn btn-success">
             Peržiūrėti
           </button>
@@ -51,7 +51,7 @@ const LecturerDataTableRow = ({
         <button
           type="button"
           className="btn btn-danger"
-          onClick={() => onRemove(name)}
+          onClick={() => onRemove(username)}
         >
           Pašalinti
         </button>
@@ -59,5 +59,6 @@ const LecturerDataTableRow = ({
     </tr>
   );
 };
+
 
 export default LecturerDataTableRow;
