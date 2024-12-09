@@ -24,9 +24,12 @@ const FiltersDiv = ({ onFilter, subjectCode }: FiltersDivProp) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(`${baseUrl}/grades/${subjectCode}/students`, {
-      method: "GET",
-    })
+    fetch(
+      `${baseUrl}/grades/${subjectCode}/students?name=${name}&surname=${surname}`,
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         onFilter(data);
