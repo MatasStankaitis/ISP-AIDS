@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { baseUrl } from "../../constants";
 import FormField from "../../components/FormField";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 
 const AddGradePage = () => {
   const navigate = useNavigate();
@@ -48,24 +50,29 @@ const AddGradePage = () => {
     <div className="container mt-4">
       <h2 className="mb-4">Pridėti pažymį studentui: {username}</h2>
       <div className="mb-3 p-3 border rounded">
-        <FormField
-          placeholder="pažymys"
-          label={`Įrašykite pažymį`}
-          controlId={`value`}
-          type="text"
-          value={grade.value}
-          onChange={(e) => handleChange(e.target.id, e.target.value)}
-        ></FormField>
-        <FormField
-          placeholder="komentaras"
-          label={`Įrašykite komentarą`}
-          controlId={`comment`}
-          type="text"
-          value={grade.comment}
-          onChange={(e) => handleChange(e.target.id, e.target.value)}
-        ></FormField>
+        <Container>
+          <Form onSubmit={handleSubmit}>
+            <FormField
+              placeholder="pažymys"
+              label={`Įrašykite pažymį`}
+              controlId={`value`}
+              type="text"
+              value={grade.value}
+              onChange={(e) => handleChange(e.target.id, e.target.value)}
+            ></FormField>
+            <FormField
+              placeholder="komentaras"
+              label={`Įrašykite komentarą`}
+              controlId={`comment`}
+              type="text"
+              value={grade.comment}
+              onChange={(e) => handleChange(e.target.id, e.target.value)}
+            ></FormField>
+
+            <Button type="submit">Pridėti pažymį</Button>
+          </Form>
+        </Container>
       </div>
-      <Button onClick={handleSubmit}>Pridėti pažymį</Button>
     </div>
   );
 };
