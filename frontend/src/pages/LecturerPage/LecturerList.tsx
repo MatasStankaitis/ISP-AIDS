@@ -68,9 +68,25 @@ const LecturerList = () => {
     setRemoveModal({ show: true, lecturerName: name });
   };
 
-  const handleConfirmRemove = () => {
-    console.log(`Pašalinti dėstytoją: ${removeModal.lecturerName}`);
-    setRemoveModal({ show: false, lecturerName: "" });
+  const handleConfirmRemove = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/lecturers/${removeModal.lecturerName}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        console.log(`Lecturer "${removeModal.lecturerName}" deleted successfully.`);
+        setRemoveModal({ show: false, lecturerName: "" });
+        fetchLecturers(); // Refresh the list
+      } else {
+        const errorData = await response.json();
+        console.error("Failed to delete lecturer:", errorData.error);
+        alert("Nepavyko pašalinti dėstytojo.");
+      }
+    } catch (error) {
+      console.error("Error deleting lecturer:", error);
+      alert("Nepavyko pašalinti dėstytojo.");
+    }
   };
 
   return (
