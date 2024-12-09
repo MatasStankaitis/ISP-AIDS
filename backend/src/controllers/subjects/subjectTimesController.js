@@ -33,13 +33,8 @@ export const createSubjectTimeController = async (req, res) => {
 export const updateSubjectTimeController = async (req, res) => {
   try {
     const { id } = req.params;
-    const { hour, day, classroom, capacity, even_week, fk_Subjectcode } = req.body;
-
-    if (hour === undefined || day === undefined || classroom === undefined || capacity === undefined || even_week === undefined || fk_Subjectcode === undefined) {
-      throw new ValidationError("All fields (hour, day, classroom, capacity, even_week, subject_id) must be provided and valid");
-    }
-
-    await updateSubjectTime(id, hour, day, classroom, capacity, even_week, fk_Subjectcode);
+    const { hour, day, classroom, capacity, even_week } = req.body;
+    await updateSubjectTime(id, hour, day, classroom, capacity, even_week);
     res.status(SUCCESS_STATUS).json({ success: true });
   } catch (err) {
     handleError(res, err);

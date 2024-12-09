@@ -1,34 +1,26 @@
 import connection from "#config/sqlConnection.js";
 import { NotFoundError } from "#utils/errors.js";
 
-export const deleteSubject = async (code) => {
+export const deleteStudentSubject = async (id) => {
   try {
     // Start transaction
     await connection.beginTransaction();
 
     try {
-      // First delete associated student subjects
+      // Delete related grades
       await connection.execute(
-        `DELETE ss FROM Student_subjects ss
-         INNER JOIN Subject_times st ON ss.fk_SubjectTimeid = st.id
-         WHERE st.fk_Subjectcode = ?`,
-        [code]
+        `DELETE FROM Grades WHERE fk_StudentSubjectid = ?`,
+        [id]
       );
 
-      // Then delete associated subject times
-      await connection.execute(
-        `DELETE FROM Subject_times WHERE fk_Subjectcode = ?`,
-        [code]
-      );
-
-      // Then delete the subject
+      // Delete the student subject
       const [results] = await connection.execute(
-        `DELETE FROM Subjects WHERE code = ?`,
-        [code]
+        `DELETE FROM Student_subjects WHERE id = ?`,
+        [id]
       );
 
       if (results.affectedRows === 0) {
-        throw new NotFoundError("Subject not found");
+        throw new NotFoundError("Student subject not found");
       }
 
       // Commit transaction
@@ -44,6 +36,6 @@ export const deleteSubject = async (code) => {
       throw err;
     }
     console.error(err);
-    throw new Error("Failed to delete subject");
+    throw new Error("Failed to delete student subject");
   }
 };

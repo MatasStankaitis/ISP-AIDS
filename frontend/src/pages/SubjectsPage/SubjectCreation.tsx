@@ -14,6 +14,7 @@ const SubjectCreation = () => {
     language: "",
     is_remote: false,
     fk_Facultyid: 0,
+    year: "", // Add year to the form state
   });
   const [faculties, setFaculties] = useState([]);
   const navigate = useNavigate();
@@ -119,6 +120,15 @@ const SubjectCreation = () => {
               </option>
             ))}
           </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="year">
+          <Form.Label>Year</Form.Label>
+          <Form.Control
+            type="number"
+            value={formState.year}
+            onChange={handleChange}
+            required
+          />
         </Form.Group>
         <Button variant="primary" type="submit">
           Create
