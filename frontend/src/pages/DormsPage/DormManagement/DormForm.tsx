@@ -1,17 +1,30 @@
 // frontend/src/pages/DormsPage/DormManagement/DormForm.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
 interface DormFormProps {
   onSubmit: (dormName: number | "", dormAddress: string, roomCount: number) => void;
   submitButtonText: string;
   title: string;
+  initialValues?: {
+    dormName: number | "";
+    dormAddress: string;
+    roomCount: number;
+  };
 }
 
-const DormForm: React.FC<DormFormProps> = ({ onSubmit, submitButtonText, title }) => {
-  const [dormName, setDormName] = useState<number | "">("");
-  const [dormAddress, setDormAddress] = useState("");
-  const [roomCount, setRoomCount] = useState<number | "">("");
+const DormForm: React.FC<DormFormProps> = ({ onSubmit, submitButtonText, title, initialValues }) => {
+  const [dormName, setDormName] = useState<number | "">(initialValues?.dormName || "");
+  const [dormAddress, setDormAddress] = useState(initialValues?.dormAddress || "");
+  const [roomCount, setRoomCount] = useState<number | "">(initialValues?.roomCount || "");
+
+  useEffect(() => {
+    if (initialValues) {
+      setDormName(initialValues.dormName);
+      setDormAddress(initialValues.dormAddress);
+      setRoomCount(initialValues.roomCount);
+    }
+  }, [initialValues]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

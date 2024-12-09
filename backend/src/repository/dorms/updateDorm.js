@@ -3,6 +3,16 @@ import { NotFoundError } from "#utils/errors.js";
 
 export const updateDorm = async (id, number, address, room_count) => {
   try {
+
+    const [existingDorms] = await connection.execute(
+      `SELECT id FROM Dorms WHERE number = ? AND id != ?`,
+      [number, id]
+    );
+
+    if (existingDorms.length > 0) {
+      throw new Error("Bendrabutis tokiu numeriu jau egzistuoja");
+    }
+
     const [results] = await connection.execute(
       `UPDATE Dorms 
        SET number = ?, address = ?, room_count = ?
@@ -11,7 +21,7 @@ export const updateDorm = async (id, number, address, room_count) => {
     );
     
     if (results.affectedRows === 0) {
-      throw new NotFoundError("Dorm not found");
+      throw new NotFoundError("Bendrabutis nerastas");
     }
     
     return true;
@@ -20,6 +30,6 @@ export const updateDorm = async (id, number, address, room_count) => {
       throw err;
     }
     console.error(err);
-    throw new Error("Failed to update dorm");
+    throw new Error(err.message);
   }
 };
