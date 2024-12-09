@@ -51,7 +51,7 @@ const LecturerDataTableRow = ({
         <button
           type="button"
           className="btn btn-danger"
-          onClick={() => onRemove(name)}
+          onClick={() => onRemove(username)}
         >
           Pašalinti
         </button>
