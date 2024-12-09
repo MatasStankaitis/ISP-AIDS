@@ -6,7 +6,8 @@ import {
   updateDormController,
   deleteDormController,
   getDormRoomsController,
-  updateDormRoomController
+  updateDormRoomController,
+  createDormRoomController
 } from "#controllers/dorms/commonDormController.js";
 import {
   getDormRequestsController,
@@ -23,7 +24,7 @@ const router = express.Router();
 
 // Dorm requests routes
 router.get("/requests", getDormRequestsController);
-router.get("/requests/student/:username", getDormRequestsByStudentController); // Add this route before other parameterized routes
+router.get("/requests/student/:username", getDormRequestsByStudentController); 
 router.post("/requests", createDormRequestController);
 router.put("/requests/:requestId", updateDormRequestController);
 
@@ -35,6 +36,7 @@ router.put("/:id", updateDormController);
 router.delete("/:id", deleteDormController);
 router.get("/:dormId/rooms", getDormRoomsController);
 router.put("/rooms/:roomId", updateDormRoomController);
+router.post("/rooms", createDormRoomController);
 
 // Dorm reservation routes
 router.post("/rooms/reserve", reserveDormRoomController);

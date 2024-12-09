@@ -17,11 +17,11 @@ export const getDormRequestsController = async (req, res) => {
 
 export const createDormRequestController = async (req, res) => {
   try {
-    const { studentUsername, type, description } = req.body;
-    await createDormRequest(studentUsername, type, description);
+    const { studentUsername, title, type, description } = req.body;
+    await createDormRequest(studentUsername, title, type, description);
     res.status(SUCCESS_STATUS).json({ 
       success: true,
-      message: "Successfully created dorm request" 
+      message: "Prašymas sukurtas sėkmingai" 
     });
   } catch (err) {
     handleError(res, err);
@@ -31,8 +31,8 @@ export const createDormRequestController = async (req, res) => {
 export const updateDormRequestController = async (req, res) => {
   try {
     const { requestId } = req.params;
-    const { status, adminUsername } = req.body;
-    await updateDormRequest(requestId, status, adminUsername);
+    const { status } = req.body;
+    await updateDormRequest(requestId, status);
     res.status(SUCCESS_STATUS).json({ success: true });
   } catch (err) {
     handleError(res, err);

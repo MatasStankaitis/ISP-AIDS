@@ -9,6 +9,15 @@ export const createDormRoom = async (
   fk_Dormid
 ) => {
   try {
+    console.log("Creating dorm room with:", {
+      room_number,
+      floor_number,
+      price,
+      quality,
+      status,
+      fk_Dormid,
+    }
+    )
     const [results] = await connection.execute(
       `INSERT INTO Dorm_rooms 
        (room_number, floor_number, price, quality, status, fk_Dormid)

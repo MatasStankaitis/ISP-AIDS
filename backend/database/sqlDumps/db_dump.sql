@@ -77,12 +77,12 @@ INSERT INTO Lecturer_statuses(id, name) VALUES(5, 'Associate_Professor');
 CREATE TABLE Request_statuses
 (
 	id int NOT NULL AUTO_INCREMENT,
-	name varchar (11) NOT NULL,
+	name varchar (15) NOT NULL,
 	PRIMARY KEY(id)
 );
-INSERT INTO Request_statuses(id, name) VALUES(1, 'waiting');
-INSERT INTO Request_statuses(id, name) VALUES(2, 'approved');
-INSERT INTO Request_statuses(id, name) VALUES(3, 'disapproved');
+INSERT INTO Request_statuses(id, name) VALUES(1, 'Laukia');
+INSERT INTO Request_statuses(id, name) VALUES(2, 'Patvirtintas');
+INSERT INTO Request_statuses(id, name) VALUES(3, 'Atmestas');
 
 CREATE TABLE Request_types
 (
@@ -108,11 +108,13 @@ INSERT INTO Room_qualities(id, name) VALUES(3, 'bad');
 CREATE TABLE Room_statuses
 (
 	id int NOT NULL AUTO_INCREMENT,
-	name varchar (5) NOT NULL,
+	name varchar (15) NOT NULL,
 	PRIMARY KEY(id)
 );
 INSERT INTO Room_statuses(id, name) VALUES(1, 'free');
 INSERT INTO Room_statuses(id, name) VALUES(2, 'taken');
+INSERT INTO Room_statuses(id, name) VALUES(3, 'reserved');
+
 
 CREATE TABLE Subjects
 (
@@ -262,6 +264,7 @@ CREATE TABLE Grades
 CREATE TABLE Dorm_requests
 (
 	id int NOT NULL AUTO_INCREMENT,
+	title varchar (255) NOT NULL,
 	date_created date NOT NULL,
 	type int NOT NULL,
 	status int NOT NULL,
@@ -283,6 +286,7 @@ CREATE TABLE Room_reservations
     reservation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     canceled_date timestamp NULL,
     active boolean NOT NULL DEFAULT true,
+	priority_number int NOT NULL DEFAULT 0,
     PRIMARY KEY(id),
     CONSTRAINT has_room FOREIGN KEY(fk_Roomid) REFERENCES Dorm_rooms(id),
     CONSTRAINT has_student FOREIGN KEY(fk_Studentusername) REFERENCES Students(username) ON DELETE CASCADE
@@ -335,18 +339,18 @@ VALUES
 
 -- Insert sample data
 INSERT INTO Dorm_requests 
-(fk_Studentusername, type, description, status, date_created) 
+(fk_Studentusername, title, type, description, status, date_created) 
 VALUES 
-('student', 1, 'Need permission for weekend guest from Friday to Sunday', 1, CURRENT_TIMESTAMP),
-('student', 2, 'Request room change to first floor due to leg injury', 1, CURRENT_TIMESTAMP),
-('student2', 4, 'Broken heater in room 101, room is very cold', 1, CURRENT_TIMESTAMP);
+('student', "Guest permission", 1, 'Need permission for weekend guest from Friday to Sunday', 1, CURRENT_TIMESTAMP),
+('student', "Room change", 2, 'Request room change to first floor due to leg injury', 1, CURRENT_TIMESTAMP),
+('student2', 'Broken heater', 4, 'Broken heater in room 101, room is very cold', 1, CURRENT_TIMESTAMP);
 
 -- Now insert requests with correct column name
 INSERT INTO Dorm_requests 
-(fk_Studentusername, type, description, status, fk_Administratorusername, date_created) 
-VALUES
-('student', 1, 'Room change request - current neighbors too noisy', 2, 'admin', CURRENT_DATE),
-('student2', 2, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin', CURRENT_DATE);
+(fk_Studentusername, title, type, description, status, fk_Administratorusername, date_created) 
+VALUES 
+('student', "Room change", 1, 'Room change request - current neighbors too noisy', 2, 'admin', CURRENT_DATE),
+('student2', "Maintenance", 2, 'Maintenance needed - bathroom faucet is leaking', 2, 'admin', CURRENT_DATE);
 
 
 -- Subjects

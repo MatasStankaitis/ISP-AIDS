@@ -1,24 +1,34 @@
-import { FC, ChangeEvent } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 
-interface RoomSelectProps {
-  rooms: string[];
-  selectedRoom: string | null;
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-}
+const RoomSelect = ({ rooms, selectedRoom, onChange }) => {
 
-const RoomSelect: FC<RoomSelectProps> = ({ rooms, selectedRoom, onChange }) => (
-  <Form.Group controlId="roomSelect">
-    <Form.Label>Pasirinkite kambarį</Form.Label>
-    <Form.Control as="select" value={selectedRoom || ""} onChange={onChange}>
-      <option value="">Pasirinkite ...</option>
-      {rooms.map((room, index) => (
-        <option key={index} value={room}>
-          {room}
-        </option>
-      ))}
-    </Form.Control>
-  </Form.Group>
-);
+  const mapStatus = (status) => {
+    switch (status) {
+      case 1:
+        return "Laisvas";
+      case 2:
+        return "Užimtas";
+      case 3:
+        return "Rezervuotas";
+      default:
+        return "Nežinomas";
+    }
+  }
+
+  return (
+    <Form.Group controlId="roomSelect">
+      <Form.Label>Pasirinkite kambarį</Form.Label>
+      <Form.Control as="select" value={selectedRoom || ""} onChange={onChange}>
+        <option value="">Pasirinkite...</option>
+        {rooms.map((room) => (
+          <option key={room.id} value={room.id}>
+            Kambarys nr. {room.room_number}. Kambario statusas: {mapStatus(room.status)}
+          </option>
+        ))}
+      </Form.Control>
+    </Form.Group>
+  );
+};
 
 export default RoomSelect;

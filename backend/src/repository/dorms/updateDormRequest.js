@@ -1,13 +1,16 @@
 import connection from "#config/sqlConnection.js";
 import { NotFoundError } from "#utils/errors.js";
 
-export const updateDormRequest = async (requestId, status, adminUsername) => {
+export const updateDormRequest = async (requestId, status) => {
   try {
+    console.log("requestId: ", requestId);
+    console.log("status: ", status);
+    
     const [results] = await connection.execute(
       `UPDATE Dorm_requests 
-       SET status = ?, fk_Administratorusername = ?
+       SET status = ?
        WHERE id = ?`,
-      [status, adminUsername, requestId]
+      [status, requestId]
     );
 
     if (results.affectedRows === 0) {

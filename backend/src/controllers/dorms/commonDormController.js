@@ -34,13 +34,13 @@ export const createDormController = async (req, res) => {
   try {
     const { number, address, room_count } = req.body;
     const dormId = await createDorm(number, address, room_count);
-    res.status(SUCCESS_STATUS).json({ 
-      success: true, 
+    res.status(201).json({
+      success: true,
       dormId,
-      message: "Successfully created dorm" 
+      message: "Successfully created dorm",
     });
   } catch (err) {
-    handleError(res, err);
+    res.status(400).json({ success: false, message: err.message });
   }
 };
 
@@ -83,5 +83,19 @@ export const updateDormRoomController = async (req, res) => {
     res.status(SUCCESS_STATUS).json({ success: true });
   } catch (err) {
     handleError(res, err);
+  }
+}
+
+export const createDormRoomController = async (req, res) => {
+  try {
+    const { roomNumber, floorNumber, price, quality, status, fk_Dormid } = req.body;
+    const roomId = await createDormRoom(roomNumber, floorNumber, price, quality, status, fk_Dormid);
+    res.status(SUCCESS_STATUS).json({
+      success: true,
+      roomId,
+      message: "Successfully created dorm room",
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 }
