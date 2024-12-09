@@ -54,18 +54,9 @@ export const createLecturerController = async (req, res) => {
       }
   
       // Insert into Users table
-      await connection.query(
-        `INSERT INTO Users (username, name, surname, phone_number, email, home_address, gender, photo_URL) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [username, name, surname, phone_number, email, home_address, gender, picture_url]
-      );
+      await createLecturer(req.body);
   
       // Insert into Lecturers table
-      await connection.query(
-        `INSERT INTO Lecturers (username, current_salary, experience, status, faculty) 
-         VALUES (?, ?, ?, ?, ?)`,
-        [username, current_salary, 0, status, faculty]
-      );
   
       res.status(201).json({ message: "Lecturer created successfully." });
     } catch (error) {
@@ -79,7 +70,6 @@ export const createLecturerController = async (req, res) => {
 export const getAllLecturersController = async (req, res) => {
   try {
     const lecturers = await getAllLecturers();
-    console.log("Fetched Lecturers:", lecturers);
     res.status(200).json(lecturers);
   } catch (err) {
     console.error("Error fetching lecturers:", err);
@@ -215,8 +205,88 @@ export const updateLecturerSalaryController = async (req, res) => {
       res.status(500).json({ error: "Failed to update salary" });
     }
   };
+  // Get lecturer paychecks
+export const getLecturerPaychecksController = async (req, res) => {
+    const { username } = req.params;
+    try {
+      const [paychecks] = await connection.query(
+        `SELECT * FROM Paychecks WHERE fk_Lecturerusername = ?`,
+        [username]
+      );
+      res.status(200).json(paychecks);
+    } catch (error) {
+      console.error("Error fetching paychecks:", error);
+      res.status(500).json({ error: "Failed to fetch paychecks." });
+    }
+  };
   
-
+  // Add a new paycheck with bonus
+  export const addLecturerPaycheckController = async (req, res) => {
+    const { username } = req.params;
+    const {
+      working_rate,
+      student_review_score,
+      date,
+      gross_pay,
+      net_pay,
+      working_hours,
+      overtime_hours,
+      overtime_rate,
+      fk_Administratorusername
+    } = req.body;
   
+    if (!working_rate || !student_review_score || !date || !gross_pay || !net_pay || !working_hours || !overtime_hours || !overtime_rate || !fk_Administratorusername) {
+      return res.status(400).json({ error: "Missing required fields for paycheck." });
+    }
   
+    try {
+      const [result] = await connection.query(
+        `INSERT INTO Paychecks (working_rate, student_review_score, date, gross_pay, net_pay, working_hours, overtime_hours, overtime_rate, fk_Administratorusername, fk_Lecturerusername)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          working_rate,
+          student_review_score,
+          date,
+          gross_pay,
+          net_pay,
+          working_hours,
+          overtime_hours,
+          overtime_rate,
+          fk_Administratorusername,
+          username
+        ]
+      );
   
+      if (result.affectedRows > 0) {
+        res.status(201).json({ message: "Paycheck added successfully.", id: result.insertId });
+      } else {
+        res.status(500).json({ error: "Failed to add paycheck." });
+      }
+    } catch (error) {
+      console.error("Error adding paycheck:", error);
+      res.status(500).json({ error: "Failed to add paycheck." });
+    }
+  };
+  // In lecturersController.js
+export const updatePaycheckController = async (req, res) => {
+    const { username, id } = req.params;
+    const { gross_pay, net_pay } = req.body;
+  
+    if (gross_pay == null || net_pay == null) {
+      return res.status(400).json({ error: "gross_pay and net_pay are required." });
+    }
+  
+    try {
+      const [result] = await connection.query(
+        `UPDATE Paychecks SET gross_pay = ?, net_pay = ? WHERE id = ? AND fk_Lecturerusername = ?`,
+        [gross_pay, net_pay, id, username]
+      );
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Paycheck not found or does not belong to this lecturer." });
+      }
+      res.status(200).json({ message: "Paycheck updated successfully." });
+    } catch (error) {
+      console.error("Error updating paycheck:", error);
+      res.status(500).json({ error: "Failed to update paycheck." });
+    }
+  };

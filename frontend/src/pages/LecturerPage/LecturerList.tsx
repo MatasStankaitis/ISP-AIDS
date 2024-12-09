@@ -7,9 +7,22 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { baseUrl } from "../../constants";
 
+interface Lecturer {
+  name: string;
+  surname: string;
+  username: string;
+  phone_number: string;
+  email: string;
+  home_address: string;
+  gender_name: string;
+  status_name: string;
+  faculty_name: string;
+  current_salary: number;
+}
+
 const LecturerList = () => {
-  const [lecturers, setLecturers] = useState([]);
-  const [filteredLecturers, setFilteredLecturers] = useState([]);
+  const [lecturers, setLecturers] = useState<Lecturer[]>([]);
+  const [filteredLecturers, setFilteredLecturers] = useState<Lecturer[]>([]);
   const [genders, setGenders] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [faculties, setFaculties] = useState([]);
@@ -30,7 +43,7 @@ const LecturerList = () => {
       const response = await fetch(`${baseUrl}/lecturers`);
       const data = await response.json();
       setLecturers(data);
-      setFilteredLecturers(data); // Set the initial filtered lecturers
+      setFilteredLecturers(data);
     } catch (error) {
       console.error("Failed to fetch lecturers:", error);
     }
@@ -66,18 +79,20 @@ const LecturerList = () => {
     }
   };
 
-  const handleFilter = (searchText) => {
+  const handleFilter = (searchText: string) => {
     const lowerCaseSearch = searchText.toLowerCase();
     const filtered = lecturers.filter(
       (lecturer) =>
         lecturer.name.toLowerCase().includes(lowerCaseSearch) ||
         lecturer.surname.toLowerCase().includes(lowerCaseSearch) ||
-        (lecturer.username && lecturer.username.toLowerCase().includes(lowerCaseSearch))
+        (lecturer.username &&
+          lecturer.username.toLowerCase().includes(lowerCaseSearch))
     );
     setFilteredLecturers(filtered);
   };
 
-  const handleRemoveClick = (username) => {
+  const handleRemoveClick = (username: string) => {
+    console.log("user to remove: ", username);
     setRemoveModal({ show: true, lecturerName: username });
   };
 
@@ -87,8 +102,12 @@ const LecturerList = () => {
         method: "DELETE",
       });
       if (response.ok) {
-        setLecturers(lecturers.filter((lect) => lect.username !== removeModal.lecturerName));
-        setFilteredLecturers(filteredLecturers.filter((lect) => lect.username !== removeModal.lecturerName));
+        setLecturers((prev) =>
+          prev.filter((lect) => lect.username !== removeModal.lecturerName)
+        );
+        setFilteredLecturers((prev) =>
+          prev.filter((lect) => lect.username !== removeModal.lecturerName)
+        );
         setRemoveModal({ show: false, lecturerName: "" });
       } else {
         console.error("Failed to remove lecturer");
