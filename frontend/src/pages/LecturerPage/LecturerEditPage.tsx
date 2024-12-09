@@ -296,7 +296,7 @@ const LecturerEditPage = () => {
                 </Button>
               </Col>
               <Col>
-                <Link to={`/lecturers/${id}`}>
+                <Link to={`/home/lecturers/${id}`}>
                   <Button style={{ width: "100%" }} variant="secondary">
                     Grįžti į profilį
                   </Button>
