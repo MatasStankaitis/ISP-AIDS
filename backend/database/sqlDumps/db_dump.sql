@@ -255,7 +255,7 @@ CREATE TABLE Grades
 	id int NOT NULL AUTO_INCREMENT,
 	fk_StudentSubjectid int NOT NULL,
 	PRIMARY KEY(id),
-	CONSTRAINT hasStudentSubject FOREIGN KEY(fk_StudentSubjectid) REFERENCES Student_subjects (id)
+	CONSTRAINT hasStudentSubject FOREIGN KEY(fk_StudentSubjectid) REFERENCES Student_subjects (id) ON DELETE CASCADE
 );
 
 
