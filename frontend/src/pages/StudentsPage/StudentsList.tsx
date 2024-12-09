@@ -1,6 +1,5 @@
 import StudentDataTableRow from "./components/StudentDataTableRow";
 import StudentDataTable from "./components/StudentDataTable";
-import FiltersDiv from "../GradesPage/components/FiltersDiv";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import RemoveModal from "./components/RemoveModal";
 import ExportModal from "./components/ExportModal";
 import { listStudent } from "../../types/listStudent";
 import { baseUrl } from "../../constants";
+import FiltersDiv from "./components/FiltersDiv";
 
 const StudentsList = () => {
   const [removeModalShow, setRemoveModalShow] = useState({
