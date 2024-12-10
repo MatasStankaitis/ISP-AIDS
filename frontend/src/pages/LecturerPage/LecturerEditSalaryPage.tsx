@@ -203,14 +203,14 @@ const LecturerEditSalaryPage = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Data</th>
-                  <th>Working Rate</th>
-                  <th>Review Score</th>
-                  <th>Working Hours</th>
-                  <th>Overtime Hours</th>
-                  <th>Overtime Rate</th>
-                  <th>Gross Pay</th>
-                  <th>Net Pay</th>
+                  <th>Laikas</th>
+                  <th>Darbo užmokestis</th>
+                  <th>Atsiliepimai</th>
+                  <th>Darbo laikas</th>
+                  <th>Viršvalandžiai</th>
+                  <th>Viršvalandžių užmokestis</th>
+                  <th>Atlyginimas prieš mokesčius</th>
+                  <th>Atlyginimas po mokesčių</th>
                 </tr>
               </thead>
               <tbody>

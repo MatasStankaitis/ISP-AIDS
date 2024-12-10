@@ -32,13 +32,13 @@ const Layout = () => {
           <Nav className="me-auto">
             {authContext?.user ? (
               <>
-                <Nav.Link as={Link} to="/home/students">Students</Nav.Link>
-                <Nav.Link as={Link} to="/home/lecturers">Lecturers</Nav.Link>
-                <Nav.Link as={Link} to="/home/subjects">Subjects</Nav.Link>
-                <Nav.Link as={Link} to="/home/subjectsSelection">Subject Selection</Nav.Link>
-                <Nav.Link as={Link} to="/home/dorms">Dorms</Nav.Link>
-                <Nav.Link as={Link} to="/home/admin">Users Management</Nav.Link>
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link as={Link} to="/home/students">Studentai</Nav.Link>
+                <Nav.Link as={Link} to="/home/lecturers">Dėstytojai</Nav.Link>
+                <Nav.Link as={Link} to="/home/subjects">Moduliai</Nav.Link>
+                <Nav.Link as={Link} to="/home/subjectsSelection">Modulių pasirinkimas</Nav.Link>
+                <Nav.Link as={Link} to="/home/dorms">Bendrabučių valdymas</Nav.Link>
+                <Nav.Link as={Link} to="/home/admin">Vartotųjų valdymas</Nav.Link>
+                <Nav.Link onClick={handleLogout}>Atsijungti</Nav.Link>
               </>
             ) : null}
           </Nav>
