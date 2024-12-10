@@ -62,7 +62,7 @@ const StudentViewGradePage = () => {
   const handleSubmit = () => {
     console.log(grades);
     //updateStudentsGrades();
-    navigate(`/home/grades/${subjectCode}/students`);
+    navigate(`/home/subjectsSelection`);
   };
 
   return (
