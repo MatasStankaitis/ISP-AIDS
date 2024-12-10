@@ -7,13 +7,13 @@ const SubjectDataTable = ({ rows }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Credits</th>
-            <th>Language</th>
-            <th>Remote</th>
-            <th>Faculty ID</th>
-            <th>Actions</th>
+            <th>Kodas</th>
+            <th>Pavadinimas</th>
+            <th>Kreditų sk.</th>
+            <th>Kalba</th>
+            <th>Nuotoliu</th>
+            <th>Fakultetas</th>
+            <th>Veiksmai</th>
           </tr>
         </thead>
         {rows}

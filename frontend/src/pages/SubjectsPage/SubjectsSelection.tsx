@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import { AuthContext } from "../../context/AuthContext";
 import { baseUrl } from "../../constants";
 import StudentSubjectsTableRow from "./components/StudentSubjectsTableRow";
@@ -62,33 +63,36 @@ const SubjectsSelection = () => {
   };
 
   return (
-    <div className="table-responsive">
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Subject Code</th>
-            <th>Subject Name</th>
-            <th>Passed</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {subjects.map((subject, index) => (
-            <StudentSubjectsTableRow
-              key={subject.id}
-              id={subject.id}
-              subject_code={subject.subject_code}
-              subject_name={subject.subject_name}
-              passed={subject.passed}
-              onDelete={handleDelete}
-              onViewGrades={handleViewGrades}
-            />
-          ))}
-        </tbody>
-      </Table>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        See All Available Subjects
+    <Container className="mt-4">
+      <h1 className="mb-4">Modulių pasirinkimas</h1>
+      <div className="table-responsive">
+        <Table bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Kodas</th>
+              <th>Pavadinimas</th>
+              <th>Išlaikyta</th>
+              <th>Veiksmai</th>
+            </tr>
+          </thead>
+          <tbody>
+            {subjects.map((subject, index) => (
+              <StudentSubjectsTableRow
+                key={subject.id}
+                id={subject.id}
+                subject_code={subject.subject_code}
+                subject_name={subject.subject_name}
+                passed={subject.passed}
+                onDelete={handleDelete}
+                onViewGrades={handleViewGrades}
+              />
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <Button variant="primary" onClick={() => setModalShow(true)} className="mt-3">
+        Peržiūrėti visus modulius
       </Button>
       <AvailableSubjectsModal
         show={modalShow}
@@ -96,7 +100,7 @@ const SubjectsSelection = () => {
         selectedSubjects={subjects.map((subject) => subject.subject_code)}
         onRegister={handleRegister}
       />
-    </div>
+    </Container>
   );
 };
 

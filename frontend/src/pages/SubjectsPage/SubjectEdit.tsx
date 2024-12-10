@@ -22,6 +22,7 @@ const SubjectEdit = () => {
   const [faculties, setFaculties] = useState([]);
   const [subjectTimes, setSubjectTimes] = useState([]);
   const [originalFormState, setOriginalFormState] = useState({});
+  const [isFormChanged, setIsFormChanged] = useState(false);
   const [originalSubjectTimes, setOriginalSubjectTimes] = useState([]);
   const [timesChanged, setTimesChanged] = useState([]);
   const [errorMessages, setErrorMessages] = useState([]);
@@ -103,7 +104,7 @@ const SubjectEdit = () => {
         }
         return response.json();
       })
-      .then(() => {
+      .then((data) => {
         subjectTimes.forEach((time) => {
           if (time.id) {
             fetch(`${baseUrl}/subjects/times/${time.id}`, {
@@ -120,87 +121,12 @@ const SubjectEdit = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(time),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                const updatedTimes = [...subjectTimes];
-                updatedTimes[index].id = data.subjectTimeId;
-                setSubjectTimes(updatedTimes);
-              });
+            });
           }
         });
         navigate("/home/subjects");
       })
       .catch((error) => console.error("Error updating subject:", error));
-  };
-
-  const handleTimeSubmit = (index, e) => {
-    e.preventDefault();
-    const time = subjectTimes[index];
-    const url = time.isNew ? `${baseUrl}/subjects/${code}/times` : `${baseUrl}/subjects/times/${time.id}`;
-    const method = time.isNew ? "POST" : "PUT";
-    fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(time),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(`Error: ${response.status} ${response.statusText} - ${text}`);
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (time.isNew) {
-          const updatedTimes = [...subjectTimes];
-          updatedTimes[index].id = data.subjectTimeId;
-          updatedTimes[index].isNew = false;
-          setSubjectTimes(updatedTimes);
-        }
-        const updatedTimesChanged = [...timesChanged];
-        updatedTimesChanged[index] = false;
-        setTimesChanged(updatedTimesChanged);
-        const updatedErrorMessages = [...errorMessages];
-        updatedErrorMessages[index] = ""; // Clear any previous error messages
-        setErrorMessages(updatedErrorMessages);
-      })
-      .catch((error) => {
-        if (error.message.includes("A subject time with the same hour, day, classroom, subject code, and even week value already exists.")) {
-          const updatedErrorMessages = [...errorMessages];
-          updatedErrorMessages[index] = "A subject time with the same hour, day, classroom, subject code, and even week value already exists.";
-          setErrorMessages(updatedErrorMessages);
-        } else {
-          console.error("Error updating subject time:", error);
-        }
-      });
-  };
-
-  const handleTimeDelete = (index) => {
-    const time = subjectTimes[index];
-    fetch(`${baseUrl}/subjects/times/${time.id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(`Error: ${response.status} ${response.statusText} - ${text}`);
-          });
-        }
-        return response.json();
-      })
-      .then(() => {
-        const updatedTimes = subjectTimes.filter((_, i) => i !== index);
-        setSubjectTimes(updatedTimes);
-        const updatedTimesChanged = timesChanged.filter((_, i) => i !== index);
-        setTimesChanged(updatedTimesChanged);
-        const updatedErrorMessages = errorMessages.filter((_, i) => i !== index);
-        setErrorMessages(updatedErrorMessages);
-      })
-      .catch((error) => console.error("Error deleting subject time:", error));
   };
 
   return (
@@ -209,10 +135,10 @@ const SubjectEdit = () => {
         <Col md={6}>
           <Card>
             <Card.Body>
-              <Card.Title>Edit Subject</Card.Title>
+              <Card.Title>Redaguoti modulį</Card.Title>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name" className="mb-3">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Pavadinimas</Form.Label>
                   <Form.Control
                     type="text"
                     value={formState.name}
@@ -221,7 +147,7 @@ const SubjectEdit = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="credits" className="mb-3">
-                  <Form.Label>Credits</Form.Label>
+                  <Form.Label>Kreditų sk.</Form.Label>
                   <Form.Control
                     type="number"
                     value={formState.credits}
@@ -230,7 +156,7 @@ const SubjectEdit = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="description" className="mb-3">
-                  <Form.Label>Description</Form.Label>
+                  <Form.Label>Aprašymas</Form.Label>
                   <Form.Control
                     type="text"
                     value={formState.description}
@@ -239,7 +165,7 @@ const SubjectEdit = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="language" className="mb-3">
-                  <Form.Label>Language</Form.Label>
+                  <Form.Label>Kalba</Form.Label>
                   <Form.Control
                     type="text"
                     value={formState.language}
@@ -250,20 +176,20 @@ const SubjectEdit = () => {
                 <Form.Group controlId="is_remote" className="mb-3">
                   <Form.Check
                     type="checkbox"
-                    label="Remote"
+                    label="Nuotoliu"
                     checked={formState.is_remote}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group controlId="fk_Facultyid" className="mb-3">
-                  <Form.Label>Faculty</Form.Label>
+                  <Form.Label>Fakultetas</Form.Label>
                   <Form.Control
                     as="select"
                     value={formState.fk_Facultyid}
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Select Faculty...</option>
+                    <option value="">Pasirinkti fakultetą...</option>
                     {faculties.map((faculty) => (
                       <option key={faculty.id} value={faculty.id}>
                         {faculty.name}
@@ -271,12 +197,14 @@ const SubjectEdit = () => {
                     ))}
                   </Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                  Save
-                </Button>
+                {isFormChanged && (
+                  <Button variant="primary" type="submit">
+                    Išsaugoti
+                  </Button>
+                )}
                 <Link to="/home/subjects">
                   <Button variant="secondary" className="ms-2">
-                    Back to Subjects List
+                    Atgal į modulių sąrašą
                   </Button>
                 </Link>
               </Form>
@@ -286,13 +214,13 @@ const SubjectEdit = () => {
         <Col md={6}>
           <Card>
             <Card.Body>
-              <Card.Title>Edit Subject Times</Card.Title>
+              <Card.Title>Laikų keitimas</Card.Title>
               {subjectTimes.map((time, index) => (
                 <div key={time.id || index}>
                   {errorMessages[index] && <Alert variant="danger">{errorMessages[index]}</Alert>}
                   <Form onSubmit={(e) => handleTimeSubmit(index, e)} className="mb-3">
                     <Form.Group controlId="hour" className="mb-2">
-                      <Form.Label>Hour</Form.Label>
+                      <Form.Label>Valanda</Form.Label>
                       <Form.Control
                         type="number"
                         value={time.hour}
@@ -301,7 +229,7 @@ const SubjectEdit = () => {
                       />
                     </Form.Group>
                     <Form.Group controlId="day" className="mb-2">
-                      <Form.Label>Day</Form.Label>
+                      <Form.Label>Diena</Form.Label>
                       <Form.Control
                         type="number"
                         value={time.day}
@@ -310,7 +238,7 @@ const SubjectEdit = () => {
                       />
                     </Form.Group>
                     <Form.Group controlId="classroom" className="mb-2">
-                      <Form.Label>Classroom</Form.Label>
+                      <Form.Label>Klasė</Form.Label>
                       <Form.Control
                         type="text"
                         value={time.classroom}
@@ -319,7 +247,7 @@ const SubjectEdit = () => {
                       />
                     </Form.Group>
                     <Form.Group controlId="capacity" className="mb-2">
-                      <Form.Label>Capacity</Form.Label>
+                      <Form.Label>Vietų sk.</Form.Label>
                       <Form.Control
                         type="number"
                         value={time.capacity}
@@ -330,7 +258,7 @@ const SubjectEdit = () => {
                     <Form.Group controlId="even_week" className="mb-2">
                       <Form.Check
                         type="checkbox"
-                        label="Even Week"
+                        label="Lyginė savaitė"
                         checked={time.even_week}
                         onChange={(e) => handleTimeChange(index, e)}
                       />
@@ -342,21 +270,21 @@ const SubjectEdit = () => {
                         </Button>
                         {time.isNew && (
                           <Button variant="secondary" onClick={() => handleCancelTime(index)}>
-                            Cancel
+                            Atšaukti
                           </Button>
                         )}
                       </>
                     )}
                     {!time.isNew && (
                       <Button variant="danger" onClick={() => handleTimeDelete(index)}>
-                        Delete Time
+                        Ištrinti
                       </Button>
                     )}
                   </Form>
                 </div>
               ))}
               <Button variant="secondary" onClick={handleAddTime}>
-                Add Time
+                Pridėti laiką
               </Button>
             </Card.Body>
           </Card>

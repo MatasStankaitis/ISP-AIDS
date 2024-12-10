@@ -5,12 +5,12 @@ const SubjectFiltersDiv = ({ name, onChange }) => {
     <div className="filtersDiv">
       <Form>
         <Form.Group className="mb-3" controlId="nameInput">
-          <Form.Label>Subject Name</Form.Label>
+          <Form.Label>Modulio pavadinimas</Form.Label>
           <Form.Control
             onChange={onChange}
             type="text"
             value={name}
-            placeholder="Enter subject name"
+            placeholder="Įveskite modulio pavadinimą"
           />
         </Form.Group>
       </Form>

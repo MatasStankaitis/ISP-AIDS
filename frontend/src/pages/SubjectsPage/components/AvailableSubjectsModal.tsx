@@ -6,11 +6,11 @@ import { baseUrl } from "../../../constants";
 import { AuthContext } from "../../../context/AuthContext";
 
 interface AvailableSubjectsModalProps {
-    show: boolean;
-    onHide: () => void;
-    selectedSubjects: string[];
-    onRegister: (newSubject: Subject) => void;
-  }
+  show: boolean;
+  onHide: () => void;
+  selectedSubjects: string[];
+  onRegister: (newSubject: Subject) => void;
+}
 
 interface Subject {
   code: string;
@@ -32,9 +32,20 @@ interface SubjectTime {
   registered_students: number;
 }
 
+const dayMapping = {
+  1: "Pirmadienis",
+  2: "Antradienis",
+  3: "Trečiadienis",
+  4: "Ketvirtadienis",
+  5: "Penktadienis",
+  6: "Šeštadienis",
+  7: "Sekmadienis",
+};
+
 const AvailableSubjectsModal = ({ show, onHide, selectedSubjects, onRegister }: AvailableSubjectsModalProps) => {
   const { user } = useContext(AuthContext);
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [faculties, setFaculties] = useState<{ [key: number]: string }>({});
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -48,6 +59,17 @@ const AvailableSubjectsModal = ({ show, onHide, selectedSubjects, onRegister }: 
           setSubjects(filteredSubjects);
         })
         .catch((error) => console.error("Error fetching subjects:", error));
+
+      fetch(`${baseUrl}/faculties`)
+        .then((response) => response.json())
+        .then((data) => {
+          const facultiesMap = data.reduce((acc: { [key: number]: string }, faculty: { id: number; name: string }) => {
+            acc[faculty.id] = faculty.name;
+            return acc;
+          }, {});
+          setFaculties(facultiesMap);
+        })
+        .catch((error) => console.error("Error fetching faculties:", error));
     }
   }, [show, selectedSubjects]);
 
@@ -92,15 +114,15 @@ const AvailableSubjectsModal = ({ show, onHide, selectedSubjects, onRegister }: 
   return (
     <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Available Subjects</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Galimi moduliai</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Table bordered hover>
           <thead>
             <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Credits</th>
+              <th>Kodas</th>
+              <th>Pavadinimas</th>
+              <th>Kreditai</th>
             </tr>
           </thead>
           <tbody>
@@ -115,11 +137,11 @@ const AvailableSubjectsModal = ({ show, onHide, selectedSubjects, onRegister }: 
                   <tr>
                     <td colSpan={3}>
                       <div>
-                        <p><strong>Description:</strong> {subject.description}</p>
-                        <p><strong>Language:</strong> {subject.language}</p>
-                        <p><strong>Remote:</strong> {subject.is_remote ? "Yes" : "No"}</p>
-                        <p><strong>Faculty ID:</strong> {subject.fk_Facultyid}</p>
-                        <h5>Subject Times</h5>
+                        <p><strong>Aprašymas:</strong> {subject.description}</p>
+                        <p><strong>Kalba:</strong> {subject.language}</p>
+                        <p><strong>Nuotoliu:</strong> {subject.is_remote ? "Yes" : "No"}</p>
+                        <p><strong>Fakultetas:</strong> {faculties[subject.fk_Facultyid]}</p>
+                        <h5>Modulio laikai</h5>
                         <SubjectTimesList subjectCode={subject.code} onRegister={(subjectTimeId) => handleRegister(subjectTimeId, subject)} />
                       </div>
                     </td>
@@ -131,7 +153,7 @@ const AvailableSubjectsModal = ({ show, onHide, selectedSubjects, onRegister }: 
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
+        <Button onClick={onHide}>Uždaryti</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -153,8 +175,8 @@ const SubjectTimesList = ({ subjectCode, onRegister }: { subjectCode: string, on
     <ul>
       {subjectTimes.map((time) => (
         <li key={time.id}>
-          {`Time: ${time.hour}h, Day: ${time.day}, Classroom: ${time.classroom}, Capacity: ${time.registered_students}/${time.capacity}, Even Week: ${time.even_week ? "Yes" : "No"}`}
-          <Button variant="primary" onClick={() => onRegister(time.id)}>Register</Button>
+          {`Laikas: ${time.hour}h, Diena: ${dayMapping[time.day]}, Klasė: ${time.classroom}, Studentų sk.: ${time.registered_students}/${time.capacity}, Lyginė savaitė: ${time.even_week ? "Taip" : "Ne"}`}
+          <Button variant="primary" onClick={() => onRegister(time.id)}>Registruotis</Button>
         </li>
       ))}
     </ul>
