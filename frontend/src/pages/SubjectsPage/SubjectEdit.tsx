@@ -78,6 +78,29 @@ const SubjectEdit = () => {
     setErrorMessages([...errorMessages, ""]);
   };
 
+  const handleTimeDelete = (index) => {
+    const timeId = subjectTimes[index].id;
+    if (timeId) {
+      fetch(`${baseUrl}/subjects/times/${timeId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to delete subject time");
+          }
+          const updatedTimes = subjectTimes.filter((_, i) => i !== index);
+          setSubjectTimes(updatedTimes);
+          const updatedTimesChanged = timesChanged.filter((_, i) => i !== index);
+          setTimesChanged(updatedTimesChanged);
+          const updatedErrorMessages = errorMessages.filter((_, i) => i !== index);
+          setErrorMessages(updatedErrorMessages);
+        })
+        .catch((error) => console.error("Error deleting subject time:", error));
+    } else {
+      handleCancelTime(index);
+    }
+  };
+
   const handleCancelTime = (index) => {
     const updatedTimes = subjectTimes.filter((_, i) => i !== index);
     setSubjectTimes(updatedTimes);
@@ -85,6 +108,48 @@ const SubjectEdit = () => {
     setTimesChanged(updatedTimesChanged);
     const updatedErrorMessages = errorMessages.filter((_, i) => i !== index);
     setErrorMessages(updatedErrorMessages);
+  };
+
+  const handleTimeSubmit = (index, e) => {
+    e.preventDefault();
+    const time = subjectTimes[index];
+    const url = time.isNew ? `${baseUrl}/subjects/${code}/times` : `${baseUrl}/subjects/times/${time.id}`;
+    const method = time.isNew ? "POST" : "PUT";
+
+    fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(time),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.error || "Failed to save subject time");
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (time.isNew) {
+          const updatedTimes = [...subjectTimes];
+          updatedTimes[index] = { ...time, id: data.id, isNew: false };
+          setSubjectTimes(updatedTimes);
+          const updatedTimesChanged = [...timesChanged];
+          updatedTimesChanged[index] = false;
+          setTimesChanged(updatedTimesChanged);
+        } else {
+          const updatedTimesChanged = [...timesChanged];
+          updatedTimesChanged[index] = false;
+          setTimesChanged(updatedTimesChanged);
+        }
+      })
+      .catch((error) => {
+        const updatedErrorMessages = [...errorMessages];
+        updatedErrorMessages[index] = error.message;
+        setErrorMessages(updatedErrorMessages);
+      });
   };
 
   const handleSubmit = (e) => {
