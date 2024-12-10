@@ -23,13 +23,13 @@ const StudentSubjectsTableRow = ({
       <td>{id}</td>
       <td>{subject_code}</td>
       <td>{subject_name}</td>
-      <td>{passed ? "Yes" : "No"}</td>
+      <td>{passed ? "Taip" : "Ne"}</td>
       <td>
         <Button variant="danger" onClick={() => onDelete(id)}>
-          Delete
+          Ištrinti
         </Button>
         <Button variant="info" onClick={() => onViewGrades(subject_code)}>
-          View Grades
+          Pažymiai
         </Button>
       </td>
     </tr>

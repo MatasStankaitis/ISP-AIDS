@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { baseUrl } from "../../../constants";
 
 const dayMapping = {
-  1: "Monday",
-  2: "Tuesday",
-  3: "Wednesday",
-  4: "Thursday",
-  5: "Friday",
-  6: "Saturday",
-  7: "Sunday",
+  1: "Pirmadienis",
+  2: "Antradienis",
+  3: "Trečiadienis",
+  4: "Ketvirtadienis",
+  5: "Penktadienis",
+  6: "Šeštadienis",
+  7: "Sekmadienis",
 };
 
 const SubjectDataTableRow = ({
@@ -44,21 +44,16 @@ const SubjectDataTableRow = ({
           <td>{name}</td>
           <td>{credits}</td>
           <td>{language}</td>
-          <td>{is_remote ? "Yes" : "No"}</td>
+          <td>{is_remote ? "Taip" : "Ne"}</td>
           <td>{facultyName}</td>
           <td style={{ width: "0", whiteSpace: "nowrap" }}>
-            <Link to={`/grades/${code}/students`}>
-              <button type="button" className="btn btn-success edit-button">
-                Students
-              </button>
-            </Link>
 
             <Link to={`/home/subjects/edit/${code}`}>
               <button
                 type="button"
                 className="btn btn-outline-danger delete-button"
               >
-                Edit
+                Redaguoti
               </button>
             </Link>
             <button
@@ -66,11 +61,11 @@ const SubjectDataTableRow = ({
               className="btn btn-outline-info"
               onClick={() => setShowTimes(!showTimes)}
             >
-              {showTimes ? "Hide Times" : "Show Times"}
+              {showTimes ? "Slėpti laikus" : "Rodyti laikus"}
             </button>
             <Link to={`/home/grades/${code}/students`}>
               <button type="button" className="btn btn-outline-primary">
-                View Grades
+                Pažymiai
               </button>
             </Link>
           </td>
@@ -81,9 +76,9 @@ const SubjectDataTableRow = ({
               <ul>
                 {subjectTimes.map((time) => (
                   <li key={time.id}>
-                    {`Time: ${time.hour}h, Day: ${
+                    {`Laikas: ${time.hour}h, Diena: ${
                       dayMapping[time.day]
-                    }, Classroom: ${time.classroom}, Registered Students: ${
+                    }, Klasė: ${time.classroom}, Studentų sk.: ${
                       time.registered_students
                     }/${time.capacity}`}
                   </li>

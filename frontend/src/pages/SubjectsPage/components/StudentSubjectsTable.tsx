@@ -7,12 +7,12 @@ const StudentSubjectsTable = ({ rows }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Credits</th>
-            <th>Language</th>
-            <th>Remote</th>
-            <th>Faculty</th>
+            <th>Kodas</th>
+            <th>Pavadinimas</th>
+            <th>Kreditai</th>
+            <th>Kalba</th>
+            <th>Nuotoliu</th>
+            <th>Fakultetas</th>
           </tr>
         </thead>
         {rows}

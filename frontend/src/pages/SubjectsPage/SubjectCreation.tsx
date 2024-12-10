@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { baseUrl } from "../../constants";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 
 const SubjectCreation = () => {
   const [formState, setFormState] = useState({
@@ -14,9 +15,10 @@ const SubjectCreation = () => {
     language: "",
     is_remote: false,
     fk_Facultyid: 0,
-    year: "", // Add year to the form state
+    year: "",
   });
   const [faculties, setFaculties] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,17 +45,25 @@ const SubjectCreation = () => {
       },
       body: JSON.stringify(formState),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.error || "Failed to create subject");
+          });
+        }
+        return response.json();
+      })
       .then(() => navigate("/home/subjects"))
-      .catch((error) => console.error("Error creating subject:", error));
+      .catch((error) => setError(error.message));
   };
 
   return (
     <Container>
-      <h1>Create Subject</h1>
+      <h1>Sukurt modulį</h1>
+      {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="code">
-          <Form.Label>Code</Form.Label>
+          <Form.Label>Kodas</Form.Label>
           <Form.Control
             type="text"
             value={formState.code}
@@ -62,7 +72,7 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Pavadinimas</Form.Label>
           <Form.Control
             type="text"
             value={formState.name}
@@ -71,7 +81,7 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Form.Group controlId="credits">
-          <Form.Label>Credits</Form.Label>
+          <Form.Label>Kreditų sk.</Form.Label>
           <Form.Control
             type="number"
             value={formState.credits}
@@ -80,7 +90,7 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Aprašymas</Form.Label>
           <Form.Control
             type="text"
             value={formState.description}
@@ -89,7 +99,7 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Form.Group controlId="language">
-          <Form.Label>Language</Form.Label>
+          <Form.Label>Kalba</Form.Label>
           <Form.Control
             type="text"
             value={formState.language}
@@ -106,14 +116,14 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Form.Group controlId="fk_Facultyid">
-          <Form.Label>Faculty</Form.Label>
+          <Form.Label>Fakultetas</Form.Label>
           <Form.Control
             as="select"
             value={formState.fk_Facultyid}
             onChange={handleChange}
             required
           >
-            <option value="">Select Faculty...</option>
+            <option value="">Pasirinkti fakultetą...</option>
             {faculties.map((faculty) => (
               <option key={faculty.id} value={faculty.id}>
                 {faculty.name}
@@ -122,7 +132,7 @@ const SubjectCreation = () => {
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="year">
-          <Form.Label>Year</Form.Label>
+          <Form.Label>Metai</Form.Label>
           <Form.Control
             type="number"
             value={formState.year}
@@ -131,8 +141,13 @@ const SubjectCreation = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Create
+          Sukūrti
         </Button>
+        <Link to="/home/subjects">
+          <Button variant="secondary" className="ms-2">
+            Atgal į modulių sąrašą
+          </Button>
+        </Link>
       </Form>
     </Container>
   );

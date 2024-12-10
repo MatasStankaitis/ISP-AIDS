@@ -31,17 +31,20 @@ const SubjectsRemoval = () => {
 
   return (
     <Container>
-      <h1>Remove Subjects</h1>
-      <Table striped bordered hover>
+      <h1>Modulių naikinimas</h1>
+      <Button variant="secondary" onClick={() => navigate("/home/subjects")}>
+        Atgal į modulių sąrašą
+      </Button>
+      <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Credits</th>
-            <th>Language</th>
-            <th>Remote</th>
-            <th>Faculty ID</th>
-            <th>Actions</th>
+            <th>Kodas</th>
+            <th>Pavadinimas</th>
+            <th>Kreditų sk.</th>
+            <th>Kalba</th>
+            <th>Nuotoliu</th>
+            <th>Fakultetas</th>
+            <th>Veiksmai</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +61,7 @@ const SubjectsRemoval = () => {
                   variant="danger"
                   onClick={() => handleDelete(subject.code)}
                 >
-                  Delete
+                  Ištrinti
                 </Button>
               </td>
             </tr>
