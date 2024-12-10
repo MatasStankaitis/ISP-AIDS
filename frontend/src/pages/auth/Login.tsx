@@ -61,37 +61,37 @@ const LoginPage: React.FC = () => {
       }}
     >
     <Container className="p-4" style={{ maxWidth: '600px', backdropFilter: 'blur(15px)', borderRadius: '15px' }}>
-      <h2 className="mb-4 text-center">Login</h2>
+      <h2 className="mb-4 text-center">Prisijungimas</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="username" className="mb-3">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Vartotojo vardas</Form.Label>
           <Form.Control
             type="text"
             name="username"
-            placeholder="Enter username"
+            placeholder="Įveskite vartotojo vardą"
             required
             value={formData.username}
             onChange={handleChange}
           />
         </Form.Group>
         <Form.Group controlId="password" className="mb-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Slaptažodis</Form.Label>
           <Form.Control
             type="password"
             name="password"
-            placeholder="Enter password"
+            placeholder="Įveskite slaptažodį"
             required
             value={formData.password}
             onChange={handleChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit" className="w-100">
-          Login
+          Prisijungti
         </Button>
       </Form>
       <p className="mt-3 text-center">
-        Don't have an account? <Link to="/register">Register here</Link>
+        Neturite paskyros? <Link to="/register">Užsiregistruoti čia</Link>
       </p>
     </Container>
     </div>
