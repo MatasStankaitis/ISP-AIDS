@@ -1,5 +1,5 @@
 body {
-  background-color: beige;
+  background-color: rgb(241, 241, 154);
 }
 
 h1 {
@@ -29,4 +29,8 @@ h1 {
 .flex-container > button {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.table-responsive {
+  overflow-x: auto;
 }
